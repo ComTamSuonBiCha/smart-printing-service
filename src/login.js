@@ -1,52 +1,40 @@
 import React from 'react';
-import './index.css';
+import Header from './header';
+import loginStyles from './login.module.css';
 import logo from './component/BachKhoaLogo.png'; // Ensure the logo image exists in this path
 import illustration from './component/image1.png'; // Add your illustration image to this path
 
 function Login() {
   return (
-    <div className="SpssContainer">
-      {/* Navigation Bar */}
-      <div className="NavigationBar">
-        <div className="LogoSection">
-          <img src={logo} alt="logo" className="LogoImage" />
-          <div className="SystemName">
-            <p>HCMUT</p>
-            <p>SPSS</p>
-          </div>
-        </div>
-        <div className="NavbarButtons">
-          <button className="AboutUsButton"><b>ABOUT US</b></button>
-          <button className="CancelButton"><b>CANCEL</b></button>
-        </div>
-      </div>
+    <div className="Container">
+      <Header logo={logo}/>
 
       {/* Main Content */}
-      <div className="MainContent">
+      <div className={loginStyles.MainContent}>
         {/* Image */}
-        <div className="IllustrationSection">
-          <img src={illustration} alt="Illustration" className="IllustrationImage" />
+        <div className={loginStyles.IllustrationSection}>
+          <img src={illustration} alt="Illustration" className={loginStyles.IllustrationImage} />
         </div>
 
         {/* Login Form */}
-        <div className="LoginForm">
-          <h2 className="LoginHeader">Login Account</h2>
+        <div className={loginStyles.LoginForm}>
+          <h2 className={loginStyles.LoginHeader}>Login Account</h2>
           <form>
-            <div className="FormGroup">
+            <div className={loginStyles.FormGroup}>
               <label htmlFor="username" >Username</label>
               <input type="text" id="username" placeholder="Username" />
             </div>
-            <div className="FormGroup">
+            <div className={loginStyles.FormGroup}>
               <label htmlFor="password">Password</label>
               <input type="password" id="password" placeholder="Password" />
             </div>
-            <div className="FormOptions">
+            <div className={loginStyles.FormOptions}>
               <label>
                 <input type="checkbox" /> Remember your account
               </label>
-              <a href="#" className="ForgotPassword">Forgot your password?</a>
+              <a href="#" className={loginStyles.ForgotPassword}>Forgot your password ?</a>
             </div>
-            <button type="submit" className="LoginButton"><b>LOG IN</b></button>
+            <button type="submit" className={loginStyles.LoginButton}><b>LOG IN</b></button>
           </form>
         </div>
       </div>

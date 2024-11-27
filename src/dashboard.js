@@ -8,7 +8,7 @@ const Dashboard = () => {
   return (
     <div className="container">
     <div className={dbstyles.dashboard}>
-      <Header/>
+      <Header logo={logo}/>
 
       <main className={dbstyles.main}>
         <div className={dbstyles.welcome_section}>
