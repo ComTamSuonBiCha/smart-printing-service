@@ -1,7 +1,8 @@
-import Spss from './Spss'
-
+import Login from './login'
+import Header from './header'
+import Dashboard from './dashboard';
 function App() {
-  return <Spss/>;
+  return <Dashboard/>;
 }
 
 export default App;
