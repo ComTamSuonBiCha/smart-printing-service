@@ -8,11 +8,11 @@
     align-items: center; /* Allow sections to stretch in height */
     justify-content: start;
     width: 100%; /* Ensure full width */
-    padding: 40px;
+    background-color: white;
   }
   body {
     font-family: 'Rubik';
-    background-color: #f9f9f9;
+    background-color: white;
   }
   
   .dashboard {
@@ -21,37 +21,52 @@
   }
   
   .main {
-    padding: 20px;
+    padding: 0px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    background-color: white;
   }
   
   .welcome_section {
-    margin-bottom: 30px;
+    flex: 1; /* Take up remaining space */
+    padding: 20px;
+    margin: 0;
+    border: none; /* Remove unnecessary border */
+  }
+  
+  .welcome_row {
+    display: flex;
+    justify-content: space-between; /* Add space between greeting and image */
+    width: 100%; /* Full width */
   }
   
   .greeting {
-    font-size: 2rem;
-    font-size: 40px;
+    margin-top: 60px;
+    font-size: 60px;
     font-weight: bold;
+    text-align: center;
     color: #032B91;
     font-family: 'MyFont';
   }
   
   .greeting_subtext {
-    font-size: 1.5rem;
+    font-size: 60px;
     margin-top: 5px;
     font-family: 'MyFont';
     color: #032B91;
+    text-align: center;
   }
   
   .description {
-    margin-top: 10px;
+    margin-top: 30px;
+    font-size: 20px;
+    margin-left: 20px;
     color: #555;
   }
   
   .actions {
+    margin-top: 50px;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -76,6 +91,8 @@
   }
   
   .action_icon {
+    height: 40px;
+    width: 40px;
     font-size: 1.5rem;
     margin-right: 15px;
     color: #003eaa;
@@ -83,8 +100,8 @@
   
   .action_title {
     font-size: 1rem;
-    font-weight: bold;
-    color: #003eaa;
+    font-weight: normal;
+    color: #1488db;
   }
   
   .action_description {
@@ -99,18 +116,17 @@
   }
 
   .right_image {
-    max-width: 100%;
+    width: 100%;
     height: auto;
     border-radius: 10px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   }
   
   .image_section {
-    flex: 1; /* Allow the image section to grow if needed */
+    flex: 1; /* Ensure the image takes appropriate space */
+    max-width: 40%; /* Optional: Limit the width of the image */
     display: flex;
-    justify-content: flex-end; /* Push the image to the far right */
-    align-items: flex-start;
-    padding-left: 1000px; /* Add space between content and image */
+    justify-content: flex-end; /* Push image to the far right */
   }
   
   

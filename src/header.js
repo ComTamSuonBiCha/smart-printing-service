@@ -4,7 +4,7 @@ import logo from './component/BachKhoaLogo.png';
 
 const Header = () => {
   return (
-    <div className="container">
+    <div className="SpssContainer">
     <header className={headerStyles.header}>
       <div className={headerStyles.logo_container}>
         <img src={logo} alt="HCMUT SPSS Logo" className={headerStyles.logo} />
