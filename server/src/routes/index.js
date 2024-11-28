@@ -1,6 +1,6 @@
 const express = require("express");
+const printer = require("./printer");
 const router = express.Router();
-router.get("/test", (req, res) => {
-  res.send("OK");
-});
+router.use("/printer", printer);
+
 module.exports = router;

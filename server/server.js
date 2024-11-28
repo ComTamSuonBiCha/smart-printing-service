@@ -1,18 +1,31 @@
 const express = require("express");
-const morgan = require("morgan");
-const app = express();
-app.use(morgan("combined"));
-const port = process.env.PORT || 8080;
-const router = require("./src/routes");
 const cors = require("cors");
+// const cookieParser = require("cookie-parser");
+// require("dotenv").config();
+
+const apiRouter = require("./src/routes");
+
+// App setup
+const app = express();
+const port = process.env.PORT || 8080;
+// const corsOptions = {
+//   origin: process.env.FRONTEND_URL,
+//   credentials: true,
+// };
 
 app.use(express.static("public"));
-app.use(express.urlencoded({ extended: true }));
+// app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cors({ origin: "http://localhost:3000" }));
+// app.use(cors(corsOptions));
+// app.use(cookieParser());
 
-app.get("/aa", (req, res) => {
-  res.send("hello");
+app.use("/api", apiRouter);
+
+app.use((err, req, res, next) => {
+  console.log(err.stack);
+  res.status(500).send("Server đang bị lỗi. Vui lòng thử lại sau!");
 });
 
-app.listen(port, () => console.log("example app"));
+app.listen(port, () => {
+  console.log(`Server running on ${port}...`);
+});
