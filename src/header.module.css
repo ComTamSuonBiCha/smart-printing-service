@@ -10,7 +10,14 @@
     font-family: 'Rubik';
     background-color: #f9f9f9;
   }
-  
+
+  .SpssContainer {
+    width: 100%;
+    max-width: 100%;
+    min-height: 100vh;
+    background-color: white;
+  }
+
   .dashboard {
     display: flex;
     flex-direction: column;
@@ -22,8 +29,11 @@
     align-items: center;
     background-color: #032B91;
     padding: 10px 20px;
+    margin: 0;
     color: white;
     height: 80px;
+    width: 100%;
+    max-width: 100%;
   }
 
   .logo_container {
