@@ -28,8 +28,8 @@ services:
     depends_on:
       - mysql
     volumes:
-      - /server
-      - /server/node_modules
+      - ./server:/app
+      - /app/node_modules
 
   mysql:
     image: mysql:8.0
@@ -37,10 +37,10 @@ services:
       - "3307:3306" # Change the port to avoid conflict with local MySQL server
     restart: always
     environment:
-      - MYSQL_ROOT_PASSWORD= 123Khoabin
-      - MYSQL_DATABASE= print_service
-      - MYSQL_USER= root
-      - MYSQL_PASSWORD= 123Khoabin
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     volumes:
       - mysql_data:/var/lib/mysql
 

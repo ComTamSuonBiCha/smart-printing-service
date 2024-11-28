@@ -1,31 +1,37 @@
 const express = require("express");
+const morgan = require("morgan");
+const cookieParser = require("cookie-parser");
+require("dotenv").config();
 const cors = require("cors");
-// const cookieParser = require("cookie-parser");
-// require("dotenv").config();
-
-const apiRouter = require("./src/routes");
-
-// App setup
 const app = express();
-const port = process.env.PORT || 8080;
-// const corsOptions = {
-//   origin: process.env.FRONTEND_URL,
-//   credentials: true,
-// };
 
+// Set up middleware
+app.use(morgan("combined"));
 app.use(express.static("public"));
-// app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-// app.use(cors(corsOptions));
-// app.use(cookieParser());
+app.use(cookieParser());
+
+// CORS setup
+app.use(
+  cors({
+    origin: process.env.CLIENT_URL, // Make sure CLIENT_URL is defined in .env
+    credentials: true,
+  })
+);
+
+// Routes
+const apiRouter = require("./src/routes"); // Assuming your routes are in 'src/routes'
 
 app.use("/api", apiRouter);
 
+// Error handler middleware
 app.use((err, req, res, next) => {
-  console.log(err.stack);
-  res.status(500).send("Server đang bị lỗi. Vui lòng thử lại sau!");
+  console.error(err.stack);
+  res.status(500).send("Server is currently broken down!");
 });
 
+// Start the server
+const port = process.env.PORT || 8080; // Set port, falling back to 8080 if not in .env
 app.listen(port, () => {
-  console.log(`Server running on ${port}...`);
+  console.log(`Server is running on port ${port}`);
 });

@@ -13,6 +13,7 @@ async function addPrinter(data) {
       data.paper ?? 0,
     ];
     console.log(dataToInsert);
+    // @ts-ignore
     const [result, _] = await db.execute(
       "INSERT INTO PRINTER SET BUILDING = ?, ROOM = ?, MODEL = ?, IS_ACTIVE = ?, PAPER = ?",
       dataToInsert
@@ -34,6 +35,7 @@ async function deletePrinter(data) {
       throw new Error("Invalid Data Input");
     }
     const dataToInsert = [data.printerID];
+    // @ts-ignore
     const [result, _] = await db.execute(
       `DELETE FROM PRINTER 
          WHERE PRINTER_ID = ?`,
@@ -56,6 +58,7 @@ async function getAllPrinter(data) {
   }
   try {
     const dataToInsert = [data.pageSize, data.offset];
+    // @ts-ignore
     const [result, _] = await db.execute(
       `SELECT * 
         FROM PRINTER 
@@ -75,6 +78,7 @@ async function getPrinterByID(printerID) {
       throw new Error("Invalid Data Input: printerID must be a number");
     }
     const dataToInsert = [printerID];
+    // @ts-ignore
     const [result, _] = await db.execute(
       `SELECT * 
         FROM PRINTER 
@@ -99,6 +103,7 @@ async function updatePrinterPage(data) {
     }
     const dataToInsert = [data.paper, data.printerID || 0];
 
+    // @ts-ignore
     const [result, _] = await db.execute(
       `UPDATE PRINTER 
         SET PAPER = ? 
@@ -122,6 +127,7 @@ async function updatePrinterStatus(data) {
     }
     const dataToInsert = [data.status, data.printerId];
 
+    // @ts-ignore
     const [result, _] = await db.execute(
       `UPDATE PRINTER 
           SET IS_ACTIVE = ? 
