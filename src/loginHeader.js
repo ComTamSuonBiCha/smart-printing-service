@@ -1,22 +1,28 @@
 import React from "react";
-import lhstyles from './lheader.module.css';
+import loginStyles from "./loginHeader.module.css";
 import logo from './component/BachKhoaLogo.png';
 
 const Header = () => {
   return (
     <div className="container">
-    <header className={lhstyles.header}>
-      <div className={lhstyles.logo_container}>
-        <img src={logo} alt="HCMUT SPSS Logo" className={lhstyles.logo} />
-        <div className={lhstyles.logo_text}>
-          <span className={lhstyles.logo_line}>HCMUT</span>
-          <span className={lhstyles.logo_line}>SPSS</span>
+    <header className={loginStyles.header}>
+      <div className={loginStyles.logo_container}>
+        <img src={logo} alt="HCMUT SPSS Logo" className={loginStyles.logo} />
+        <div className={loginStyles.logo_text}>
+          <span className={loginStyles.logo_line}>HCMUT</span>
+          <span className={loginStyles.logo_line}>SPSS</span>
         </div>
       </div>
-      <div className={lhstyles.header_right}>
-        <div className={lhstyles.avatar}></div>
-        <span className={lhstyles.user_name}>ABOUT US</span>
-        <button className={lhstyles.logout_button}>CANCEL</button>
+      <nav className={loginStyles.header_nav}>
+        <a href="#home" className={loginStyles.nav_link}>HOME</a>
+        <a href="#print" className={loginStyles.nav_link}>PRINT</a>
+        <a href="#payment" className={loginStyles.nav_link}>PAYMENT</a>
+        <a href="#history" className={loginStyles.nav_link}>HISTORY</a>
+      </nav>
+      <div className={loginStyles.header_right}>
+        <div className={loginStyles.avatar}></div>
+        <span className={loginStyles.user_name}>LE THI PHUONG THAO</span>
+        <button className={loginStyles.logout_button}>LOG OUT</button>
       </div>
     </header>
     </div>

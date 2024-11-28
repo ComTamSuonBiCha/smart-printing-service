@@ -1,5 +1,4 @@
 import React from 'react';
-import Header from './header';
 import loginStyles from './login.module.css';
 import logo from './component/BachKhoaLogo.png'; // Ensure the logo image exists in this path
 import illustration from './component/image1.png'; // Add your illustration image to this path
@@ -7,7 +6,21 @@ import illustration from './component/image1.png'; // Add your illustration imag
 function Login() {
   return (
     <div className="Container">
-      <Header logo={logo}/>
+      {/* <Header logo={logo}/> */}
+      <header className={loginStyles.header}>
+      <div className={loginStyles.logo_container}>
+        <img src={logo} alt="HCMUT SPSS Logo" className={loginStyles.logo} />
+        <div className={loginStyles.logo_text}>
+          <span className={loginStyles.logo_line}>HCMUT</span>
+          <span className={loginStyles.logo_line}>SPSS</span>
+        </div>
+      </div>
+
+      <div className={loginStyles.header_right}>
+        <span className={loginStyles.user_name}>CANCEL</span>
+        <button className={loginStyles.logout_button}>LOG OUT</button>
+      </div>
+    </header>
 
       {/* Main Content */}
       <div className={loginStyles.MainContent}>
