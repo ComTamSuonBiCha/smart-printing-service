@@ -50,7 +50,7 @@ const Dashboard = () => {
             <span className={dbstyles.action_arrow}>→</span>
           </div>
 
-          <div className={dbstyles.action_item}>
+          <div className={dbstyles.action_item_last}>
           <img src={payment} alt="Payment" className={dbstyles.action_icon}></img>
             <div>
               <p className={dbstyles.action_title}>PAYMENT</p>
