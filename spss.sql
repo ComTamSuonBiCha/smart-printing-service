@@ -3,14 +3,14 @@ CREATE DATABASE  spss;
 use spss;
 
 create table students(
-    student_id int primary key,
+    student_id int auto_increment primary key,
     student_name varchar(50),
     paper_balance int default 0,
     password varchar(50)
 );
 
 create table paper_transactions(
-    transaction_id int primary key,
+    transaction_id int auto_increment primary key,
     student_id int,
     transaction_date date,
     transaction_type varchar(50),
@@ -21,24 +21,25 @@ create table paper_transactions(
 alter table paper_transactions
 add constraint foreign key (student_id) references students(student_id);
 
+
 create table documents(
-    `file_id` int primary key,
+    `file_id` int auto_increment primary key,
     `file_name` varchar(255),
     file_size int,
     file_type varchar(50),
-    no_of_pages int,
+    no_of_pages int
 );
 
 create table printer(
-    printer_id int primary key,
+    printer_id int auto_increment primary key,
     status boolean,
     location varchar(50),
     paper_left int,
-    printer_type varchar(50)   
+    printer_type varchar(50)
 );
 
 create table spso(
-    spso_id int primary key,
+    spso_id int auto_increment primary key,
     spso_name varchar(50),
     spso_password varchar(50)
 );
