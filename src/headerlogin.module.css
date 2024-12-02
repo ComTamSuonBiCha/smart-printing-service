@@ -1,10 +1,10 @@
-/* Reset styles */
+/* Reset styles
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Rubik';
-  }
+  } */
   
   body {
     font-family: 'Rubik';
@@ -18,24 +18,18 @@
     width: 100%; 
     background-color: white;
   }
-
-
-  .dashboard {
-    display: flex;
-    flex-direction: column;
-  }
   
   .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     background-color: #032B91;
-    padding: 10px 20px;
+    padding: 10px 5%;
     margin: 0;
     color: white;
     height: 80px;
-    width: 100%;
-    max-width: 100%;
+    min-width: 100%;
+    box-sizing: border-box;
   }
 
   .logo_container {
@@ -61,6 +55,7 @@
     line-height: 1.2; /* Adjust spacing between "HCMUT" and "SPSS" */
     text-align: left; /* Ensure the text aligns properly */
   }
+
   .header_title {
     font-size: 1.2rem;
     font-weight: bold;
@@ -83,11 +78,6 @@
     color: #cce0ff;
   }
   
-  .dashboard {
-    display: flex;
-    flex-direction: column;
-  }
-
   .header_right {
     display: flex;
     align-items: center;
