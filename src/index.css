@@ -1,20 +1,20 @@
-@import url('https://fonts.googleapis.com/css?family=Rubik');
+@import url("https://fonts.googleapis.com/css?family=Rubik");
 @font-face {
-  font-family: 'MyFont';
-  src: local('MyFont'), url(./component/sequel-sans-heavy-display.ttf) format('truetype');
+  font-family: "MyFont";
+  src: local("MyFont"),
+    url(./component/sequel-sans-heavy-display.ttf) format("truetype");
   /* other formats include: 'woff2', 'truetype, 'opentype',
                             'embedded-opentype', and 'svg' */
 }
 
 /* General Styling */
-body{
+body {
   display: flex;
   justify-content: center;
-  font-family: 'Rubik';
+  font-family: "Rubik";
+  width: 100vw !important;
 }
 
-
-.container{
-  width: 1700px;
+.container {
+  width: 100vw !important;
 }
-
