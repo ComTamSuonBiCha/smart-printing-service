@@ -39,8 +39,8 @@ body {
 
 .logo_container {
   display: flex;
-  align-items: center; /* Ensures the logo and text are vertically aligned */
-  gap: 10px; /* Adds spacing between the logo and text */
+  align-items: center;
+  gap: 40px;
 }
 
 .logo {
@@ -67,7 +67,8 @@ body {
 
 .header_nav {
   display: flex;
-  gap: 60px;
+  justify-content: space-around;
+  flex-basis: 40%;
 }
 
 .nav_link {
