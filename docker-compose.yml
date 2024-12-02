@@ -1,0 +1,48 @@
+# version: '3.8'
+
+services:
+  # frontend:
+  #   build: ./client
+  #   ports:
+  #     - "3000:3000"
+  #   environment:
+  #     - REACT_APP_API_URL=http://localhost:8000
+  #   depends_on:
+  #     - backend
+  #   volumes:
+  #     - ./frontend:/app
+  #     - /app/node_modules
+
+  backend:
+    build: ./server
+    ports:
+      - "8000:8000"
+    environment:
+      - DB_HOST=mysql
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+      - DB_PORT=3306
+      - NODE_ENV=development
+      - PORT=8000
+    depends_on:
+      - mysql
+    volumes:
+      - /server
+      - /server/node_modules
+
+  mysql:
+    image: mysql:8.0
+    ports:
+      - "3307:3306" # Change the port to avoid conflict with local MySQL server
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD= 123Khoabin
+      - MYSQL_DATABASE= print_service
+      - MYSQL_USER= root
+      - MYSQL_PASSWORD= 123Khoabin
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
