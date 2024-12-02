@@ -7,7 +7,9 @@ import background from './component/bgbk.png';
 const LoginPage = () => {
   return (
     <div className={loginStyles.login_page}>
+      {/* <div className={loginStyles.header}> */}
       <HomeloginHeader logo = {logo}/>
+      {/* </div> */}
 
       <div className={loginStyles.login_content}>
         <div className={loginStyles.login_left}>
@@ -16,6 +18,7 @@ const LoginPage = () => {
           <button className={loginStyles.btn}>Student/Lecturer</button>
           <button className={loginStyles.btn}>Student Printing System Officer</button>
         </div>
+        
         <div className={loginStyles.login_right}>
           <img src={background} alt="Bach Khoa university"  className={loginStyles.right_image}/>
         </div>
