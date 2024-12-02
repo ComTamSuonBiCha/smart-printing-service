@@ -17,7 +17,7 @@ const LoginPage = () => {
           <button className={loginStyles.btn}>Student Printing System Officer</button>
         </div>
         <div className={loginStyles.login_right}>
-          <img src={background} alt="Back Khoa university" />
+          <img src={background} alt="Bach Khoa university"  className={loginStyles.right_image}/>
         </div>
       </div>
     </div>
