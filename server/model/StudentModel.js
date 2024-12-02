@@ -30,7 +30,7 @@ async function minusBalance(studentId, amount) {
     }
 }
 
-async function getStudent(studentId){
+async function getStudentById(studentId){
     try {
         let result = await db.query('SELECT * FROM student WHERE student_id = ?', [studentId]);
         return result[0];
@@ -40,8 +40,29 @@ async function getStudent(studentId){
     }
 }    
 
+async function getStudentByEmail(studentEmail){
+    try {
+        let result = await db.query('SELECT * FROM student WHERE student_email = ?', [studentEmail]);
+        return result[0];
+    } 
+    catch (error) {
+        throw error;
+    }
+}
+
+async function getStudentOrderById(studentId) {
+    try {
+        let result = await db.query('SELECT * FROM print_order WHERE student_id = ?', [studentId]);
+        return result
+    }
+    catch (error) {
+        throw error;
+    }
+}
 module.exports = {
     getBalance,
     minusBalance,
-    getStudent
+    getStudentByEmail,
+    getStudentById,
+    getStudentOrderById
 };

@@ -5,6 +5,8 @@ use spss;
 create table students(
     student_id int auto_increment primary key,
     student_name varchar(50),
+    student_email varchar(50),
+    student_password varchar(50),
     paper_balance int default 0,
     password varchar(50)
 );
@@ -56,12 +58,16 @@ add constraint foreign key (printer_id) references printer(printer_id),
 add constraint foreign key (spso_id) references spso(spso_id);
 
 create table sys_config(
-    sys_config_id int primary key,
+    sys_config_id int auto_increment primary key,
     default_time datetime,
     default_paper int,
     `time` datetime,
     default_number_of_pages int,
+    spso_id int
 );
+
+alter table sys_config
+add constraint foreign key (spso_id) references spso(spso_id);
 
 create table file_type(
     file_type_id int primary key,

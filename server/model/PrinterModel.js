@@ -20,9 +20,9 @@ async function getPrinter(printerId){
     }
 }
 
-async function usageByMonth() {
+async function usageByMonth(num_months) {
     try {
-        let results = await db.query(`call usage_by_month()`);
+        let results = await db.query(`call usage_by_month($1)`, [num_months]);
         return results.rows;
     }
     catch(e){
@@ -40,9 +40,9 @@ async function printerUsage(printerId){
     }
 }
 
-async function printerUsageByMonth(printerId){
+async function printerUsageByMonth(printerId, num_months){
     try {
-        let results = await db.query(`call totalUsageByMonth($1)`, [printerId]);
+        let results = await db.query(`call totalUsageByMonth($1, $2)`, [printerId, num_months]);
         return results.rows;
     }
     catch(e){
