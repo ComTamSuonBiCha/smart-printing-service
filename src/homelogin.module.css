@@ -1,6 +1,5 @@
 /* General page layout */
 .login_page {
-<<<<<<< HEAD
     font-family: 'Rubik';
     display: flex;
     flex-direction: column;
@@ -76,94 +75,15 @@
   }
   
   .login_right {
-    min-width: 20em;
+    min-width: 40em;
     height: 800px;
     border-radius: 10px;
   }
 
   .right_image {
     flex: 1; /* Ensure the image takes appropriate space */
-    min-width: 20em; /* Optional: Limit the width of the image */
+    min-width: 40em; /* Optional: Limit the width of the image */
     display: flex;
-    justify-content: flex-end; /* Push image to the far right */
+    /* justify-content: flex-end; Push image to the far right */
   }
   
-=======
-  font-family: "Rubik";
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  max-width: 100%;
-  width: 100vw;
-}
-
-.login_header {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px;
-  background-color: #ffffff;
-}
-
-.logo {
-  font-size: 20px;
-  font-weight: bold;
-  color: #0073e6;
-}
-
-.nav_links a {
-  margin-left: 20px;
-  text-decoration: none;
-  color: #0073e6;
-}
-
-.login_content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 80%;
-  margin: 50px 0;
-}
-
-.login_left {
-  flex: 1;
-  text-align: left;
-  font-family: "MyFont";
-}
-
-.login_left h1 {
-  font-size: 36px;
-  margin-bottom: 20px;
-}
-
-.login_left p {
-  font-size: 18px;
-  margin-bottom: 30px;
-}
-
-.btn {
-  display: block;
-  width: 250px;
-  margin: 10px 0;
-  padding: 15px;
-  background-color: #032b91;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  text-align: center;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.btn:hover {
-  background-color: #005bb5;
-}
-
-.login_right img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 10px;
-}
->>>>>>> 47a1425677e4c4e1caad3db886d41a600bf9ea0a
