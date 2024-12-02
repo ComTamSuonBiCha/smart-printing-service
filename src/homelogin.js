@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from './header';
+import HomeloginHeader from './homeloginHeader';
 import loginStyles from './homelogin.module.css';
 import logo from './component/BachKhoaLogo.png';
 import background from './component/bgbk.png';
@@ -7,7 +7,7 @@ import background from './component/bgbk.png';
 const LoginPage = () => {
   return (
     <div className={loginStyles.login_page}>
-      <Header logo = {logo}/>
+      <HomeloginHeader logo = {logo}/>
 
       <div className={loginStyles.login_content}>
         <div className={loginStyles.login_left}>

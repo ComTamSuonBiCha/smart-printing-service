@@ -1,6 +1,6 @@
 /* General page layout */
 .login_page {
-    font-family: Arial, sans-serif;
+    font-family: 'Rubik';
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -39,6 +39,7 @@
   .login_left {
     flex: 1;
     text-align: left;
+    font-family: 'MyFont';
   }
   
   .login_left h1 {
@@ -56,7 +57,7 @@
     width: 250px;
     margin: 10px 0;
     padding: 15px;
-    background-color: #0073e6;
+    background-color: #032B91;
     color: white;
     border: none;
     border-radius: 5px;
