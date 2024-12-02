@@ -23,7 +23,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #032B91;
+    background-color: #f9f9f9;
     padding: 10px 5%;
     margin: 0;
     color: white;
@@ -39,13 +39,14 @@
   }
 
   .logo {
-    height: 40px;
+    height: 50px;
     margin-right: 10px;
   }
 
   .logo_line {
     font-size: 1rem;
     font-weight: bold;
+    color: #032B91;
   }
 
   .logo_text {
@@ -86,11 +87,12 @@
   
   .user_name {
     font-weight: bold;
+    color: #032B91;
   }
   
   .logout_button {
-    background-color: white;
-    color: #032B91;
+    background-color: #032B91;
+    color: white;
     border: none;
     padding: 5px 10px;
     border-radius: 20px;
@@ -102,11 +104,4 @@
   
   .logout_button:hover {
     background-color: #cce0ff;
-  }
-
-  .avatar {
-    width: 35px; 
-    height: 35px;
-    background-color: white; /* White background for the avatar */
-    border-radius: 50%; /* Makes it circular */
   }

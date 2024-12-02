@@ -101,7 +101,8 @@ body {
   background-color: white;
   color: #032b91;
   border: none;
-  padding: 5px 10px;
+  padding: 15px 40px;
+  width: 150px;
   border-radius: 20px;
   font-weight: bold;
   cursor: pointer;
@@ -110,7 +111,7 @@ body {
 }
 
 .logout_button:hover {
-  background-color: #cce0ff;
+  background-color: #001a52;
 }
 
 .avatar {
