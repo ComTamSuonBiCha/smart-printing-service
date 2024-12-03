@@ -10,17 +10,22 @@
 
 .main {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
-  flex-direction: column;
   width: 100%;
   margin-top: 20px;
+  padding: 0 5%;
 }
-
+.leftContainer {
+  flex-basis: 35%;
+}
+.rightContainer {
+  flex-basis: 55%;
+}
 /* Chart container styling */
-.chartContainer {
-  max-width: 600px;
-  height: 400px;
+.doughnutContainer {
+  /* max-width: 600px; */
+  /* height: 400px; */
   background-color: white;
   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
@@ -29,7 +34,19 @@
   justify-content: center;
   align-items: center;
 }
+.lineContainer {
+  /* max-width: 600px;
+  height: 400px; */
+  flex-basis: 55%;
 
+  background-color: white;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 /* Canvas styling */
 canvas {
   width: 100% !important;

@@ -1,12 +1,10 @@
-// src/pages/Stats.js
-
 import React from "react";
 import Header from "../../header";
 import logo from "../../component/BachKhoaLogo.png";
 import styles from "./stats.module.css";
-import ChartComponent from "./DoughnutChart"; // Import the chart component
-
-const data = {
+import ChartComponent from "./DoughnutChart"; //
+import LineChart from "./LineChart";
+const doughnutData = {
   labels: ["Red", "Blue", "Yellow"],
   datasets: [
     {
@@ -20,14 +18,35 @@ const data = {
     },
   ],
 };
+
+const lineData = {
+  labels: ["January", "February", "March", "April", "May", "June"],
+  datasets: [
+    {
+      label: "Total",
+      data: [65, 59, 80, 81, 56, 55],
+      fill: false,
+      borderColor: "#1967D2",
+      tension: 0.1,
+    },
+  ],
+};
+
 const Stats = () => {
   return (
     <div className={styles.container}>
       <div className={styles.dashboard}>
         <Header logo={logo} />
         <main className={styles.main}>
-          <div className={styles.chartContainer}>
-            <ChartComponent data={data} /> {/* Use the ChartComponent here */}
+          <div className={styles.leftContainer}>
+            <div className={styles.doughnutContainer}>
+              <ChartComponent data={doughnutData} />
+            </div>
+          </div>
+          <div className={styles.rightContainer}>
+            <div className={styles.lineContainer}>
+              <LineChart data={lineData} />
+            </div>
           </div>
         </main>
       </div>
