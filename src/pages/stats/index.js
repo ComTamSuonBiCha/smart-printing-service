@@ -5,6 +5,7 @@ import styles from "./stats.module.css";
 import ChartComponent from "./DoughnutChart"; //
 import LineChart from "./LineChart";
 import PrinterList from "../printerList/printerList";
+import BlocksLayout from "./blocks/inforBlock";
 const doughnutData = {
   labels: ["Red", "Blue", "Yellow"],
   datasets: [
@@ -49,6 +50,7 @@ const Stats = () => {
             <div className={styles.lineContainer}>
               <LineChart data={lineData} />
             </div>
+            <BlocksLayout></BlocksLayout>
           </div>
         </main>
       </div>
