@@ -143,3 +143,9 @@ body {
   display: flex;
   justify-content: flex-end; /* Push image to the far right */
 }
+
+.upload_file{
+  background-color: #ffffff;
+  border: 1px solid #1488db;
+  
+}
