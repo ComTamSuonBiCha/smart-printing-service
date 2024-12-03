@@ -66,50 +66,47 @@
   width: 100%;
   height: 92vh;
 }
-=======
-  }
-  
-  .login_left p {
-    font-size: 30px;
-    margin-bottom: 20px;
-    font-family: 'MyFont';
-    color: #032B91;
-    margin-bottom: 40px;
-  }
-  
-  .btn {
-    display: block;
-    width: 500px;
-    margin: 10px 0;
-    padding: 15px;
-    background-color: #032B91;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    text-align: center;
-    cursor: pointer;
-    font-size: 20px;
-    font-family: 'Rubik';
-    font-weight: bold;
-  }
-  
-  .btn:hover {
-    background-color: #005bb5;
-  }
-  
-  .login_right {
-    position: absolute; /* Keep absolute positioning */
-    right: 0;
-    top: calc(80px); /* Adjust based on header height (100px) + spacing (20px) */
-    transform: none; /* Remove vertical centering */
-    min-width: 40em;
-    height: auto;
-    z-index: 1;
-  }
-  
-  .right_image {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-  }
-  
+
+.login_left p {
+  font-size: 30px;
+  margin-bottom: 20px;
+  font-family: "MyFont";
+  color: #032b91;
+  margin-bottom: 40px;
+}
+
+.btn {
+  display: block;
+  width: 500px;
+  margin: 10px 0;
+  padding: 15px;
+  background-color: #032b91;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+  font-size: 20px;
+  font-family: "Rubik";
+  font-weight: bold;
+}
+
+.btn:hover {
+  background-color: #005bb5;
+}
+
+.login_right {
+  position: absolute; /* Keep absolute positioning */
+  right: 0;
+  top: calc(80px); /* Adjust based on header height (100px) + spacing (20px) */
+  transform: none; /* Remove vertical centering */
+  min-width: 40em;
+  height: auto;
+  z-index: 1;
+}
+
+.right_image {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
