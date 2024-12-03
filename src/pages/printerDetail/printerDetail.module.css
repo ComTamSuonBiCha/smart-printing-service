@@ -1,0 +1,56 @@
+.mainLayout {
+  padding: 24px 0;
+  display: flex;
+  justify-content: space-between;
+}
+.leftContainer {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 47%;
+}
+.leftTop {
+  display: flex;
+  gap: 32px;
+}
+.barChart {
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 12px;
+}
+
+.rightContainer {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 50%;
+  gap: 28px;
+}
+.rightTop {
+  display: flex;
+  justify-content: space-between;
+  height: 200px;
+}
+.printerPage {
+  padding: 1% 2.5%;
+  background-color: #e0e0e0;
+}
+.printerTag {
+  padding: 20px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 32px;
+}
+.blueBtn {
+  background-color: #032b91;
+  color: #ffffff;
+  text-align: center;
+  border-radius: 12px;
+  height: 28px;
+  padding: 4px;
+}
+.lineChart {
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 12px;
+}
