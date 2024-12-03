@@ -14,7 +14,6 @@ const Header = () => {
         </div>
       </div>
       <div className={headerStyles.header_right}>
-        <div className={headerStyles.avatar}></div>
         <span className={headerStyles.user_name}>ABOUT US</span>
         <button className={headerStyles.logout_button}>LOG IN</button>
       </div>

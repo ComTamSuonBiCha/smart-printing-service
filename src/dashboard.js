@@ -13,7 +13,6 @@ const Dashboard = () => {
     <div className={dbstyles.container}>
     <div className={dbstyles.dashboard}>
       <Header logo={logo}/>
-
       <main className={dbstyles.main}>
       <div className={dbstyles.welcome_row}>
         <div className={dbstyles.welcome_section}>
