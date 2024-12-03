@@ -1,0 +1,37 @@
+/* General container styling */
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.dashboard {
+}
+
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 20px;
+}
+
+/* Chart container styling */
+.chartContainer {
+  max-width: 600px;
+  height: 400px;
+  background-color: white;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Canvas styling */
+canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
