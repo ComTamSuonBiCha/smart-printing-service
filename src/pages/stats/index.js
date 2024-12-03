@@ -4,6 +4,7 @@ import logo from "../../component/BachKhoaLogo.png";
 import styles from "./stats.module.css";
 import ChartComponent from "./DoughnutChart"; //
 import LineChart from "./LineChart";
+import PrinterList from "../printerList/printerList";
 const doughnutData = {
   labels: ["Red", "Blue", "Yellow"],
   datasets: [
@@ -42,6 +43,7 @@ const Stats = () => {
             <div className={styles.doughnutContainer}>
               <ChartComponent data={doughnutData} />
             </div>
+            <PrinterList></PrinterList>
           </div>
           <div className={styles.rightContainer}>
             <div className={styles.lineContainer}>

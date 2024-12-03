@@ -8,7 +8,6 @@ import {
   PieController,
 } from "chart.js";
 
-// Register necessary components from Chart.js
 Chart.register(ArcElement, Tooltip, Legend, Title, PieController);
 
 const ChartComponent = ({ data }) => {
@@ -16,28 +15,26 @@ const ChartComponent = ({ data }) => {
   const chartInstance = useRef(null);
 
   useEffect(() => {
-    // Destroy the existing chart if it's there
     if (chartInstance.current) {
       // @ts-ignore
       chartInstance.current.destroy();
     }
 
-    // Create a new doughnut chart
     // @ts-ignore
     chartInstance.current = new Chart(chartRef.current, {
       type: "doughnut",
       data: data,
       options: {
         responsive: true,
-        cutout: "70%", // Hole size in the center of the doughnut
+        cutout: "70%",
         plugins: {
           title: {
             display: true,
-            text: "Usage Chart", // Title of the chart
+            text: "Usage Chart",
           },
 
           legend: {
-            position: "right", // Position legend on the right
+            position: "right",
             labels: {
               generateLabels: function (chart) {
                 const original =
@@ -66,10 +63,7 @@ const ChartComponent = ({ data }) => {
 
   return (
     <>
-      {/* The chart */}
       <canvas ref={chartRef}></canvas>
-
-      {/* Tooltip container */}
       <div
         id="chartjs-tooltip"
         style={{
