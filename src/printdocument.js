@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Popup from "reactjs-popup";
 import docustyle from "./printdocument.module.css";
 import Header from "./header";
 import logo from './component/BachKhoaLogo.png';
@@ -6,8 +7,27 @@ import upload from './component/File-upload.png';
 import printer from './component/Printer2.png';
 import properties from './component/Settings-adjust.png';
 import arrow from './component/arrow.png';
+import uploadsticker from './component/uploadsticker.png';
 
 function PrintDocument() {
+  const [isPopupOpen, setPopupOpen] = useState(false); // Popup state
+
+  const handleUploadClick = () => {
+    setPopupOpen(true); // Open the popup
+  };
+
+  const closePopup = () => {
+    setPopupOpen(false); // Close the popup
+  };
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0]; // Get the selected file
+    if (file) {
+      console.log('Selected file:', file);
+      // Add further logic, e.g., uploading the file to a server
+    }
+  };
+
   return (
     <div className={docustyle.container}>
     <div className={docustyle.print_document}>
@@ -17,7 +37,7 @@ function PrintDocument() {
         <h1>Print Document</h1>
         <p className={docustyle.greeting}>Please fill out 3 components below before proceeding to the next step!</p>
         <div className={docustyle.action_list}>
-            <div className={docustyle.action_item}>
+            <div className={docustyle.action_item} onClick={handleUploadClick}>
                 <div>
                 <div className={docustyle.display_item}>
                     <img src={upload} alt="File-Upload" className={docustyle.icon}></img>
@@ -73,6 +93,41 @@ function PrintDocument() {
         <div className={docustyle.right_side}>
         </div>
       </main>
+      {/* Popup */}
+      <Popup open={isPopupOpen} onClose={closePopup} modal 
+        contentStyle={{
+        backgroundColor: '#ffffff',
+        border: '1px solid #1488db',
+        borderRadius: '10px',
+        padding: '20px',
+        height: '90%',
+        width: '80%'
+        } }
+        overlayStyle={{
+        background: 'rgba(0, 0, 0, 0.5)',
+        }}>
+          <div>
+            <h2 className={docustyle.title}>Upload File</h2>
+            <div className={docustyle.outsidebox}>
+                <div className={docustyle.bluebox}>
+                    <input
+                        type="file"
+                        id="fileUpload"
+                        style={{ display: 'none' }}
+                        onChange={(e) => handleFileChange(e)}
+                    />
+                    <img src={uploadsticker} alt="Sticker" className={docustyle.sticker }  onClick={() => document.getElementById('fileUpload').click()}></img>
+                    <p className={docustyle.titleupload}> UPLOAD FILE FROM YOUR BROWSER</p>
+                    <p className={docustyle.description}>Accepted file types: PDF, DOCX, XLS, XLSX</p>
+                    <div className={docustyle.bottom}></div>
+                </div>
+                <div className={docustyle.display_button}>
+                    <button className={docustyle.upload_btn} onClick={closePopup}><b>CANCEL</b></button>
+                    <button className={docustyle.upload_btn} onClick={closePopup}><b>UPLOAD</b></button>
+                </div>
+            </div>
+          </div>
+        </Popup>
     </div>
     
     </div>
