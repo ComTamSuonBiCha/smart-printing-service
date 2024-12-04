@@ -37,7 +37,11 @@ const HorizontalBarChart = () => {
   const options = {
     responsive: true,
     indexAxis: "y",
-    plugins: {},
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
     scales: {
       x: {
         beginAtZero: true,

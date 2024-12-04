@@ -7,6 +7,7 @@ import pageSVG from "../../assets/pageSVG.svg";
 
 import HorizontalBarChart from "./barChart";
 import LineChart from "../stats/LineChart";
+import RecentlyBlock from "./recentlyBlock";
 const lineData = {
   labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
   datasets: [
@@ -66,6 +67,9 @@ const PrinterDetail = () => {
               <div className={styles.barChart}>
                 <HorizontalBarChart></HorizontalBarChart>
               </div>
+            </div>
+            <div>
+              <RecentlyBlock></RecentlyBlock>
             </div>
           </div>
 
