@@ -55,7 +55,7 @@ body {
   font-family: 'MyFont';
 }
 .greeting{
-  font-weight: lighter;
+  font-weight: 300;
   text-align: center;
   color: #000000;
   font-size:20px;
@@ -213,7 +213,7 @@ body {
 
 .description{
   color: #032B91;
-  font-weight: 100;
+  font-weight: 300;
   font-size: 13px;
   margin-bottom: 30px;
 }
