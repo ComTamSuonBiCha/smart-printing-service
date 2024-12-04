@@ -48,7 +48,7 @@ const Stats = () => {
           </div>
           <div className={styles.rightContainer}>
             <div className={styles.lineContainer}>
-              <LineChart data={lineData} />
+              <LineChart title="All Printers Statistic" data={lineData} />
             </div>
             <BlocksLayout></BlocksLayout>
           </div>

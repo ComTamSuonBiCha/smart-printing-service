@@ -24,7 +24,7 @@ Chart.register(
   LinearScale // Register LinearScale
 );
 
-const LineChart = ({ data }) => {
+const LineChart = (props) => {
   const chartRef = useRef(null);
   const chartInstance = useRef(null);
 
@@ -39,11 +39,13 @@ const LineChart = ({ data }) => {
     // @ts-ignore
     chartInstance.current = new Chart(chartRef.current, {
       type: "line", // This is for the line chart
-      data: data,
+      data: props.data,
       options: {
         responsive: true,
         plugins: {
-          title: {},
+          legend: {
+            display: false,
+          },
         },
       },
     });
@@ -54,11 +56,11 @@ const LineChart = ({ data }) => {
         chartInstance.current.destroy();
       }
     };
-  }, [data]);
+  }, [props.data]);
 
   return (
     <div>
-      <h2 style={{ color: "#1967D2" }}>All Printers Statistic</h2>
+      <h2 style={{ color: "#1967D2", marginBottom: 12 }}>{props.title}</h2>
       <canvas ref={chartRef}></canvas>
     </div>
   );
