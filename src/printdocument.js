@@ -23,10 +23,38 @@ function PrintDocument() {
   const handlePropertiesClick = () => setPropertiesPopupOpen(true);
   const closePropertiesPopup = () => setPropertiesPopupOpen(false);
 
+  const [fileDetails, setFileDetails] = useState({
+    name: '',
+    size: '',
+    type: '',
+  });
+
   const handleFileChange = (event) => {
-    const file = event.target.files[0]; // Get the selected file
+    const file = event.target.files[0]; // Get the uploaded file
     if (file) {
-      console.log("Selected file:", file);
+      let count = 0;
+      let filesize = file.size; // File size in bytes
+  
+      // Calculate the appropriate size unit (B, KB, MB, etc.)
+      while (filesize > 1024) {
+        filesize = filesize / 1024;
+        count++;
+      }
+      const type = file.type.split('/')[1] || 'Unknown';
+      // Determine the size unit
+      let result;
+      if (count === 0) result = `${filesize.toFixed(2)} B`;
+      else if (count === 1) result = `${filesize.toFixed(2)} KB`;
+      else if (count === 2) result = `${filesize.toFixed(2)} MB`;
+      else if (count === 3) result = `${filesize.toFixed(2)} GB`;
+      else result = `${filesize.toFixed(2)} TB`;
+  
+      // Update file details state
+      setFileDetails({
+        name: file.name,
+        size: result, // Dynamic file size with unit
+        type: type, // Handle cases where type is undefined
+      });
     }
   };
 
@@ -64,19 +92,19 @@ function PrintDocument() {
                   </p>
                   <div className={docustyle.display_item}>
                     <p className={docustyle.action_desciption}>NAME</p>{" "}
-                    <div className={docustyle.info_box}></div>
+                    <div className={docustyle.info_box}>{fileDetails.name || ''}</div>
                   </div>
                   <div className={docustyle.display_item}>
                     <p className={docustyle.action_desciption}>SIZE</p>{" "}
-                    <div className={docustyle.info_box_size}></div>
+                    <div className={docustyle.info_box_size}>{fileDetails.size || ''}</div>
                     <p className={docustyle.action_desciption}>FILE TYPE</p>
-                    <div className={docustyle.info_box_size}></div>
+                    <div className={docustyle.info_box_size}>{fileDetails.type || ''}</div>
                   </div>
                   <div className={docustyle.bottom}></div>
                 </div>
               </div>
               <div className={docustyle.action_item}>
-                <div className={docustyle.display_item}>
+                <div className={docustyle.display_item} onClick={handlePropertiesClick}>
                   <img
                     src={properties}
                     alt="Properties"
@@ -149,21 +177,14 @@ function PrintDocument() {
           <div>
             <h2 className={docustyle.title}>Upload File</h2>
             <div className={docustyle.outsidebox}>
-              <div className={docustyle.bluebox}>
-                <input
-                  type="file"
-                  id="fileUpload"
-                  style={{ display: "none" }}
-                  onChange={(e) => handleFileChange(e)}
-                />
+              <div className={docustyle.bluebox}>       
                 <img
                   src={uploadsticker}
                   alt="Sticker"
                   className={docustyle.sticker}
-                  // onClick={() => document.getElementById("fileUpload").click()}
+                  
                 ></img>
                 <p className={docustyle.titleupload}>
-                  {" "}
                   UPLOAD FILE FROM YOUR BROWSER
                 </p>
                 <p className={docustyle.description}>
@@ -175,7 +196,13 @@ function PrintDocument() {
                 <button className={docustyle.upload_btn} onClick={closeUploadPopup}>
                   <b>CANCEL</b>
                 </button>
-                <button className={docustyle.upload_btn} onClick={closeUploadPopup}>
+                <input
+                  type="file"
+                  id="fileUpload"
+                  style={{ display: "none" }}
+                  onChange={(e) => handleFileChange(e)}
+                /> 
+                <button className={docustyle.upload_btn} onClick={() => document.getElementById("fileUpload").click()}>
                   <b>UPLOAD</b>
                 </button>
               </div>

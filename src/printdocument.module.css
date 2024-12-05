@@ -38,6 +38,7 @@ body {
 .print_document {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .main_content {
@@ -127,16 +128,18 @@ body {
 
 .info_box {
   align-content: center;
-  width: 270px;
   height: 30px;
   border-radius: 10px;
   background-color: #c4e1f6;
+  width: fit-content;
+  padding: 0 16px;
 }
 
 .info_box_size {
   margin-left: 10px;
   align-content: center;
-  width: 57px;
+  width: fit-content;
+  padding: 0 16px;
   height: 30px;
   border-radius: 10px;
   background-color: #c4e1f6;
