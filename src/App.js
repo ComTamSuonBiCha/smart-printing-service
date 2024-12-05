@@ -1,8 +1,10 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { routes } from "./routes";
 import { Route, Routes } from "react-router-dom";
+import Header from "./header";
 
 function App() {
+  const [isLogin, setIsLogin] = useState(false);
   return (
     <Routes>
       {routes.map((route, index) => {
@@ -14,6 +16,7 @@ function App() {
             path={route.path}
             element={
               <Layout>
+                <Header isLogin={isLogin} />
                 <Page />
               </Layout>
             }

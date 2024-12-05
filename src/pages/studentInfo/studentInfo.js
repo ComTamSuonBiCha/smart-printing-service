@@ -27,7 +27,6 @@ const lineData = {
 const StudentInfo = () => {
   return (
     <div>
-      <Header></Header>
       <div className={styles.studentPage}>
         <h1>Student Info</h1>
         <div className={styles.studentLayout}>

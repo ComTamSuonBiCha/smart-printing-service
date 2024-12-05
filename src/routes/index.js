@@ -8,9 +8,9 @@ import StudentInfo from "../pages/studentInfo/studentInfo";
 import PrintDocument from "../printdocument";
 
 const routes = [
-  { path: "/", component: Dashboard },
-  { path: "/log-in", component: LoginPage },
-  { path: "/log", component: Login },
+  { path: "/", component: LoginPage },
+  { path: "/main", component: Dashboard },
+  { path: "/login", component: Login },
   { path: "/spso", component: SPSODashboard },
   { path: "/stats", component: Stats },
   { path: "/printer", component: PrinterDetail },

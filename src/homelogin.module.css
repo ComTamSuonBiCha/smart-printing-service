@@ -25,10 +25,11 @@
   align-items: center;
   width: 100%;
   margin: 0;
+  padding-left: 10%;
 }
 
 .login_left {
-  padding-left: 25%;
+  padding-top: 15%;
   text-align: left;
   font-family: "MyFont";
 }
