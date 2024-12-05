@@ -6,17 +6,22 @@ import printer from "./component/Printer2.png";
 import properties from "./component/Settings-adjust.png";
 import arrow from "./component/arrow.png";
 import uploadsticker from "./component/uploadsticker.png";
+import onepage from "./component/onepage.png";
+import twopages from "./component/twopages.png";
+import fourpages from "./component/fourpages.png";
+import sixpages from "./component/sixpages.png";
 
 function PrintDocument() {
-  const [isPopupOpen, setPopupOpen] = useState(false); // Popup state
+  const [isUploadPopupOpen, setUploadPopupOpen] = useState(false); // Upload popup state
+  const [isPropertiesPopupOpen, setPropertiesPopupOpen] = useState(false); // Properties popup state
 
-  const handleUploadClick = () => {
-    setPopupOpen(true); // Open the popup
-  };
+  // Handlers for upload popup
+  const handleUploadClick = () => setUploadPopupOpen(true);
+  const closeUploadPopup = () => setUploadPopupOpen(false);
 
-  const closePopup = () => {
-    setPopupOpen(false); // Close the popup
-  };
+  // Handlers for properties popup
+  const handlePropertiesClick = () => setPropertiesPopupOpen(true);
+  const closePropertiesPopup = () => setPropertiesPopupOpen(false);
 
   const handleFileChange = (event) => {
     const file = event.target.files[0]; // Get the selected file
@@ -126,8 +131,8 @@ function PrintDocument() {
         </main>
         {/* Popup */}
         <Popup
-          open={isPopupOpen}
-          onClose={closePopup}
+          open={isUploadPopupOpen}
+          onClose={closeUploadPopup}
           modal
           contentStyle={{
             backgroundColor: "#ffffff",
@@ -167,10 +172,10 @@ function PrintDocument() {
                 <div className={docustyle.bottom}></div>
               </div>
               <div className={docustyle.display_button}>
-                <button className={docustyle.upload_btn} onClick={closePopup}>
+                <button className={docustyle.upload_btn} onClick={closeUploadPopup}>
                   <b>CANCEL</b>
                 </button>
-                <button className={docustyle.upload_btn} onClick={closePopup}>
+                <button className={docustyle.upload_btn} onClick={closeUploadPopup}>
                   <b>UPLOAD</b>
                 </button>
               </div>
@@ -178,8 +183,8 @@ function PrintDocument() {
           </div>
         </Popup>
         <Popup
-          // open={isPropertiesPopupOpen}
-          // onClose={closePropertiesPopup}
+          open={isPropertiesPopupOpen}
+          onClose={closePropertiesPopup}
           modal
           contentStyle={{
             backgroundColor: "#ffffff",
@@ -278,28 +283,28 @@ function PrintDocument() {
                   <div className={docustyle.sheet_button_list}>
                     <button className={docustyle.sheet_button}>
                       <img
-                        // src={onepage}
+                        src={onepage}
                         alt="OnePage"
                         className={docustyle.sheet_sticker}
                       ></img>
                     </button>
                     <button className={docustyle.sheet_button}>
                       <img
-                        // src={twopages}
+                        src={twopages}
                         alt="TwoPages"
                         className={docustyle.sheet_sticker}
                       ></img>
                     </button>
                     <button className={docustyle.sheet_button}>
                       <img
-                        // src={fourpages}
+                        src={fourpages}
                         alt="FourPages"
                         className={docustyle.sheet_sticker}
                       ></img>
                     </button>
                     <button className={docustyle.sheet_button}>
                       <img
-                        // src={sixpages}
+                        src={sixpages}
                         alt="SixPages"
                         className={docustyle.sheet_sticker}
                       ></img>
