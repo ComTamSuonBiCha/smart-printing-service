@@ -15,6 +15,7 @@ function PrintDocument() {
   const [isUploadPopupOpen, setUploadPopupOpen] = useState(false); // Upload popup state
   const [isPropertiesPopupOpen, setPropertiesPopupOpen] = useState(false); // Properties popup state
 
+  const [previewUrl, setPreviewUrl] = useState(null);
   // Handlers for upload popup
   const handleUploadClick = () => setUploadPopupOpen(true);
   const closeUploadPopup = () => setUploadPopupOpen(false);
@@ -55,8 +56,31 @@ function PrintDocument() {
         size: result, // Dynamic file size with unit
         type: type, // Handle cases where type is undefined
       });
+
+      const url = URL.createObjectURL(file);
+      setPreviewUrl(url); 
     }
   };
+
+  const [margins, setMargins] = useState({
+    left: 0,
+    top: 0,
+    right: 0,
+    bottom: 0,
+  });
+  
+  // Update the margin value dynamically
+  const handleMarginChange = (side, value) => {
+    setMargins((prev) => ({ ...prev, [side]: value }));
+  };
+
+  React.useEffect(() => {
+    return () => {
+      if (previewUrl) {
+        URL.revokeObjectURL(previewUrl); // Release memory
+      }
+    };
+  }, [previewUrl]);
 
   return (
     <div className={docustyle.container}>
@@ -155,7 +179,26 @@ function PrintDocument() {
               </button>
             </div>
           </div>
-          <div className={docustyle.right_side}></div>
+          <div className={docustyle.right_side}>
+              {previewUrl && (
+              <div className={docustyle.preview_section}>
+                {fileDetails.type.includes("image") ? (
+                  <img
+                    src={previewUrl}
+                    alt="File Preview"
+                    className={docustyle.preview_image}
+                  />
+                ) : fileDetails.type.includes("pdf") ? (
+                  <embed
+                    src={previewUrl}
+                    type="application/pdf"
+                    className={docustyle.preview_pdf}
+                  />
+                ) : (
+                  <p>Preview not available for this file type.</p>
+                )}
+              </div>)}
+              </div>    
         </main>
         {/* Popup */}
         <Popup
@@ -265,24 +308,44 @@ function PrintDocument() {
                       <p>Top:</p>
                     </div>
                     <div className={docustyle.margin_title}>
-                      <button
+                      <input
+                        type="number"
                         className={docustyle.margin_specific_button}
-                      ></button>
-                      <button
+                        placeholder="0"
+                        min="0"
+                        value={margins.left}
+                        onChange={(e) => handleMarginChange("left", e.target.value)}
+                      />
+                      <input
+                        type="number"
                         className={docustyle.margin_specific_button}
-                      ></button>
+                        placeholder="0"
+                        min="0"
+                        value={margins.top}
+                        onChange={(e) => handleMarginChange("top", e.target.value)}
+                      />
                     </div>
                     <div className={docustyle.margin_title}>
                       <p>Right:</p>
                       <p>Bottom:</p>
                     </div>
                     <div className={docustyle.margin_title}>
-                      <button
+                    <input
+                        type="number"
                         className={docustyle.margin_specific_button}
-                      ></button>
-                      <button
+                        placeholder="0"
+                        min="0"
+                        value={margins.right}
+                        onChange={(e) => handleMarginChange("right", e.target.value)}
+                      />
+                      <input
+                        type="number"
                         className={docustyle.margin_specific_button}
-                      ></button>
+                        placeholder="0"
+                        min="0"
+                        value={margins.bottom}
+                        onChange={(e) => handleMarginChange("bottom", e.target.value)}
+                      />
                     </div>
                   </div>
                 </div>
