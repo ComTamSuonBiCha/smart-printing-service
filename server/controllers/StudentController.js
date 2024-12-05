@@ -17,14 +17,14 @@ async function getStudentDetail(req, res, next) {
 async function updateStudentBalance(req, res, next) {
     try {
         let studentId = req.params.id;
+        let pages_minus = req.body.pages_minus;
         let cur_balance = await getBalance(studentId);
-        let new_balance = req.body.new_balance;
-        
-        
-
-
+        if (cur_balance < pages_minus) {
+            res.status(400).send('Not enough balance');
+        }
+        let amount = cur_balance - pages_minus;
         let results = await minusBalance(studentId, amount);
-        res.json(results);
+        res.json(results); 
     }
     catch(e){
         next(e);
@@ -49,7 +49,7 @@ async function getStudentOrderById(req, res, next) {
     try {
         let studentId = req.params.id;
         let results = await getStudentOrderById(studentId);
-        
+
         if (results == null) {
             res.status(404).send('Student not found');
         }

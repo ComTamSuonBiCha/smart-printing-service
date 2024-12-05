@@ -1,4 +1,4 @@
-const {insertOrder} = require('../model/OrderModel');
+const {insertOrder, getFileType} = require('../model/OrderModel');
 const {insertDocument} = require('./DocumentController');
 async function addOrder(req, res, next) {
     try {
