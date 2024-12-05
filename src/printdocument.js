@@ -155,7 +155,7 @@ function PrintDocument() {
                   src={uploadsticker}
                   alt="Sticker"
                   className={docustyle.sticker}
-                  onClick={() => document.getElementById("fileUpload").click()}
+                  // onClick={() => document.getElementById("fileUpload").click()}
                 ></img>
                 <p className={docustyle.titleupload}>
                   {" "}
@@ -175,6 +175,171 @@ function PrintDocument() {
                 </button>
               </div>
             </div>
+          </div>
+        </Popup>
+        <Popup
+          // open={isPropertiesPopupOpen}
+          // onClose={closePropertiesPopup}
+          modal
+          contentStyle={{
+            backgroundColor: "#ffffff",
+            padding: "20px",
+            height: "94%",
+            width: "80%",
+            alignItems: "normal",
+          }}
+          overlayStyle={{
+            background: "rgba(0, 0, 0, 0.5)",
+          }}
+        >
+          <div>
+            <h2 className={docustyle.title}>Print Properties</h2>
+            <div className={docustyle.properties_container}>
+              <div className={docustyle.left_properties}>
+                {/*FIRST LINE*/}
+                <div className={docustyle.properties_container_title}>
+                  <div className={docustyle.properties_container_title_button}>
+                    <p className={docustyle.description_properties}>COPIES</p>
+                    <button className={docustyle.description_properties_button}>
+                      1
+                    </button>
+                  </div>
+                  <div className={docustyle.properties_container_title_button}>
+                    <p className={docustyle.description_properties}>
+                      PAPER SIZE
+                    </p>
+                    <button className={docustyle.description_properties_button}>
+                      SELECT
+                    </button>
+                  </div>
+                  <div className={docustyle.properties_container_title_button}>
+                    <p className={docustyle.description_properties}>SIDED</p>
+                    <button className={docustyle.description_properties_button}>
+                      1
+                    </button>
+                  </div>
+                </div>
+                <div className={docustyle.blue_line}></div>
+                {/*SECOND LINE*/}
+                <div className={docustyle.page_setup_container}>
+                  <p className={docustyle.page_setup_title}>PAGE SETUP</p>
+                  <div className={docustyle.margin}>
+                    <p className={docustyle.page_setup_description}>MARGIN</p>
+                    <button className={docustyle.margin_button}>SELECT</button>
+                  </div>
+                  <div className={docustyle.margin}>
+                    <div className={docustyle.margin_title}>
+                      <p>Left:</p>
+                      <p>Top:</p>
+                    </div>
+                    <div className={docustyle.margin_title}>
+                      <button
+                        className={docustyle.margin_specific_button}
+                      ></button>
+                      <button
+                        className={docustyle.margin_specific_button}
+                      ></button>
+                    </div>
+                    <div className={docustyle.margin_title}>
+                      <p>Right:</p>
+                      <p>Bottom:</p>
+                    </div>
+                    <div className={docustyle.margin_title}>
+                      <button
+                        className={docustyle.margin_specific_button}
+                      ></button>
+                      <button
+                        className={docustyle.margin_specific_button}
+                      ></button>
+                    </div>
+                  </div>
+                </div>
+                <div className={docustyle.blue_line}></div>
+                {/*THIRD LINE*/}
+                <div className={docustyle.orientation}>
+                  <p className={docustyle.page_setup_description}>
+                    ORIENTATION
+                  </p>
+                  <label>
+                    <input type="radio" name="orientation" />
+                    <span>Portrait</span>
+                  </label>
+                  <label>
+                    <input type="radio" name="orientation" />
+                    <span>Landscape</span>
+                  </label>
+                </div>
+                <div className={docustyle.blue_line}></div>
+                {/*FOURTH LINE*/}
+                <div className={docustyle.sheet}>
+                  <p className={docustyle.page_setup_description}>
+                    PAGE PER SHEET
+                  </p>
+                  <div className={docustyle.sheet_button_list}>
+                    <button className={docustyle.sheet_button}>
+                      <img
+                        // src={onepage}
+                        alt="OnePage"
+                        className={docustyle.sheet_sticker}
+                      ></img>
+                    </button>
+                    <button className={docustyle.sheet_button}>
+                      <img
+                        // src={twopages}
+                        alt="TwoPages"
+                        className={docustyle.sheet_sticker}
+                      ></img>
+                    </button>
+                    <button className={docustyle.sheet_button}>
+                      <img
+                        // src={fourpages}
+                        alt="FourPages"
+                        className={docustyle.sheet_sticker}
+                      ></img>
+                    </button>
+                    <button className={docustyle.sheet_button}>
+                      <img
+                        // src={sixpages}
+                        alt="SixPages"
+                        className={docustyle.sheet_sticker}
+                      ></img>
+                    </button>
+                  </div>
+                </div>
+                <div className={docustyle.blue_line}></div>
+                <div className={docustyle.numberpage_container}>
+                  <div className={docustyle.numberpage}>
+                    <p className={docustyle.page_setup_description}>
+                      NUMBER OF PAGE LEFT
+                    </p>
+                    <p className={docustyle.page_setup_description}>
+                      PRINT RANGE FROM
+                    </p>
+                  </div>
+                  <div className={docustyle.numberpage}>
+                    <button
+                      className={docustyle.margin_specific_button}
+                    ></button>
+                    <div className={docustyle.printrange}>
+                      <button
+                        className={docustyle.margin_specific_button}
+                      ></button>
+                      <p className={docustyle.page_setup_description_sheet}>
+                        TO
+                      </p>
+                      <button
+                        className={docustyle.margin_specific_button}
+                      ></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className={docustyle.right_properties}>
+                <p className={docustyle.page_setup_description}>PREVIEW</p>
+                <div className={docustyle.print_preview}></div>
+              </div>
+            </div>
+            <button className={docustyle.done}>DONE</button>
           </div>
         </Popup>
       </div>
