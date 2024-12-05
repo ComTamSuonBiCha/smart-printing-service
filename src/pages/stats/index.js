@@ -38,7 +38,6 @@ const Stats = () => {
   return (
     <div className={styles.container}>
       <div className={styles.dashboard}>
-        <Header logo={logo} />
         <main className={styles.main}>
           <div className={styles.leftContainer}>
             <div className={styles.doughnutContainer}>

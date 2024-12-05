@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import Popup from "reactjs-popup";
 import docustyle from "./printdocument.module.css";
-import Header from "./header";
-import logo from "./component/BachKhoaLogo.png";
 import upload from "./component/File-upload.png";
 import printer from "./component/Printer2.png";
 import properties from "./component/Settings-adjust.png";
@@ -30,7 +28,6 @@ function PrintDocument() {
   return (
     <div className={docustyle.container}>
       <div className={docustyle.print_document}>
-        <Header logo={logo} />
         <main className={docustyle.main_content}>
           <div className={docustyle.left_side}>
             <h1>Print Document</h1>
