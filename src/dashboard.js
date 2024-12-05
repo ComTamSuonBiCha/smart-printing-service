@@ -5,8 +5,12 @@ import printer from "./component/printer.png";
 import payment from "./component/Icon.png";
 import background from "./component/bgbk.png";
 import dbstyles from "./dashboard.module.css";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
+  const navigate = useNavigate();
+
+  const userInfo = localStorage.getItem("userInfo");
   return (
     <div className={dbstyles.container}>
       <div className={dbstyles.dashboard}>
@@ -22,7 +26,10 @@ const Dashboard = () => {
                 in HCMUT campus.
               </p>
               <div className={dbstyles.actions}>
-                <div className={dbstyles.action_item}>
+                <div
+                  onClick={() => navigate("/student")}
+                  className={dbstyles.action_item}
+                >
                   <img
                     src={user}
                     alt="User"
@@ -37,7 +44,10 @@ const Dashboard = () => {
                   <span className={dbstyles.action_arrow}>→</span>
                 </div>
 
-                <div className={dbstyles.action_item}>
+                <div
+                  className={dbstyles.action_item}
+                  onClick={() => navigate("/print")}
+                >
                   <img
                     src={printer}
                     alt="Printer"

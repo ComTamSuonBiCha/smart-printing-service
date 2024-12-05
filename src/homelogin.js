@@ -1,13 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import loginStyles from "./homelogin.module.css";
 import background from "./component/bgbk.png";
 import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const navigate = useNavigate();
-
-  const handleClick = () => {
-    navigate("/login");
+  const [isSPSO, setIsSPSO] = useState(false);
+  const handleClick = (isSPSO) => {
+    navigate("/login", { state: { isSPSO } });
   };
   return (
     <div className={loginStyles.login_page}>
@@ -15,10 +15,13 @@ const LoginPage = () => {
         <div className={loginStyles.login_left}>
           <h1>Welcome Back!</h1>
           <p>Login your account on:</p>
-          <button onClick={handleClick} className={loginStyles.btn}>
+          <button
+            onClick={() => handleClick(false)}
+            className={loginStyles.btn}
+          >
             Student/Lecturer
           </button>
-          <button onClick={handleClick} className={loginStyles.btn}>
+          <button onClick={() => handleClick(true)} className={loginStyles.btn}>
             Student Printing System Officer
           </button>
         </div>
