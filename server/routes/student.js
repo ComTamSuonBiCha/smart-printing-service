@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const authenticate = require('../middleware/authenticate');
+const authenticate = require('../middlewares/authentication');
 const studentController = require('../controllers/StudentController');
 
 router.get(
@@ -12,13 +12,13 @@ router.get(
 router.get(
     '/email/:studentEmail',
     authenticate,
-    studentController.getStudentByEmail
+    studentController.getStudentDetailByEmail
 )
 
 router.get(
     'id/:studentId/order',
     authenticate,
-    studentController.getStudentOrderById
+    studentController.getStudentOrderWithId
 )
 
 module.exports = router;

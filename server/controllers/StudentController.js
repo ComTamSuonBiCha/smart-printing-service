@@ -1,4 +1,4 @@
-const {getBalance, minusBalance, getStudentByEmail, getStudentById, getStudentOrderById, getStudentOrderById} = require('../model/StudentModel');
+const {getBalance, minusBalance, getStudentByEmail, getStudentById, getStudentOrderById} = require('../model/StudentModel');
 
 async function getStudentDetail(req, res, next) {
     try {
@@ -31,7 +31,7 @@ async function updateStudentBalance(req, res, next) {
     }
 }
 
-async function getStudentByEmail(req, res, next) {
+async function getStudentDetailByEmail(req, res, next) {
     try {
         let studentEmail = req.params.email;
         let results = await getStudentByEmail(studentEmail);
@@ -45,7 +45,7 @@ async function getStudentByEmail(req, res, next) {
     }
 }
 
-async function getStudentOrderById(req, res, next) {
+async function getStudentOrderWithId(req, res, next) {
     try {
         let studentId = req.params.id;
         let results = await getStudentOrderById(studentId);
@@ -63,6 +63,6 @@ async function getStudentOrderById(req, res, next) {
 module.exports = {
     getStudentDetail,
     updateStudentBalance,
-    getStudentByEmail,
-    getStudentOrderById
+    getStudentDetailByEmail,
+    getStudentOrderWithId
 };
