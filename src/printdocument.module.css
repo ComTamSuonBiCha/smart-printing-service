@@ -451,3 +451,67 @@ body {
   height: 100%;
   width: 100%;
 }
+
+.printer_title{
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.printer_title_description{
+  font-weight: 500;
+  color:#032b91;
+}
+
+.printer_title_item{
+  font-weight: 300;
+}
+
+.printer_title_list{
+  display: flex;
+  margin-top: 20px;
+  align-items: center;
+  
+}
+
+.red_line {
+  width: 90%;
+  height: 1px;
+  background-color: #c4c4c4;
+  align-self: center;
+  margin-top: 10px;
+}
+
+.printer_title_item_button{
+  margin-left: 172px;
+  font-weight: 400;
+  color:#ffffff;
+  background-color: #032b91;
+  padding: 0 20px;
+  height: 30px;
+  border-radius: 20px;
+  width: fit-content;
+}
+
+.printer_title_item_id{
+  margin-left: 90px;
+}
+
+.printer_title_item_location{
+  margin-left: 180px;
+}
+
+.printer_title_item_status{
+  margin-left: 170px;
+  color:#3de131;
+  font-weight: 500;
+}
+
+.printer_title_item_paper{
+  margin-left: 175px;
+}
+
+.flexing{
+  display: flex;
+  flex-direction: column;
+}
