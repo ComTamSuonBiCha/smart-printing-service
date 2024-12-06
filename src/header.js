@@ -3,6 +3,8 @@ import headerStyles from "./header.module.css";
 import logo from "./component/BachKhoaLogo.png";
 
 const Header = (props) => {
+  console.log("Header rendered with isLogin:", props.isLogin);
+
   return (
     <>
       {props.isLogin ? (
@@ -10,16 +12,19 @@ const Header = (props) => {
           <div className={headerStyles.dashboard}>
             <header className={headerStyles.header}>
               <div className={headerStyles.logo_container}>
-                <img
-                  src={logo}
-                  alt="HCMUT SPSS Logo"
-                  className={headerStyles.logo}
-                />
+                <a href="/main">
+                  <img
+                    src={logo}
+                    alt="HCMUT SPSS Logo"
+                    className={headerStyles.logo}
+                  />
+                </a>
                 <div className={headerStyles.logo_text}>
                   <span className={headerStyles.logo_line}>HCMUT</span>
                   <span className={headerStyles.logo_line}>SPSS</span>
                 </div>
               </div>
+
               <nav className={headerStyles.header_nav}>
                 <a href="/" className={headerStyles.nav_link}>
                   HOME
@@ -27,10 +32,10 @@ const Header = (props) => {
                 <a href="/print" className={headerStyles.nav_link}>
                   PRINT
                 </a>
-                <a href="#payment" className={headerStyles.nav_link}>
+                <a href="/" className={headerStyles.nav_link}>
                   PAYMENT
                 </a>
-                <a href="/history" className={headerStyles.nav_link}>
+                <a href="/student" className={headerStyles.nav_link}>
                   HISTORY
                 </a>
               </nav>
@@ -39,7 +44,12 @@ const Header = (props) => {
                 <span className={headerStyles.user_name}>
                   LE THI PHUONG THAO
                 </span>
-                <button className={headerStyles.logout_button}>LOG OUT</button>
+                <button
+                  onClick={() => props.setLogin(false)}
+                  className={headerStyles.logout_button}
+                >
+                  LOG OUT
+                </button>
               </div>
             </header>
           </div>
@@ -47,19 +57,27 @@ const Header = (props) => {
       ) : (
         <header className={headerStyles.header}>
           <div className={headerStyles.logo_container}>
-            <img
-              src={logo}
-              alt="HCMUT SPSS Logo"
-              className={headerStyles.logo}
-            />
+            <a href="/main">
+              <img
+                src={logo}
+                alt="HCMUT SPSS Logo"
+                className={headerStyles.logo}
+              />
+            </a>
             <div className={headerStyles.logo_text}>
               <span className={headerStyles.logo_line}>HCMUT</span>
               <span className={headerStyles.logo_line}>SPSS</span>
             </div>
           </div>
+
           <div className={headerStyles.header_right}>
             <span className={headerStyles.user_name}>CANCEL</span>
-            <button className={headerStyles.logout_button}>LOG OUT</button>
+            <button
+              onClick={() => props.setLogin(false)}
+              className={headerStyles.logout_button}
+            >
+              LOG OUT
+            </button>
           </div>
         </header>
       )}

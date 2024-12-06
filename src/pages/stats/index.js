@@ -1,8 +1,6 @@
 import React from "react";
-import Header from "../../header";
-import logo from "../../component/BachKhoaLogo.png";
 import styles from "./stats.module.css";
-import ChartComponent from "./DoughnutChart"; //
+import ChartComponent from "./DoughnutChart";
 import LineChart from "./LineChart";
 import PrinterList from "../printerList/printerList";
 import BlocksLayout from "./blocks/inforBlock";
@@ -33,7 +31,32 @@ const lineData = {
     },
   ],
 };
-
+const data = [
+  {
+    color: "#1967D2",
+    title: "55",
+    content: "Active User",
+    icon: require("@mui/icons-material/PersonOutline").default,
+  },
+  {
+    color: "#F9AB00",
+    title: "100",
+    content: "Transaction",
+    icon: require("@mui/icons-material/AttachMoney").default,
+  },
+  {
+    color: "#34A853",
+    title: "100",
+    content: "Active Printers",
+    icon: require("@mui/icons-material/FileCopy").default,
+  },
+  {
+    color: "#D31818",
+    title: "500",
+    content: "Print Request",
+    icon: require("@mui/icons-material/LocalPrintshop").default,
+  },
+];
 const Stats = () => {
   return (
     <div className={styles.container}>
@@ -49,7 +72,7 @@ const Stats = () => {
             <div className={styles.lineContainer}>
               <LineChart title="All Printers Statistic" data={lineData} />
             </div>
-            <BlocksLayout></BlocksLayout>
+            <BlocksLayout data={data}></BlocksLayout>
           </div>
         </main>
       </div>

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const navigate = useNavigate();
-  const [isSPSO, setIsSPSO] = useState(false);
+  const [isSPSO, setIsSPSO] = useState(true);
   const handleClick = (isSPSO) => {
     navigate("/login", { state: { isSPSO } });
   };

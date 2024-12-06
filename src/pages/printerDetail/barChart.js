@@ -10,7 +10,6 @@ import {
   Legend,
 } from "chart.js";
 
-//
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -52,7 +51,11 @@ const HorizontalBarChart = () => {
   return (
     <div>
       <h2>FileType</h2>
-      <Bar data={data} options={options} />
+      <Bar
+        data={data}
+        // @ts-ignore
+        options={options}
+      />
     </div>
   );
 };

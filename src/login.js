@@ -4,7 +4,7 @@ import illustration from "./component/image1.png";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-function Login() {
+function Login(props) {
   const location = useLocation();
   const { isSPSO } = location.state || {};
   const navigate = useNavigate();
@@ -37,6 +37,7 @@ function Login() {
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("userInfo", JSON.stringify(response.data.userInfo));
       console.log("Login successful:", response.data);
+      props.setLogin(true);
       navigate("/dashboard");
     } catch (err) {
       console.error("Login failed:", err);

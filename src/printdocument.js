@@ -225,7 +225,8 @@ function PrintDocument() {
                   src={uploadsticker}
                   alt="Sticker"
                   className={docustyle.sticker}
-                  
+                  // @ts-ignore
+                  onClick={() => document.getElementById("fileUpload").click()}
                 ></img>
                 <p className={docustyle.titleupload}>
                   UPLOAD FILE FROM YOUR BROWSER
@@ -236,10 +237,17 @@ function PrintDocument() {
                 <div className={docustyle.bottom}></div>
               </div>
               <div className={docustyle.display_button}>
-                <button className={docustyle.upload_btn} onClick={closeUploadPopup}>
+                <button
+                  className={docustyle.upload_btn}
+                  onClick={closeUploadPopup}
+                >
                   <b>CANCEL</b>
                 </button>
-                <input
+                <button
+                  className={docustyle.upload_btn}
+                  onClick={closeUploadPopup}
+                >                
+                    <input
                   type="file"
                   id="fileUpload"
                   style={{ display: "none" }}

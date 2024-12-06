@@ -17,33 +17,18 @@ const InformationBlock = ({ title, content, Icon, color }) => {
   );
 };
 
-const BlocksLayout = () => {
+const BlocksLayout = (props) => {
   return (
     <div className={styles.blocksContainer}>
-      <InformationBlock
-        color="#1967D2"
-        title="55"
-        content="Active User"
-        Icon={require("@mui/icons-material/PersonOutline").default}
-      />
-      <InformationBlock
-        color="#F9AB00"
-        title="100"
-        content="Transaction"
-        Icon={require("@mui/icons-material/AttachMoney").default}
-      />
-      <InformationBlock
-        color="#34A853"
-        title="100"
-        content="Active Printers"
-        Icon={require("@mui/icons-material/FileCopy").default}
-      />
-      <InformationBlock
-        color="#D31818"
-        title="500"
-        content="Print Request"
-        Icon={require("@mui/icons-material/LocalPrintshop").default}
-      />
+      {props.data.map((item, index) => (
+        <InformationBlock
+          key={index}
+          color={item.color}
+          title={item.title}
+          content={item.content}
+          Icon={item.icon}
+        />
+      ))}
     </div>
   );
 };

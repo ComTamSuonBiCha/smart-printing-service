@@ -24,6 +24,32 @@ const lineData = {
     },
   ],
 };
+const data = [
+  {
+    color: "#1967D2",
+    title: "55",
+    content: "Usage Frequency",
+    icon: require("@mui/icons-material/Print").default,
+  },
+  {
+    color: "#F9AB00",
+    title: "100",
+    content: "Pages Used",
+    icon: require("@mui/icons-material/RequestPage").default,
+  },
+  {
+    color: "#34A853",
+    title: "100",
+    content: "Paper Left",
+    icon: require("@mui/icons-material/Feed").default,
+  },
+  {
+    color: "#D31818",
+    title: "500",
+    content: "Account Balance",
+    icon: require("@mui/icons-material/AttachMoney").default,
+  },
+];
 const StudentInfo = () => {
   return (
     <div>
@@ -46,7 +72,7 @@ const StudentInfo = () => {
           </div>
           <div className={styles.rightLayout}>
             <LineChart title="Usage Statistic" data={lineData} />
-            <BlocksLayout></BlocksLayout>
+            <BlocksLayout data={data}></BlocksLayout>
           </div>
         </div>
       </div>

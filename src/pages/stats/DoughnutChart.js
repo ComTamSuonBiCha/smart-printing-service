@@ -1,4 +1,6 @@
 import React, { useEffect, useRef } from "react";
+import styles from "./stats.module.css";
+
 import {
   Chart,
   ArcElement,
@@ -7,6 +9,7 @@ import {
   Title,
   PieController,
 } from "chart.js";
+import { fontString } from "chart.js/helpers";
 
 Chart.register(ArcElement, Tooltip, Legend, Title, PieController);
 
@@ -28,31 +31,28 @@ const ChartComponent = ({ data }) => {
         responsive: true,
         cutout: "70%",
         plugins: {
-          title: {
-            display: true,
-            text: "Usage Chart",
-          },
-
           legend: {
             position: "right",
             labels: {
+              padding: 20,
+              font: 30,
+              usePointStyle: "true",
+              pointStyle: "circle",
               generateLabels: function (chart) {
-                const original =
-                  Chart.defaults.plugins.legend.labels.generateLabels;
-                const labels = original.call(this, chart);
-                labels.forEach((label, index) => {
-                  const dataset = chart.data.datasets[index];
-                  label.text = `${label.text}: ${dataset.data[index]}`;
-                });
-
-                return labels;
+                const data = chart.data.datasets[0]["data"];
+                const labels = chart.data.labels;
+                // @ts-ignore
+                return labels.map((label, index) => ({
+                  text: `${label}: ${data[index]}`,
+                  // @ts-ignore
+                  fillStyle: chart.data.datasets[0].backgroundColor[index],
+                }));
               },
             },
           },
         },
       },
     });
-
     return () => {
       if (chartInstance.current) {
         // @ts-ignore
@@ -60,22 +60,10 @@ const ChartComponent = ({ data }) => {
       }
     };
   }, [data]);
-
   return (
     <>
-      <canvas ref={chartRef}></canvas>
-      <div
-        id="chartjs-tooltip"
-        style={{
-          opacity: 0,
-          position: "absolute",
-          backgroundColor: "rgba(0, 0, 0, 0.8)",
-          color: "white",
-          padding: "8px",
-          borderRadius: "4px",
-          pointerEvents: "none",
-        }}
-      />
+      <h2 style={{ color: "#1967D2", marginTop: 24 }}>Usage Chart</h2>
+      <canvas className={styles.doughnut} ref={chartRef}></canvas>
     </>
   );
 };

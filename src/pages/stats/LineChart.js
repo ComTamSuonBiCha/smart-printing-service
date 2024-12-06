@@ -1,5 +1,6 @@
-// LineChart.js
 import React, { useEffect, useRef } from "react";
+import styles from "./stats.module.css";
+
 import {
   Chart,
   LineController,
@@ -8,11 +9,10 @@ import {
   Tooltip,
   Title,
   Filler,
-  CategoryScale, // Import CategoryScale for the x-axis
-  LinearScale, // Import LinearScale for the y-axis
+  CategoryScale,
+  LinearScale,
 } from "chart.js";
 
-// Register necessary components from Chart.js
 Chart.register(
   LineController,
   LineElement,
@@ -20,8 +20,8 @@ Chart.register(
   Tooltip,
   Title,
   Filler,
-  CategoryScale, // Register CategoryScale
-  LinearScale // Register LinearScale
+  CategoryScale,
+  LinearScale
 );
 
 const LineChart = (props) => {
@@ -29,16 +29,14 @@ const LineChart = (props) => {
   const chartInstance = useRef(null);
 
   useEffect(() => {
-    // Destroy the existing chart if it's there
     if (chartInstance.current) {
       // @ts-ignore
       chartInstance.current.destroy();
     }
 
-    // Create a new line chart
     // @ts-ignore
     chartInstance.current = new Chart(chartRef.current, {
-      type: "line", // This is for the line chart
+      type: "line",
       data: props.data,
       options: {
         responsive: true,
@@ -61,7 +59,7 @@ const LineChart = (props) => {
   return (
     <div>
       <h2 style={{ color: "#1967D2", marginBottom: 12 }}>{props.title}</h2>
-      <canvas ref={chartRef}></canvas>
+      <canvas className={styles.lineChart} ref={chartRef}></canvas>
     </div>
   );
 };
