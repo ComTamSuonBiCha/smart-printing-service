@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "./printerDetail.module.css";
-import Header from "../../header";
 import svg from "../../assets/printerSVG.svg";
 import lineSVG from "../../assets/lineChartSVG.svg";
 import pageSVG from "../../assets/pageSVG.svg";
@@ -8,6 +7,7 @@ import pageSVG from "../../assets/pageSVG.svg";
 import HorizontalBarChart from "./barChart";
 import LineChart from "../stats/LineChart";
 import RecentlyBlock from "./recentlyBlock";
+import { useLocation } from "react-router-dom";
 const lineData = {
   labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
   datasets: [
@@ -52,9 +52,11 @@ const UsageBlock = (props) => {
 };
 
 const PrinterDetail = () => {
+  const location = useLocation();
+  const { printerId } = location.state || {};
+
   return (
     <div>
-      <Header></Header>
       <div className={styles.printerPage}>
         <h1 style={{ color: "#032B91", fontSize: 60 }}>Summary Report</h1>
         <div className={styles.mainLayout}>
@@ -62,7 +64,7 @@ const PrinterDetail = () => {
             <div className={styles.leftTop}>
               <div className={styles.printerTag}>
                 <img src={svg}></img>
-                <div className={styles.blueBtn}>Printer1</div>
+                <div className={styles.blueBtn}>Printer{printerId}</div>
               </div>
               <div className={styles.barChart}>
                 <HorizontalBarChart></HorizontalBarChart>

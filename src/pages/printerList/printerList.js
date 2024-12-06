@@ -1,6 +1,9 @@
 import React from "react";
 import styles from "./printerList.module.css";
+import { useNavigate } from "react-router-dom";
 const PrinterLine = (props) => {
+  const printerId = props.id;
+  const navigate = useNavigate();
   return (
     <div className={styles.lineContainer}>
       <div className={styles.block}>
@@ -10,7 +13,12 @@ const PrinterLine = (props) => {
         <h3>{props.location}</h3>
       </div>
       <div className={styles.block}>
-        <button className={styles.blueBtn}>View</button>
+        <button
+          onClick={() => navigate("/printer", { state: { printerId } })}
+          className={styles.blueBtn}
+        >
+          View
+        </button>
       </div>
     </div>
   );

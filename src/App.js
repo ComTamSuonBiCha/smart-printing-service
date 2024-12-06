@@ -4,7 +4,10 @@ import { Route, Routes } from "react-router-dom";
 import Header from "./header";
 
 function App() {
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
+  const handleLogin = (val) => {
+    setIsLogin(val);
+  };
   return (
     <Routes>
       {routes.map((route, index) => {
@@ -16,8 +19,8 @@ function App() {
             path={route.path}
             element={
               <Layout>
-                <Header isLogin={isLogin} />
-                <Page />
+                <Header isLogin={isLogin} setLogin={handleLogin} />
+                <Page setLogin={handleLogin} />
               </Layout>
             }
           />

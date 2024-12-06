@@ -160,7 +160,8 @@ function PrintDocument() {
                   src={uploadsticker}
                   alt="Sticker"
                   className={docustyle.sticker}
-                  // onClick={() => document.getElementById("fileUpload").click()}
+                  // @ts-ignore
+                  onClick={() => document.getElementById("fileUpload").click()}
                 ></img>
                 <p className={docustyle.titleupload}>
                   {" "}
@@ -172,10 +173,16 @@ function PrintDocument() {
                 <div className={docustyle.bottom}></div>
               </div>
               <div className={docustyle.display_button}>
-                <button className={docustyle.upload_btn} onClick={closeUploadPopup}>
+                <button
+                  className={docustyle.upload_btn}
+                  onClick={closeUploadPopup}
+                >
                   <b>CANCEL</b>
                 </button>
-                <button className={docustyle.upload_btn} onClick={closeUploadPopup}>
+                <button
+                  className={docustyle.upload_btn}
+                  onClick={closeUploadPopup}
+                >
                   <b>UPLOAD</b>
                 </button>
               </div>

@@ -38,6 +38,7 @@ body {
 .print_document {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .main_content {

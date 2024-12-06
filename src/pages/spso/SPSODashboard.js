@@ -6,13 +6,13 @@ import book from "../../component/Book.png";
 import printer from "../../component/printer.png";
 import background from "../../component/bgbk.png";
 import dbstyles from "./SPSODashboard.module.css";
+import { useNavigate } from "react-router-dom";
 
 const SPSODashboard = () => {
+  const navigate = useNavigate();
   return (
     <div className={dbstyles.container}>
       <div className={dbstyles.dashboard}>
-        <Header logo={logo} />
-
         <main className={dbstyles.main}>
           <div className={dbstyles.welcome_row}>
             <div className={dbstyles.welcome_section}>
@@ -24,7 +24,10 @@ const SPSODashboard = () => {
                 We provide the printing service for all students and lecturers
                 in HCMUT campus.
               </p>
-              <div className={dbstyles.actions}>
+              <div
+                onClick={() => navigate("/stats")}
+                className={dbstyles.actions}
+              >
                 <div className={dbstyles.action_item}>
                   <img
                     src={user}
