@@ -15,6 +15,7 @@ function PrintDocument() {
   const [isUploadPopupOpen, setUploadPopupOpen] = useState(false); // Upload popup state
   const [isPropertiesPopupOpen, setPropertiesPopupOpen] = useState(false); // Properties popup state
 
+  const [previewUrl, setPreviewUrl] = useState(null);
   // Handlers for upload popup
   const handleUploadClick = () => setUploadPopupOpen(true);
   const closeUploadPopup = () => setUploadPopupOpen(false);
@@ -23,12 +24,63 @@ function PrintDocument() {
   const handlePropertiesClick = () => setPropertiesPopupOpen(true);
   const closePropertiesPopup = () => setPropertiesPopupOpen(false);
 
+  const [fileDetails, setFileDetails] = useState({
+    name: '',
+    size: '',
+    type: '',
+  });
+
   const handleFileChange = (event) => {
-    const file = event.target.files[0]; // Get the selected file
+    const file = event.target.files[0]; // Get the uploaded file
     if (file) {
-      console.log("Selected file:", file);
+      let count = 0;
+      let filesize = file.size; // File size in bytes
+  
+      // Calculate the appropriate size unit (B, KB, MB, etc.)
+      while (filesize > 1024) {
+        filesize = filesize / 1024;
+        count++;
+      }
+      const type = file.type.split('/')[1] || 'Unknown';
+      // Determine the size unit
+      let result;
+      if (count === 0) result = `${filesize.toFixed(2)} B`;
+      else if (count === 1) result = `${filesize.toFixed(2)} KB`;
+      else if (count === 2) result = `${filesize.toFixed(2)} MB`;
+      else if (count === 3) result = `${filesize.toFixed(2)} GB`;
+      else result = `${filesize.toFixed(2)} TB`;
+  
+      // Update file details state
+      setFileDetails({
+        name: file.name,
+        size: result, // Dynamic file size with unit
+        type: type, // Handle cases where type is undefined
+      });
+
+      const url = URL.createObjectURL(file);
+      setPreviewUrl(url); 
     }
   };
+
+  const [margins, setMargins] = useState({
+    left: 0,
+    top: 0,
+    right: 0,
+    bottom: 0,
+  });
+  
+  // Update the margin value dynamically
+  const handleMarginChange = (side, value) => {
+    setMargins((prev) => ({ ...prev, [side]: value }));
+  };
+
+  React.useEffect(() => {
+    return () => {
+      if (previewUrl) {
+        URL.revokeObjectURL(previewUrl); // Release memory
+      }
+    };
+  }, [previewUrl]);
 
   return (
     <div className={docustyle.container}>
@@ -64,19 +116,19 @@ function PrintDocument() {
                   </p>
                   <div className={docustyle.display_item}>
                     <p className={docustyle.action_desciption}>NAME</p>{" "}
-                    <div className={docustyle.info_box}></div>
+                    <div className={docustyle.info_box}>{fileDetails.name || ''}</div>
                   </div>
                   <div className={docustyle.display_item}>
                     <p className={docustyle.action_desciption}>SIZE</p>{" "}
-                    <div className={docustyle.info_box_size}></div>
+                    <div className={docustyle.info_box_size}>{fileDetails.size || ''}</div>
                     <p className={docustyle.action_desciption}>FILE TYPE</p>
-                    <div className={docustyle.info_box_size}></div>
+                    <div className={docustyle.info_box_size}>{fileDetails.type || ''}</div>
                   </div>
                   <div className={docustyle.bottom}></div>
                 </div>
               </div>
               <div className={docustyle.action_item}>
-                <div className={docustyle.display_item}>
+                <div className={docustyle.display_item} onClick={handlePropertiesClick}>
                   <img
                     src={properties}
                     alt="Properties"
@@ -127,7 +179,26 @@ function PrintDocument() {
               </button>
             </div>
           </div>
-          <div className={docustyle.right_side}></div>
+          <div className={docustyle.right_side}>
+              {previewUrl && (
+              <div className={docustyle.preview_section}>
+                {fileDetails.type.includes("image") ? (
+                  <img
+                    src={previewUrl}
+                    alt="File Preview"
+                    className={docustyle.preview_image}
+                  />
+                ) : fileDetails.type.includes("pdf") ? (
+                  <embed
+                    src={previewUrl}
+                    type="application/pdf"
+                    className={docustyle.preview_pdf}
+                  />
+                ) : (
+                  <p>Preview not available for this file type.</p>
+                )}
+              </div>)}
+              </div>    
         </main>
         {/* Popup */}
         <Popup
@@ -149,13 +220,7 @@ function PrintDocument() {
           <div>
             <h2 className={docustyle.title}>Upload File</h2>
             <div className={docustyle.outsidebox}>
-              <div className={docustyle.bluebox}>
-                <input
-                  type="file"
-                  id="fileUpload"
-                  style={{ display: "none" }}
-                  onChange={(e) => handleFileChange(e)}
-                />
+              <div className={docustyle.bluebox}>       
                 <img
                   src={uploadsticker}
                   alt="Sticker"
@@ -164,7 +229,6 @@ function PrintDocument() {
                   onClick={() => document.getElementById("fileUpload").click()}
                 ></img>
                 <p className={docustyle.titleupload}>
-                  {" "}
                   UPLOAD FILE FROM YOUR BROWSER
                 </p>
                 <p className={docustyle.description}>
@@ -182,7 +246,14 @@ function PrintDocument() {
                 <button
                   className={docustyle.upload_btn}
                   onClick={closeUploadPopup}
-                >
+                >                
+                    <input
+                  type="file"
+                  id="fileUpload"
+                  style={{ display: "none" }}
+                  onChange={(e) => handleFileChange(e)}
+                /> 
+                <button className={docustyle.upload_btn} onClick={() => document.getElementById("fileUpload").click()}>
                   <b>UPLOAD</b>
                 </button>
               </div>
@@ -245,24 +316,44 @@ function PrintDocument() {
                       <p>Top:</p>
                     </div>
                     <div className={docustyle.margin_title}>
-                      <button
+                      <input
+                        type="number"
                         className={docustyle.margin_specific_button}
-                      ></button>
-                      <button
+                        placeholder="0"
+                        min="0"
+                        value={margins.left}
+                        onChange={(e) => handleMarginChange("left", e.target.value)}
+                      />
+                      <input
+                        type="number"
                         className={docustyle.margin_specific_button}
-                      ></button>
+                        placeholder="0"
+                        min="0"
+                        value={margins.top}
+                        onChange={(e) => handleMarginChange("top", e.target.value)}
+                      />
                     </div>
                     <div className={docustyle.margin_title}>
                       <p>Right:</p>
                       <p>Bottom:</p>
                     </div>
                     <div className={docustyle.margin_title}>
-                      <button
+                    <input
+                        type="number"
                         className={docustyle.margin_specific_button}
-                      ></button>
-                      <button
+                        placeholder="0"
+                        min="0"
+                        value={margins.right}
+                        onChange={(e) => handleMarginChange("right", e.target.value)}
+                      />
+                      <input
+                        type="number"
                         className={docustyle.margin_specific_button}
-                      ></button>
+                        placeholder="0"
+                        min="0"
+                        value={margins.bottom}
+                        onChange={(e) => handleMarginChange("bottom", e.target.value)}
+                      />
                     </div>
                   </div>
                 </div>

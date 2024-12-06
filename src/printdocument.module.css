@@ -128,16 +128,18 @@ body {
 
 .info_box {
   align-content: center;
-  width: 270px;
   height: 30px;
   border-radius: 10px;
   background-color: #c4e1f6;
+  width: fit-content;
+  padding: 0 16px;
 }
 
 .info_box_size {
   margin-left: 10px;
   align-content: center;
-  width: 57px;
+  width: fit-content;
+  padding: 0 16px;
   height: 30px;
   border-radius: 10px;
   background-color: #c4e1f6;
@@ -342,6 +344,7 @@ body {
 }
 
 .margin_specific_button {
+  text-align: center;
   width: 60px;
   height: 20px;
   margin-left: 5px;
@@ -437,4 +440,14 @@ body {
   font-weight: 700;
   display: block; /* Ensure it behaves as a block element */
   margin-left: auto;
+}
+
+.preview_section{
+  height: 100%;
+  width: 100%;
+}
+
+.preview_pdf{
+  height: 100%;
+  width: 100%;
 }
