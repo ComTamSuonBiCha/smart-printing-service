@@ -76,7 +76,7 @@ const Header = (props) => {
               onClick={() => props.setLogin(false)}
               className={headerStyles.logout_button}
             >
-              LOG OUT
+              LOG IN
             </button>
           </div>
         </header>
