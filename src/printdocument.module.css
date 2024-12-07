@@ -458,7 +458,7 @@ body {
 
 
 .scrollable_container {
-  max-height: 400px; /* Adjust this to your desired height */
+  max-height: 70%; /* Adjust this to your desired height */
   overflow-y: auto; /* Enable vertical scrolling */
   overflow-x: hidden; /* Prevent horizontal scrolling */
   
@@ -548,16 +548,21 @@ body {
 }
 
 .grid_button {
-  
   background-color: #032b91;
   color: white;
   padding: 10px 0px;
-  width: 150px;
+  width: 100px;
   border-radius: 15px;
   text-align: center;
   align-self: center;
   border: none;
   cursor: pointer;
+}
+
+.selected_button{
+  outline: none;
+  background-color:#ffffff;
+  color:#032b91;
 }
 
 .grid_button:hover {
@@ -575,7 +580,17 @@ body {
   background-color: #032b91;
   color: #ffffff;
   border-radius: 20px;
-  width: 40px;
+  width: 150px;
   height: 30px;
-  margin-left: auto;
+  margin-top: 20px;
+}
+
+.parent_container {
+  display: flex;
+  justify-content: flex-end; /* Align the button to the right */
+  align-items: center;
+  position: absolute; /* Position it inside the popup */
+  bottom: 20px; /* Distance from the bottom of the popup */
+  right: 20px; /* Distance from the right of the popup */
+  width: calc(100% - 40px); /* Ensure padding is accounted for */
 }

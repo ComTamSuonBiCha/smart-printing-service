@@ -31,7 +31,9 @@ function PrintDocument() {
       { id: "Printer#4", location: "C6 - 103", status: "Available", paper: 696 },
       { id: "Printer#5", location: "Library", status: "Available", paper: 255 },
       { id: "Printer#6", location: "C5 - 301", status: "Available", paper: 400 },
-      { id: "Printer#7", location: "B1 - 202", status: "Available", paper: 555 }
+      { id: "Printer#7", location: "B6 - 402", status: "Available", paper: 555 },
+      { id: "Printer#8", location: "B1 - 202", status: "Available", paper: 555 },
+      { id: "Printer#9", location: "B1 - 202", status: "Available", paper: 555 },
     ];
   
     const handleChoosePrinterClick = (id, location) => {
@@ -495,87 +497,21 @@ function PrintDocument() {
                 <div className={docustyle.status_available}>Available</div>
                 <div className={docustyle.grid_item}>{printer.paper}</div>
                 <div className={docustyle.grid_item}>
-                <button className={docustyle.grid_button} onClick={() =>
-                    handleChoosePrinterClick(printer.id, printer.location)
-                  }>Select</button>
+                <button className={
+                  selectedPrinter.id === printer.id
+                ? `${docustyle.grid_button} ${docustyle.selected_button}`
+                    : docustyle.grid_button
+                    } onClick={() =>
+                    handleChoosePrinterClick(printer.id, printer.location)}
+                  >Select</button>
                 </div>
             </div>
             ))}
-            {printers.map((printer, index) => (
-            <div className={docustyle.grid_row} key={index}>       
-                <div className={docustyle.grid_item}>{printer.id}</div>
-                <div className={docustyle.grid_item}>{printer.location}</div>
-                <div className={docustyle.status_available}>Available</div>
-                <div className={docustyle.grid_item}>{printer.paper}</div>
-                <div className={docustyle.grid_item}>
-                <button className={docustyle.grid_button} onClick={() =>
-                    handleChoosePrinterClick(printer.id, printer.location)
-                  }>Select</button>
-                </div>
-            </div>
-          ))}
-            <div className={docustyle.grid_row}>
-              <div className={docustyle.grid_item}>Printer#2</div>
-              <div className={docustyle.grid_item}>B4 - 202</div>
-              <div className={docustyle.status_available}>Available</div>
-              <div className={docustyle.grid_item}>155</div>
-              <div className={docustyle.grid_item}>
-              <button className={docustyle.grid_button}>Select</button>
-              </div>
-            </div>
-
-            <div className={docustyle.grid_row}>
-              <div className={docustyle.grid_item}>Printer#2</div>
-              <div className={docustyle.grid_item}>B4 - 202</div>
-              <div className={docustyle.status_available}>Available</div>
-              <div className={docustyle.grid_item}>155</div>
-              <div className={docustyle.grid_item}>
-              <button className={docustyle.grid_button}>Select</button>
-              </div>
-            </div>
-
-            <div className={docustyle.grid_row}>
-              <div className={docustyle.grid_item}>Printer#2</div>
-              <div className={docustyle.grid_item}>B4 - 202</div>
-              <div className={docustyle.status_available}>Available</div>
-              <div className={docustyle.grid_item}>155</div>
-              <div className={docustyle.grid_item}>
-              <button className={docustyle.grid_button}>Select</button>
-              </div>
-            </div>
-
-            <div className={docustyle.grid_row}>
-              <div className={docustyle.grid_item}>Printer#2</div>
-              <div className={docustyle.grid_item}>B4 - 202</div>
-              <div className={docustyle.status_available}>Available</div>
-              <div className={docustyle.grid_item}>155</div>
-              <div className={docustyle.grid_item}>
-              <button className={docustyle.grid_button}>Select</button>
-              </div>
-            </div>
-
-            <div className={docustyle.grid_row}>
-              <div className={docustyle.grid_item}>Printer#2</div>
-              <div className={docustyle.grid_item}>B4 - 202</div>
-              <div className={docustyle.status_available}>Available</div>
-              <div className={docustyle.grid_item}>155</div>
-              <div className={docustyle.grid_item}>
-              <button className={docustyle.grid_button}>Select</button>
-              </div>
-            </div>
-
-            <div className={docustyle.grid_row}>
-              <div className={docustyle.grid_item}>Printer#2</div>
-              <div className={docustyle.grid_item}>B4 - 202</div>
-              <div className={docustyle.status_available}>Available</div>
-              <div className={docustyle.grid_item}>155</div>
-              <div className={docustyle.grid_item}>
-              <button className={docustyle.grid_button}>Select</button>
-              </div>
-            </div>
             </div>
           </div>
-          <button className={docustyle.done_choose}>DONE</button>
+          <div className={docustyle.parent_container}>
+            <button className={docustyle.done_choose} onClick={closeChoosePopup}>DONE</button>
+          </div>
         </Popup>
       </div>
     </div>
