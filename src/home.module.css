@@ -1,23 +1,25 @@
 /* Main container */
 /* .hero_container {
-    font-family: Arial, sans-serif;
+    font-family: 'Rubik';
     color: #000;
     display: flex;
     flex-direction: column;
     align-items: center;
     background: linear-gradient(to bottom, #ffffff, #e6f0ff);
     height: 100vh;
-  }
+    position:relative;
+    overflow: hidden;
+  } */
 
-  .hero_header {
+  /* .hero_header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
     padding: 20px 50px;
     background-color: #002d80;
-  } */
-  
+  } 
+   */
   .logo_container {
     display: flex;
     align-items: center;
@@ -64,10 +66,10 @@
   }
   
   .hero_title {
-    font-size: 48px;
+    font-size: 70px;
     font-weight: bold;
     font-family: 'MyFont';
-    font-size: 70px;
+    /* font-size: 70px; */
   }
   
   .hero_subtitle {
@@ -102,16 +104,17 @@
    */
   /* Main container */
 .hero_container {
-    font-family: Arial, sans-serif;
+    font-family: 'Rubik';
     color: #000;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center; /* Center the content vertically */
     background: linear-gradient(to bottom, #ffffff, #e6f0ff);
-    height: 100vh;
+    height: auto;
+    min-height: 100vh;
     position: relative; /* Enable relative positioning for child elements */
-    overflow: hidden; /* Ensure no overflow */
+    overflow: visible; /* Ensure no overflow */
   }
   
   /* Hero content styles */
@@ -129,23 +132,25 @@
   .hero_background {
     position: absolute;
     bottom: 0;
-    width: 100%;
-    height: 100%; /* Cover the full container height */
+    width: 100%; /* Ensure it covers the full width of the container */
+    height: auto; /* Allow height to adjust based on the wave content */
+    min-height: 100vh; /* Ensure the background is tall enough to fit the waves */
     z-index: 1; /* Place behind the content */
-    background-size: 100% 75%;
-    right: 0;
-    overflow: visible;
+    background-size: cover; /* Properly scale the background images */
+    background-repeat: no-repeat; /* Avoid repeated waves */
+    /*overflow: hidden; /* Prevent any overflow */
   }
   
   .wave1 {
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: 60%; /* Adjust the height of the first wave */
-    background: url("./component/wave.png") no-repeat center;
-    background-size: cover;
+    height: 70%; /* Adjust the height of the first wave */
+    background: url("./component/wavewave.png") no-repeat center;
+    background-size: contain;
     z-index: 2; /* Ensure it is on top of wave2 */
     opacity: 0.8;
+    border-radius: 30px;
   }
   
   /* Second wave image */
@@ -153,9 +158,10 @@
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: 70%; /* Adjust the height of the second wave */
-    background: url("./component/wavebg.png") no-repeat center;
-    background-size: cover;
+    height: 80%; /* Adjust the height of the second wave */
+    background: url("./component/ww2.png") no-repeat center;
+    background-size: contain;
     z-index: 1; /* Ensure it is behind wave1 */
     opacity: 0.6;
+    border-radius: 30px;
   }
