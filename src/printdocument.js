@@ -10,12 +10,33 @@ import onepage from "./component/onepage.png";
 import twopages from "./component/twopages.png";
 import fourpages from "./component/fourpages.png";
 import sixpages from "./component/sixpages.png";
+import printerlist from "./component/printer_list_icon.png";
 
 function PrintDocument() {
   const [isUploadPopupOpen, setUploadPopupOpen] = useState(false); // Upload popup state
   const [isPropertiesPopupOpen, setPropertiesPopupOpen] = useState(false); // Properties popup state
   const [isChoosePopupOpen, setChoosePopupOpen] = useState(false); // Properties popup state
 
+
+ 
+    const [selectedPrinter, setSelectedPrinter] = useState({
+      id: "",
+      location: "",
+    });
+  
+    const printers = [
+      { id: "Printer#1", location: "A4 - 504", status: "Available", paper: 230 },
+      { id: "Printer#2", location: "B4 - 202", status: "Available", paper: 155 },
+      { id: "Printer#3", location: "C4 - 403", status: "Available", paper: 505 },
+      { id: "Printer#4", location: "C6 - 103", status: "Available", paper: 696 },
+      { id: "Printer#5", location: "Library", status: "Available", paper: 255 },
+      { id: "Printer#6", location: "C5 - 301", status: "Available", paper: 400 },
+      { id: "Printer#7", location: "B1 - 202", status: "Available", paper: 555 }
+    ];
+  
+    const handleChoosePrinterClick = (id, location) => {
+      setSelectedPrinter({ id, location }); // Update the selected printer
+    };
   const [previewUrl, setPreviewUrl] = useState(null);
   // Handlers for upload popup
   const handleUploadClick = () => setUploadPopupOpen(true);
@@ -173,8 +194,8 @@ function PrintDocument() {
                   <p className={docustyle.action_desciption}>Location</p>
                 </div>
                 <div className={docustyle.display_item}>
-                  <div className={docustyle.info_box_printer}></div>
-                  <div className={docustyle.info_box_location}></div>
+                  <div className={docustyle.info_box_printer}>{selectedPrinter.id}</div>
+                  <div className={docustyle.info_box_location}>{selectedPrinter.location}</div>
                 </div>
                 <div className={docustyle.bottom}></div>
               </div>
@@ -458,71 +479,103 @@ function PrintDocument() {
           }}
         >
           <h2 className={docustyle.title}>Printer List</h2>
-          <div className={docustyle.flexing}>
-            <div className={docustyle.printer_title}>
-              <p className={docustyle.printer_title_description}>Printer ID</p>
-              <p className={docustyle.printer_title_description}>Location</p>
-              <p className={docustyle.printer_title_description}>Status</p>
-              <p className={docustyle.printer_title_description}>Paper</p>
-              <p className={docustyle.printer_title_description}>Select</p>
+          <div className={docustyle.grid_container_header}>
+            <div className={docustyle.grid_header}>Printer ID</div>
+            <div className={docustyle.grid_header}>Location</div>
+            <div className={docustyle.grid_header}>Status</div>
+            <div className={docustyle.grid_header}>Paper</div>
+            <div className={docustyle.grid_header}>Select</div>
             </div>
-            <div className={docustyle.printer_title_list}>
-              <p className={docustyle.printer_title_item_id}>Printer#1</p>
-              <p className={docustyle.printer_title_item_location}>A4 - 504</p>
-              <p className={docustyle.printer_title_item_status}>Available</p>
-              <p className={docustyle.printer_title_item_paper}>230</p>
-              <button className={docustyle.printer_title_item_button}>Select</button>   
+          <div className={docustyle.scrollable_container}>
+          <div className={docustyle.grid_container}>
+            {printers.map((printer, index) => (
+            <div className={docustyle.grid_row} key={index}>       
+                <div className={docustyle.grid_item}>{printer.id}</div>
+                <div className={docustyle.grid_item}>{printer.location}</div>
+                <div className={docustyle.status_available}>Available</div>
+                <div className={docustyle.grid_item}>{printer.paper}</div>
+                <div className={docustyle.grid_item}>
+                <button className={docustyle.grid_button} onClick={() =>
+                    handleChoosePrinterClick(printer.id, printer.location)
+                  }>Select</button>
+                </div>
             </div>
-            <div className={docustyle.red_line}></div>
-            <div className={docustyle.printer_title_list}>
-              <p className={docustyle.printer_title_item_id}>Printer#1</p>
-              <p className={docustyle.printer_title_item_location}>A4 - 504</p>
-              <p className={docustyle.printer_title_item_status}>Available</p>
-              <p className={docustyle.printer_title_item_paper}>230</p>
-              <button className={docustyle.printer_title_item_button}>Select</button>   
+            ))}
+            {printers.map((printer, index) => (
+            <div className={docustyle.grid_row} key={index}>       
+                <div className={docustyle.grid_item}>{printer.id}</div>
+                <div className={docustyle.grid_item}>{printer.location}</div>
+                <div className={docustyle.status_available}>Available</div>
+                <div className={docustyle.grid_item}>{printer.paper}</div>
+                <div className={docustyle.grid_item}>
+                <button className={docustyle.grid_button} onClick={() =>
+                    handleChoosePrinterClick(printer.id, printer.location)
+                  }>Select</button>
+                </div>
             </div>
-            <div className={docustyle.red_line}></div>
-            <div className={docustyle.printer_title_list}>
-              <p className={docustyle.printer_title_item_id}>Printer#1</p>
-              <p className={docustyle.printer_title_item_location}>A4 - 504</p>
-              <p className={docustyle.printer_title_item_status}>Available</p>
-              <p className={docustyle.printer_title_item_paper}>230</p>
-              <button className={docustyle.printer_title_item_button}>Select</button>   
+          ))}
+            <div className={docustyle.grid_row}>
+              <div className={docustyle.grid_item}>Printer#2</div>
+              <div className={docustyle.grid_item}>B4 - 202</div>
+              <div className={docustyle.status_available}>Available</div>
+              <div className={docustyle.grid_item}>155</div>
+              <div className={docustyle.grid_item}>
+              <button className={docustyle.grid_button}>Select</button>
+              </div>
             </div>
-            <div className={docustyle.red_line}></div>
-            <div className={docustyle.printer_title_list}>
-              <p className={docustyle.printer_title_item_id}>Printer#1</p>
-              <p className={docustyle.printer_title_item_location}>A4 - 504</p>
-              <p className={docustyle.printer_title_item_status}>Available</p>
-              <p className={docustyle.printer_title_item_paper}>230</p>
-              <button className={docustyle.printer_title_item_button}>Select</button>   
+
+            <div className={docustyle.grid_row}>
+              <div className={docustyle.grid_item}>Printer#2</div>
+              <div className={docustyle.grid_item}>B4 - 202</div>
+              <div className={docustyle.status_available}>Available</div>
+              <div className={docustyle.grid_item}>155</div>
+              <div className={docustyle.grid_item}>
+              <button className={docustyle.grid_button}>Select</button>
+              </div>
             </div>
-            <div className={docustyle.red_line}></div>
-            <div className={docustyle.printer_title_list}>
-              <p className={docustyle.printer_title_item_id}>Printer#1</p>
-              <p className={docustyle.printer_title_item_location}>A4 - 504</p>
-              <p className={docustyle.printer_title_item_status}>Available</p>
-              <p className={docustyle.printer_title_item_paper}>230</p>
-              <button className={docustyle.printer_title_item_button}>Select</button>   
+
+            <div className={docustyle.grid_row}>
+              <div className={docustyle.grid_item}>Printer#2</div>
+              <div className={docustyle.grid_item}>B4 - 202</div>
+              <div className={docustyle.status_available}>Available</div>
+              <div className={docustyle.grid_item}>155</div>
+              <div className={docustyle.grid_item}>
+              <button className={docustyle.grid_button}>Select</button>
+              </div>
             </div>
-            <div className={docustyle.red_line}></div>
-            <div className={docustyle.printer_title_list}>
-              <p className={docustyle.printer_title_item_id}>Printer#1</p>
-              <p className={docustyle.printer_title_item_location}>A4 - 504</p>
-              <p className={docustyle.printer_title_item_status}>Available</p>
-              <p className={docustyle.printer_title_item_paper}>230</p>
-              <button className={docustyle.printer_title_item_button}>Select</button>   
+
+            <div className={docustyle.grid_row}>
+              <div className={docustyle.grid_item}>Printer#2</div>
+              <div className={docustyle.grid_item}>B4 - 202</div>
+              <div className={docustyle.status_available}>Available</div>
+              <div className={docustyle.grid_item}>155</div>
+              <div className={docustyle.grid_item}>
+              <button className={docustyle.grid_button}>Select</button>
+              </div>
             </div>
-            <div className={docustyle.red_line}></div>
-            <div className={docustyle.printer_title_list}>
-              <p className={docustyle.printer_title_item_id}>Printer#1</p>
-              <p className={docustyle.printer_title_item_location}>A4 - 504</p>
-              <p className={docustyle.printer_title_item_status}>Available</p>
-              <p className={docustyle.printer_title_item_paper}>230</p>
-              <button className={docustyle.printer_title_item_button}>Select</button>   
+
+            <div className={docustyle.grid_row}>
+              <div className={docustyle.grid_item}>Printer#2</div>
+              <div className={docustyle.grid_item}>B4 - 202</div>
+              <div className={docustyle.status_available}>Available</div>
+              <div className={docustyle.grid_item}>155</div>
+              <div className={docustyle.grid_item}>
+              <button className={docustyle.grid_button}>Select</button>
+              </div>
             </div>
-            <div className={docustyle.red_line}></div>
+
+            <div className={docustyle.grid_row}>
+              <div className={docustyle.grid_item}>Printer#2</div>
+              <div className={docustyle.grid_item}>B4 - 202</div>
+              <div className={docustyle.status_available}>Available</div>
+              <div className={docustyle.grid_item}>155</div>
+              <div className={docustyle.grid_item}>
+              <button className={docustyle.grid_button}>Select</button>
+              </div>
+            </div>
+            </div>
           </div>
+          <button className={docustyle.done_choose}>DONE</button>
         </Popup>
       </div>
     </div>
