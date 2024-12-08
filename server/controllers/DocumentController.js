@@ -9,7 +9,7 @@ async function insertDocument(req, res) {
             no_of_pages: req.body.no_of_pages
         };
         let result = await addDocument(document);
-        res.json(result);
+        return result[0].insertId;
     }
     catch (err) {
         console.error(err);

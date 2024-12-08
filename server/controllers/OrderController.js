@@ -1,11 +1,12 @@
+const { addDocument } = require('../model/DocumentModel');
 const {insertOrder, getFileType} = require('../model/OrderModel');
 const {insertDocument} = require('./DocumentController');
 async function addOrder(req, res, next) {
     try {
         let order = req.body;
-        let documentId = await insertDocument(order.file);
+        let documentId = await addDocument(order.file);
         let studentId = req.params.id;
-        let printerId = order.printerId;
+        let printerId = order.printer_id;
         let results = await insertOrder(documentId, studentId, printerId, order);
         res.json(results);
     }

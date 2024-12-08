@@ -2,8 +2,9 @@ const db = require('../db/database');
 
 async function insertOrder(documentId, studentId, printerId, order) {
     try {
-        const [result,_] = await db.execute('INSERT INTO print_orders (student_id, file_id, printer_id, time, side, no_of_copies, pages_per_sheet, orientation, page_size, left_margin, right_margin, bottom_margin, page_from, page_to) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', 
-            [studentId, documentId, printerId, order.time, order.side, order.no_of_copies, order.pages_per_sheet, order.orientation, order.page_size, order.left_margin, order.right_margin, order.bottom_margin, order.page_from, order.page_to]);
+        console.log(order);
+        const results = await db.execute('INSERT INTO print_orders (student_id, `file_id`, printer_id, `time`, side, no_of_copies, pages_per_sheet, orientation, page_size, left_margin, right_margin, top_margin, bottom_margin, page_from, page_to) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', 
+            [studentId, documentId, printerId, order.time, order.side, order.no_of_copies, order.pages_per_sheet, order.orientation, order.page_size, order.left_margin, order.right_margin,order.top_margin, order.bottom_margin, order.page_from, order.page_to]);
         return {
             status: "Success"
         }

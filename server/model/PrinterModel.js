@@ -1,4 +1,3 @@
-const { getPrinters } = require('../controllers/PrinterController');
 const db = require('../db/database');
 
 async function showPrinter(){

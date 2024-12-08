@@ -105,12 +105,12 @@ add constraint foreign key (student_id) references students(student_id),
 add constraint foreign key (`file_id`) references documents(`file_id`),
 add constraint foreign key (printer_id) references printers(printer_id);
 
-insert into students(student_email, student_name, student_password) VALUES
-('lytuanloc@gmail.com','Ly Tuan Loc','123456'),
-('lytrieuuy@gmail.com','Ly Trieu Uy','123456'),
-('nguyenanhkhoa@gmail.com','Ly Tuan Loc','123456'),
-('lethiphuongthao@gmail.com','Ly Tuan Loc','123456'),
-('lequangcuong@gmail.com','Ly Tuan Loc','123456');
+insert into students(student_email, student_name, student_password, paper_balance) VALUES
+('lytuanloc@gmail.com','Ly Tuan Loc','123456', 1000),
+('lytrieuuy@gmail.com','Ly Trieu Uy','123456', 1000),
+('nguyenanhkhoa@gmail.com','Ly Tuan Loc','123456',0),
+('lethiphuongthao@gmail.com','Ly Tuan Loc','123456',0),
+('lequangcuong@gmail.com','Ly Tuan Loc','123456',0);
 
 insert into spso(spso_name, spso_password) VALUES
 ('admin1','123456'),
@@ -269,12 +269,12 @@ for each row
 begin
 	declare num_pages_use int;
     
-    select no_of_pages into num_pages_use
+    select d.no_of_pages into num_pages_use
     from documents d
     where d.file_id = new.`file_id`;
     
     update printers p
-    set paper_left = paper_left - num_pages_uses
+    set paper_left = paper_left - num_pages_use
     where p.printer_id = new.printer_id;
 end //
 delimiter ;
