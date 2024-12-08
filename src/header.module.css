@@ -40,12 +40,12 @@ body {
 .logo_container {
   display: flex;
   align-items: center;
-  gap: 40px;
+  gap: 10px;
 }
 
 .logo {
-  height: 40px;
-  margin-right: 10px;
+  height: 50px;
+  margin-right: 0px;
 }
 
 .logo_line {
@@ -58,7 +58,7 @@ body {
   flex-direction: column; /* Stack "HCMUT" and "SPSS" vertically */
   justify-content: center; /* Center text relative to logo */
   line-height: 1.2; /* Adjust spacing between "HCMUT" and "SPSS" */
-  text-align: left; /* Ensure the text aligns properly */
+  text-align: center; /* Ensure the text aligns properly */
 }
 .header_title {
   font-size: 1.2rem;
@@ -102,8 +102,8 @@ body {
   background-color: white;
   color: #032b91;
   border: none;
-  padding: 15px 40px;
-  width: 150px;
+  padding: 10px 20px;
+  width: 120px;
   border-radius: 20px;
   font-weight: bold;
   cursor: pointer;
