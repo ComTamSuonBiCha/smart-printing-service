@@ -101,7 +101,15 @@ function PrintDocument() {
   const [previewUrl, setPreviewUrl] = useState(null);
 
   const handleUploadClick = () => setUploadPopupOpen(true);
-  const closeUploadPopup = () => setUploadPopupOpen(false);
+  const closeUploadPopup = (clearFile = false) => {
+    if (clearFile) {
+      setFileDetails({ name: "", size: "", type: "" });
+      setPreviewUrl(null);
+    }
+    setUploadPopupOpen(false);
+  };
+
+  
 
   const handlePropertiesClick = () => setPropertiesPopupOpen(true);
   const closePropertiesPopup = () => setPropertiesPopupOpen(false);
@@ -134,32 +142,42 @@ function PrintDocument() {
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
+      const allowedTypes = ["application/pdf", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet","application/vnd.ms-excel"];
+      
+      if (!allowedTypes.includes(file.type)) {
+        alert("Only .docx, .xlsx, .xls and .pdf files are allowed.");
+        return;
+      }
+  
       let count = 0;
       let filesize = file.size;
       while (filesize > 1024) {
         filesize = filesize / 1024;
         count++;
       }
-      const type = file.type.split("/")[1] || "Unknown";
+      let type = file.type.split("/")[1] || "Unknown";
+      if(type === "vnd.openxmlformats-officedocument.wordprocessingml.document") type = "docx";
+      else if(type === "vnd.openxmlformats-officedocument.spreadsheetml.sheet") type = "xlsx";
+      else if(type === "vnd.ms-excel") type = "xls";
+
+
       let result;
       if (count === 0) result = `${filesize.toFixed(2)} B`;
       else if (count === 1) result = `${filesize.toFixed(2)} KB`;
       else if (count === 2) result = `${filesize.toFixed(2)} MB`;
       else if (count === 3) result = `${filesize.toFixed(2)} GB`;
       else result = `${filesize.toFixed(2)} TB`;
-
+  
       setFileDetails({
         name: file.name,
         size: result,
         type: type,
       });
-
+  
       const url = URL.createObjectURL(file);
-      // @ts-ignore
       setPreviewUrl(url);
     }
   };
-
   const [margins, setMargins] = useState({
     left: 0,
     top: 0,
@@ -341,10 +359,17 @@ function PrintDocument() {
             <h2 className={docustyle.title}>Upload File</h2>
             <div className={docustyle.outsidebox}>
               <div className={docustyle.bluebox}>
+                <input
+                  type="file"
+                  id="fileUpload"
+                  style={{ display: "none" }}
+                  onChange={(e) => handleFileChange(e)}
+                />
                 <img
                   src={uploadsticker}
                   alt="Sticker"
                   className={docustyle.sticker}
+                  onClick={() => document.getElementById("fileUpload").click()}
                 ></img>
                 <p className={docustyle.titleupload}>
                   UPLOAD FILE FROM YOUR BROWSER
@@ -357,20 +382,16 @@ function PrintDocument() {
               <div className={docustyle.display_button}>
                 <button
                   className={docustyle.upload_btn}
-                  onClick={closeUploadPopup}
+                  onClick={() => closeUploadPopup(true)}
                 >
                   <b>CANCEL</b>
                 </button>
-                <input
-                  type="file"
-                  id="fileUpload"
-                  style={{ display: "none" }}
-                  onChange={(e) => handleFileChange(e)}
-                />
+                
                 <button
                   className={docustyle.upload_btn}
                   // @ts-ignore
-                  onClick={() => document.getElementById("fileUpload").click()}
+                  disabled={!fileDetails.name}
+                  onClick={() => closeUploadPopup(false)}
                 >
                   <b>UPLOAD</b>
                 </button>
