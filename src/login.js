@@ -10,10 +10,12 @@ function Login(props) {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    student_email: "",
-    password: "",
+    spso_name: isSPSO ? "" : undefined,
+    spso_password: isSPSO ? "" : undefined,
+    student_email: !isSPSO ? "" : undefined,
+    student_password: !isSPSO ? "" : undefined,
   });
-  const [loading, setLoading] = useState(false);
+
   const [error, setError] = useState("");
 
   const handleInputChange = (e) => {
@@ -26,23 +28,30 @@ function Login(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
     setError("");
+    console.log("Form Data: ", formData);
 
     try {
       const response = await axios.post(
-        "https://localhost:8081/login",
+        isSPSO
+          ? "http://192.168.1.52:5000/api/user/login/spso"
+          : "http://192.168.1.52:5000/api/user/login/student",
         formData
       );
+
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("userInfo", JSON.stringify(response.data.userInfo));
       console.log("Login successful:", response.data);
       props.setLogin(true);
-      navigate("/dashboard");
+      navigate(isSPSO ? "/spso" : "/main");
     } catch (err) {
       console.error("Login failed:", err);
-      setError("Invalid credentials or something went wrong.");
-    } finally {
+
+      if (err.response && err.response.data.message) {
+        setError(err.response.data.message);
+      } else {
+        setError("Invalid credentials or something went wrong.");
+      }
     }
   };
 
@@ -60,28 +69,60 @@ function Login(props) {
         <div className={loginStyles.LoginForm}>
           <h2 className={loginStyles.LoginHeader}>Login Account</h2>
           <form onSubmit={handleSubmit}>
-            <div className={loginStyles.FormGroup}>
-              <label htmlFor="student_email">Username</label>
-              <input
-                type="text"
-                id="student_email"
-                placeholder="Username"
-                value={formData.student_email}
-                onChange={handleInputChange}
-                required
-              />
-            </div>
-            <div className={loginStyles.FormGroup}>
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                id="password"
-                placeholder="Password"
-                value={formData.password}
-                onChange={handleInputChange}
-                required
-              />
-            </div>
+            {!isSPSO && (
+              <>
+                <div className={loginStyles.FormGroup}>
+                  <label htmlFor="student_email">Username</label>
+                  <input
+                    type="text"
+                    id="student_email"
+                    placeholder="Username"
+                    value={formData.student_email}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
+                <div className={loginStyles.FormGroup}>
+                  <label htmlFor="student_password">Password</label>
+                  <input
+                    type="password"
+                    id="student_password"
+                    placeholder="Password"
+                    value={formData.student_password}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
+              </>
+            )}
+
+            {isSPSO && (
+              <>
+                <div className={loginStyles.FormGroup}>
+                  <label htmlFor="spso_name">SPSO Name</label>
+                  <input
+                    type="text"
+                    id="spso_name"
+                    placeholder="SPSO Name"
+                    value={formData.spso_name}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
+                <div className={loginStyles.FormGroup}>
+                  <label htmlFor="spso_password">SPSO Password</label>
+                  <input
+                    type="password"
+                    id="spso_password"
+                    placeholder="SPSO Password"
+                    value={formData.spso_password}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
+              </>
+            )}
+
             <div className={loginStyles.FormOptions}>
               <label>
                 <input type="checkbox" /> Remember your account
@@ -90,12 +131,9 @@ function Login(props) {
                 Forgot your password?
               </a>
             </div>
-            <button
-              type="submit"
-              className={loginStyles.LoginButton}
-              disabled={loading}
-            >
-              <b>{loading ? "LOADING..." : "LOG IN"}</b>
+
+            <button type="submit" className={loginStyles.LoginButton}>
+              <b>LOG IN</b>
             </button>
             {error && <p className={loginStyles.ErrorMessage}>{error}</p>}
           </form>
