@@ -10,41 +10,37 @@ import onepage from "./component/onepage.png";
 import twopages from "./component/twopages.png";
 import fourpages from "./component/fourpages.png";
 import sixpages from "./component/sixpages.png";
-import printerlist from "./component/printer_list_icon.png";
 
 function PrintDocument() {
   const [isUploadPopupOpen, setUploadPopupOpen] = useState(false); // Upload popup state
   const [isPropertiesPopupOpen, setPropertiesPopupOpen] = useState(false); // Properties popup state
   const [isChoosePopupOpen, setChoosePopupOpen] = useState(false); // Properties popup state
 
+  const [selectedPrinter, setSelectedPrinter] = useState({
+    id: "",
+    location: "",
+  });
 
- 
-    const [selectedPrinter, setSelectedPrinter] = useState({
-      id: "",
-      location: "",
-    });
-  
-    const printers = [
-      { id: "Printer#1", location: "A4 - 504", status: "Available", paper: 230 },
-      { id: "Printer#2", location: "B4 - 202", status: "Available", paper: 155 },
-      { id: "Printer#3", location: "C4 - 403", status: "Available", paper: 505 },
-      { id: "Printer#4", location: "C6 - 103", status: "Available", paper: 696 },
-      { id: "Printer#5", location: "Library", status: "Available", paper: 255 },
-      { id: "Printer#6", location: "C5 - 301", status: "Available", paper: 400 },
-      { id: "Printer#7", location: "B6 - 402", status: "Available", paper: 555 },
-      { id: "Printer#8", location: "B1 - 202", status: "Available", paper: 555 },
-      { id: "Printer#9", location: "B1 - 202", status: "Available", paper: 555 },
-    ];
-  
-    const handleChoosePrinterClick = (id, location) => {
-      setSelectedPrinter({ id, location }); // Update the selected printer
-    };
+  const printers = [
+    { id: "Printer#1", location: "A4 - 504", status: "Available", paper: 230 },
+    { id: "Printer#2", location: "B4 - 202", status: "Available", paper: 155 },
+    { id: "Printer#3", location: "C4 - 403", status: "Available", paper: 505 },
+    { id: "Printer#4", location: "C6 - 103", status: "Available", paper: 696 },
+    { id: "Printer#5", location: "Library", status: "Available", paper: 255 },
+    { id: "Printer#6", location: "C5 - 301", status: "Available", paper: 400 },
+    { id: "Printer#7", location: "B6 - 402", status: "Available", paper: 555 },
+    { id: "Printer#8", location: "B1 - 202", status: "Available", paper: 555 },
+    { id: "Printer#9", location: "B1 - 202", status: "Available", paper: 555 },
+  ];
+
+  const handleChoosePrinterClick = (id, location) => {
+    setSelectedPrinter({ id, location });
+  };
   const [previewUrl, setPreviewUrl] = useState(null);
-  // Handlers for upload popup
+
   const handleUploadClick = () => setUploadPopupOpen(true);
   const closeUploadPopup = () => setUploadPopupOpen(false);
 
-  // Handlers for properties popup
   const handlePropertiesClick = () => setPropertiesPopupOpen(true);
   const closePropertiesPopup = () => setPropertiesPopupOpen(false);
 
@@ -52,9 +48,9 @@ function PrintDocument() {
   const closeChoosePopup = () => setChoosePopupOpen(false);
 
   const [fileDetails, setFileDetails] = useState({
-    name: '',
-    size: '',
-    type: '',
+    name: "",
+    size: "",
+    type: "",
   });
 
   const handleFileChange = (event) => {
@@ -62,13 +58,13 @@ function PrintDocument() {
     if (file) {
       let count = 0;
       let filesize = file.size; // File size in bytes
-  
+
       // Calculate the appropriate size unit (B, KB, MB, etc.)
       while (filesize > 1024) {
         filesize = filesize / 1024;
         count++;
       }
-      const type = file.type.split('/')[1] || 'Unknown';
+      const type = file.type.split("/")[1] || "Unknown";
       // Determine the size unit
       let result;
       if (count === 0) result = `${filesize.toFixed(2)} B`;
@@ -76,7 +72,7 @@ function PrintDocument() {
       else if (count === 2) result = `${filesize.toFixed(2)} MB`;
       else if (count === 3) result = `${filesize.toFixed(2)} GB`;
       else result = `${filesize.toFixed(2)} TB`;
-  
+
       // Update file details state
       setFileDetails({
         name: file.name,
@@ -85,7 +81,7 @@ function PrintDocument() {
       });
 
       const url = URL.createObjectURL(file);
-      setPreviewUrl(url); 
+      setPreviewUrl(url);
     }
   };
 
@@ -95,7 +91,7 @@ function PrintDocument() {
     right: 0,
     bottom: 0,
   });
-  
+
   // Update the margin value dynamically
   const handleMarginChange = (side, value) => {
     setMargins((prev) => ({ ...prev, [side]: value }));
@@ -143,19 +139,28 @@ function PrintDocument() {
                   </p>
                   <div className={docustyle.display_item}>
                     <p className={docustyle.action_desciption}>NAME</p>{" "}
-                    <div className={docustyle.info_box}>{fileDetails.name || ''}</div>
+                    <div className={docustyle.info_box}>
+                      {fileDetails.name || ""}
+                    </div>
                   </div>
                   <div className={docustyle.display_item}>
                     <p className={docustyle.action_desciption}>SIZE</p>{" "}
-                    <div className={docustyle.info_box_size}>{fileDetails.size || ''}</div>
+                    <div className={docustyle.info_box_size}>
+                      {fileDetails.size || ""}
+                    </div>
                     <p className={docustyle.action_desciption}>FILE TYPE</p>
-                    <div className={docustyle.info_box_size}>{fileDetails.type || ''}</div>
+                    <div className={docustyle.info_box_size}>
+                      {fileDetails.type || ""}
+                    </div>
                   </div>
                   <div className={docustyle.bottom}></div>
                 </div>
               </div>
               <div className={docustyle.action_item}>
-                <div className={docustyle.display_item} onClick={handlePropertiesClick}>
+                <div
+                  className={docustyle.display_item}
+                  onClick={handlePropertiesClick}
+                >
                   <img
                     src={properties}
                     alt="Properties"
@@ -173,7 +178,10 @@ function PrintDocument() {
                 </p>
                 <div className={docustyle.bottom}></div>
               </div>
-              <div className={docustyle.action_item} onClick={handleChooseClick}>
+              <div
+                className={docustyle.action_item}
+                onClick={handleChooseClick}
+              >
                 <div className={docustyle.display_item}>
                   <img
                     src={printer}
@@ -196,8 +204,12 @@ function PrintDocument() {
                   <p className={docustyle.action_desciption}>Location</p>
                 </div>
                 <div className={docustyle.display_item}>
-                  <div className={docustyle.info_box_printer}>{selectedPrinter.id}</div>
-                  <div className={docustyle.info_box_location}>{selectedPrinter.location}</div>
+                  <div className={docustyle.info_box_printer}>
+                    {selectedPrinter.id}
+                  </div>
+                  <div className={docustyle.info_box_location}>
+                    {selectedPrinter.location}
+                  </div>
                 </div>
                 <div className={docustyle.bottom}></div>
               </div>
@@ -207,7 +219,7 @@ function PrintDocument() {
             </div>
           </div>
           <div className={docustyle.right_side}>
-              {previewUrl && (
+            {previewUrl && (
               <div className={docustyle.preview_section}>
                 {fileDetails.type.includes("image") ? (
                   <img
@@ -224,8 +236,9 @@ function PrintDocument() {
                 ) : (
                   <p>Preview not available for this file type.</p>
                 )}
-              </div>)}
-              </div>    
+              </div>
+            )}
+          </div>
         </main>
         {/* Popup */}
         <Popup
@@ -247,12 +260,11 @@ function PrintDocument() {
           <div>
             <h2 className={docustyle.title}>Upload File</h2>
             <div className={docustyle.outsidebox}>
-              <div className={docustyle.bluebox}>       
+              <div className={docustyle.bluebox}>
                 <img
                   src={uploadsticker}
                   alt="Sticker"
                   className={docustyle.sticker}
-                  
                 ></img>
                 <p className={docustyle.titleupload}>
                   UPLOAD FILE FROM YOUR BROWSER
@@ -263,7 +275,10 @@ function PrintDocument() {
                 <div className={docustyle.bottom}></div>
               </div>
               <div className={docustyle.display_button}>
-                <button className={docustyle.upload_btn} onClick={closeUploadPopup}>
+                <button
+                  className={docustyle.upload_btn}
+                  onClick={closeUploadPopup}
+                >
                   <b>CANCEL</b>
                 </button>
                 <input
@@ -271,8 +286,11 @@ function PrintDocument() {
                   id="fileUpload"
                   style={{ display: "none" }}
                   onChange={(e) => handleFileChange(e)}
-                /> 
-                <button className={docustyle.upload_btn} onClick={() => document.getElementById("fileUpload").click()}>
+                />
+                <button
+                  className={docustyle.upload_btn}
+                  onClick={() => document.getElementById("fileUpload").click()}
+                >
                   <b>UPLOAD</b>
                 </button>
               </div>
@@ -341,7 +359,9 @@ function PrintDocument() {
                         placeholder="0"
                         min="0"
                         value={margins.left}
-                        onChange={(e) => handleMarginChange("left", e.target.value)}
+                        onChange={(e) =>
+                          handleMarginChange("left", e.target.value)
+                        }
                       />
                       <input
                         type="number"
@@ -349,7 +369,9 @@ function PrintDocument() {
                         placeholder="0"
                         min="0"
                         value={margins.top}
-                        onChange={(e) => handleMarginChange("top", e.target.value)}
+                        onChange={(e) =>
+                          handleMarginChange("top", e.target.value)
+                        }
                       />
                     </div>
                     <div className={docustyle.margin_title}>
@@ -357,13 +379,15 @@ function PrintDocument() {
                       <p>Bottom:</p>
                     </div>
                     <div className={docustyle.margin_title}>
-                    <input
+                      <input
                         type="number"
                         className={docustyle.margin_specific_button}
                         placeholder="0"
                         min="0"
                         value={margins.right}
-                        onChange={(e) => handleMarginChange("right", e.target.value)}
+                        onChange={(e) =>
+                          handleMarginChange("right", e.target.value)
+                        }
                       />
                       <input
                         type="number"
@@ -371,7 +395,9 @@ function PrintDocument() {
                         placeholder="0"
                         min="0"
                         value={margins.bottom}
-                        onChange={(e) => handleMarginChange("bottom", e.target.value)}
+                        onChange={(e) =>
+                          handleMarginChange("bottom", e.target.value)
+                        }
                       />
                     </div>
                   </div>
@@ -487,30 +513,40 @@ function PrintDocument() {
             <div className={docustyle.grid_header}>Status</div>
             <div className={docustyle.grid_header}>Paper</div>
             <div className={docustyle.grid_header}>Select</div>
-            </div>
+          </div>
           <div className={docustyle.scrollable_container}>
-          <div className={docustyle.grid_container}>
-            {printers.map((printer, index) => (
-            <div className={docustyle.grid_row} key={index}>       
-                <div className={docustyle.grid_item}>{printer.id}</div>
-                <div className={docustyle.grid_item}>{printer.location}</div>
-                <div className={docustyle.status_available}>Available</div>
-                <div className={docustyle.grid_item}>{printer.paper}</div>
-                <div className={docustyle.grid_item}>
-                <button className={
-                  selectedPrinter.id === printer.id
-                ? `${docustyle.grid_button} ${docustyle.selected_button}`
-                    : docustyle.grid_button
-                    } onClick={() =>
-                    handleChoosePrinterClick(printer.id, printer.location)}
-                  >Select</button>
+            <div className={docustyle.grid_container}>
+              {printers.map((printer, index) => (
+                <div className={docustyle.grid_row} key={index}>
+                  <div className={docustyle.grid_item}>{printer.id}</div>
+                  <div className={docustyle.grid_item}>{printer.location}</div>
+                  <div className={docustyle.status_available}>Available</div>
+                  <div className={docustyle.grid_item}>{printer.paper}</div>
+                  <div className={docustyle.grid_item}>
+                    <button
+                      className={
+                        selectedPrinter.id === printer.id
+                          ? `${docustyle.grid_button} ${docustyle.selected_button}`
+                          : docustyle.grid_button
+                      }
+                      onClick={() =>
+                        handleChoosePrinterClick(printer.id, printer.location)
+                      }
+                    >
+                      Select
+                    </button>
+                  </div>
                 </div>
-            </div>
-            ))}
+              ))}
             </div>
           </div>
           <div className={docustyle.parent_container}>
-            <button className={docustyle.done_choose} onClick={closeChoosePopup}>DONE</button>
+            <button
+              className={docustyle.done_choose}
+              onClick={closeChoosePopup}
+            >
+              DONE
+            </button>
           </div>
         </Popup>
       </div>

@@ -1,8 +1,10 @@
 import React from "react";
 import headerStyles from "./header.module.css";
 import logo from "./component/BachKhoaLogo.png";
+import { useNavigate } from "react-router-dom";
 
 const Header = (props) => {
+  const navigate = useNavigate();
   console.log("Header rendered with isLogin:", props.isLogin);
 
   return (
@@ -73,10 +75,10 @@ const Header = (props) => {
           <div className={headerStyles.header_right}>
             <span className={headerStyles.user_name}>CANCEL</span>
             <button
-              onClick={() => props.setLogin(false)}
+              onClick={() => navigate("/loginpage")}
               className={headerStyles.logout_button}
             >
-              LOG OUT
+              LOG IN
             </button>
           </div>
         </header>
