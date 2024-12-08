@@ -6,6 +6,7 @@ import printer from "./component/Printer2.png";
 import properties from "./component/Settings-adjust.png";
 import arrow from "./component/arrow.png";
 import uploadsticker from "./component/uploadsticker.png";
+import confirm from "./component/confirm.png";
 import onepage from "./component/onepage.png";
 import twopages from "./component/twopages.png";
 import fourpages from "./component/fourpages.png";
@@ -19,6 +20,8 @@ function PrintDocument() {
   const [isUploadPopupOpen, setUploadPopupOpen] = useState(false); // Upload popup state
   const [isPropertiesPopupOpen, setPropertiesPopupOpen] = useState(false); // Properties popup state
   const [isChoosePopupOpen, setChoosePopupOpen] = useState(false); // Properties popup state
+  
+  const [isConfirmPopupOpen, setConfirmPopupOpen] = useState(false);
 
   const [selectedPrinter, setSelectedPrinter] = useState({
     id: "",
@@ -57,11 +60,16 @@ function PrintDocument() {
   const handleChooseClick = () => setChoosePopupOpen(true);
   const closeChoosePopup = () => setChoosePopupOpen(false);
 
+  const handleConfirmClick = () => setConfirmPopupOpen(true);
+  const closeConfirmPopup = () => setConfirmPopupOpen(false);
+
   const [fileDetails, setFileDetails] = useState({
     name: "",
     size: "",
     type: "",
   });
+
+
 
   const handleFileChange = (event) => {
     const file = event.target.files[0]; // Get the uploaded file
@@ -223,7 +231,7 @@ function PrintDocument() {
                 </div>
                 <div className={docustyle.bottom}></div>
               </div>
-              <button className={docustyle.print_btn}>
+              <button className={docustyle.print_btn} onClick={handleConfirmClick}>
                 <b>PRINT</b>
               </button>
             </div>
@@ -361,8 +369,8 @@ function PrintDocument() {
                   <div className={docustyle.margin}>
                     <p className={docustyle.page_setup_description}>MARGIN</p>
                     <select className={docustyle.margin_button}>
-                    <option value="inch" className={docustyle.margin_result}>Inch</option>
-                    <option value="cm" className={docustyle.margin_result}>Centimeter</option>
+                    <option value="inch" className={docustyle.margin_result}>inch</option>
+                    <option value="cm" className={docustyle.margin_result}>cm</option>
                   </select>
                   </div>
                   <div className={docustyle.margin}>
@@ -611,6 +619,101 @@ function PrintDocument() {
             </button>
           </div>
         </Popup>
+          {/* Popup Confirmation */}
+          <Popup
+  open={isConfirmPopupOpen} // State to control popup visibility
+  onClose={closeConfirmPopup} // Function to close popup
+  modal
+  contentStyle={{
+    backgroundColor: "#ffffff",
+    // border: "1px solid #032B91",
+    borderRadius: "20px",
+    padding: "20px",
+    height: "60%", // Adjusted height for smaller confirmation popup
+    width: "50%",
+    textAlign: "center",
+  }}
+  overlayStyle={{
+    background: "rgba(0, 0, 0, 0.5)",
+  }}
+>
+  <div>
+    {/* Sticker */}
+    <img
+      src={confirm} // Replace this with the actual path or URL of your sticker
+      alt="Sticker"
+      style={{
+        width: "250px", // Adjust size as needed
+        height: "200px",
+        marginBottom: "10px",
+        marginTop: "20px",
+      }}
+    />
+
+    {/* Title */}
+    <h2 style={{ color: "#032B91", fontSize: "35px", fontWeight: "bold" }}>Confirmation</h2>
+
+    {/* Message */}
+    <p
+  style={{
+    color: "#032B91",
+    fontSize: "22px",
+    marginTop: "10px",
+    maxWidth: "600px", // Giới hạn chiều rộng của đoạn văn bản
+    margin: "10px auto", // Căn giữa đoạn văn bản
+    lineHeight: "1.5", // Tăng khoảng cách dòng để dễ đọc hơn
+  }}
+>
+  When you accept the print, the system will automatically print and deduct your paper balance.
+</p>
+
+    {/* Buttons */}
+<div
+  style={{
+    marginTop: "20px",
+    display: "flex", // Enable flexbox for layout
+    justifyContent: "center", // Center buttons horizontally
+    gap: "100px", // Large gap between buttons
+  }}
+>
+  <button
+    style={{
+      width: "150px", // Fixed width for equal-sized buttons
+      height: "50px", // Fixed height for equal button size
+      backgroundColor: "#032B91",
+      color: "white",
+      border: "2px solid #032B91", // Blue border
+      borderRadius: "20px",
+      cursor: "pointer",
+      fontSize: "20px",
+      fontWeight: "bold",
+      textAlign: "center", // Center text inside button
+    }}
+    onClick={closeConfirmPopup}
+  >
+    CANCEL
+  </button>
+  <button
+    style={{
+      width: "150px", // Fixed width for equal-sized buttons
+      height: "50px", // Fixed height for equal button size
+      backgroundColor: "#032B91",
+      color: "white",
+      border: "2px solid #032B91", // Blue border
+      borderRadius: "20px",
+      cursor: "pointer",
+      fontSize: "20px",
+      fontWeight: "bold",
+      textAlign: "center", // Center text inside button
+    }}
+    onClick={handleConfirmClick}
+  >
+    PRINT
+  </button>
+</div>
+  </div>
+</Popup>
+
       </div>
     </div>
   );
