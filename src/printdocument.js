@@ -10,6 +10,10 @@ import onepage from "./component/onepage.png";
 import twopages from "./component/twopages.png";
 import fourpages from "./component/fourpages.png";
 import sixpages from "./component/sixpages.png";
+import onepage_after from "./component/onepage_after.png";
+import twopages_after from "./component/twopages_after.png";
+import fourpages_after from "./component/fourpages_after.png";
+import sixpages_after from "./component/sixpages_after.png";
 
 function PrintDocument() {
   const [isUploadPopupOpen, setUploadPopupOpen] = useState(false); // Upload popup state
@@ -32,6 +36,12 @@ function PrintDocument() {
     { id: "Printer#8", location: "B1 - 202", status: "Available", paper: 555 },
     { id: "Printer#9", location: "B1 - 202", status: "Available", paper: 555 },
   ];
+
+  const [selectedPage, setSelectedPage] = useState(null);
+
+  const handleButtonClick = (page) => {
+    setSelectedPage(page); // Cập nhật trạng thái nút được chọn
+  };
 
   const handleChoosePrinterClick = (id, location) => {
     setSelectedPrinter({ id, location });
@@ -320,23 +330,28 @@ function PrintDocument() {
                 <div className={docustyle.properties_container_title}>
                   <div className={docustyle.properties_container_title_button}>
                     <p className={docustyle.description_properties}>COPIES</p>
-                    <button className={docustyle.description_properties_button}>
-                      1
-                    </button>
+                        <input
+                        type="number"
+                        min="1"
+                        defaultValue="1"
+                        className={docustyle.description_properties_button}
+                      />
                   </div>
                   <div className={docustyle.properties_container_title_button}>
                     <p className={docustyle.description_properties}>
                       PAPER SIZE
                     </p>
-                    <button className={docustyle.description_properties_button}>
-                      SELECT
-                    </button>
+                      <select className={docustyle.description_properties_button}>
+                        <option value="A4">A4</option>
+                        <option value="A3">A3</option>
+                      </select>
                   </div>
                   <div className={docustyle.properties_container_title_button}>
                     <p className={docustyle.description_properties}>SIDED</p>
-                    <button className={docustyle.description_properties_button}>
-                      1
-                    </button>
+                    <select className={docustyle.description_properties_button}>
+                    <option value="1">1-Sided</option>
+                    <option value="2">2-Sided</option>
+                  </select>
                   </div>
                 </div>
                 <div className={docustyle.blue_line}></div>
@@ -345,7 +360,10 @@ function PrintDocument() {
                   <p className={docustyle.page_setup_title}>PAGE SETUP</p>
                   <div className={docustyle.margin}>
                     <p className={docustyle.page_setup_description}>MARGIN</p>
-                    <button className={docustyle.margin_button}>SELECT</button>
+                    <select className={docustyle.margin_button}>
+                    <option value="inch" className={docustyle.margin_result}>Inch</option>
+                    <option value="cm" className={docustyle.margin_result}>Centimeter</option>
+                  </select>
                   </div>
                   <div className={docustyle.margin}>
                     <div className={docustyle.margin_title}>
@@ -424,34 +442,52 @@ function PrintDocument() {
                     PAGE PER SHEET
                   </p>
                   <div className={docustyle.sheet_button_list}>
-                    <button className={docustyle.sheet_button}>
-                      <img
-                        src={onepage}
-                        alt="OnePage"
-                        className={docustyle.sheet_sticker}
-                      ></img>
-                    </button>
-                    <button className={docustyle.sheet_button}>
-                      <img
-                        src={twopages}
-                        alt="TwoPages"
-                        className={docustyle.sheet_sticker}
-                      ></img>
-                    </button>
-                    <button className={docustyle.sheet_button}>
-                      <img
-                        src={fourpages}
-                        alt="FourPages"
-                        className={docustyle.sheet_sticker}
-                      ></img>
-                    </button>
-                    <button className={docustyle.sheet_button}>
-                      <img
-                        src={sixpages}
-                        alt="SixPages"
-                        className={docustyle.sheet_sticker}
-                      ></img>
-                    </button>
+                  <button
+                    className={docustyle.sheet_button}
+                    onClick={() => handleButtonClick("onepage")}
+                  >
+                    <img
+                      src={selectedPage === "onepage" ? onepage_after : onepage}
+                      alt="OnePage"
+                      className={docustyle.sheet_sticker}
+                    />
+                  </button>
+                  
+                  {/* Button 2 */}
+                  <button
+                    className={docustyle.sheet_button}
+                    onClick={() => handleButtonClick("twopages")}
+                  >
+                    <img
+                      src={selectedPage === "twopages" ? twopages_after : twopages}
+                      alt="TwoPages"
+                      className={docustyle.sheet_sticker}
+                    />
+                  </button>
+                  
+                  {/* Button 3 */}
+                  <button
+                    className={docustyle.sheet_button}
+                    onClick={() => handleButtonClick("fourpages")}
+                  >
+                    <img
+                      src={selectedPage === "fourpages" ? fourpages_after : fourpages}
+                      alt="FourPages"
+                      className={docustyle.sheet_sticker}
+                    />
+                  </button>
+                  
+                  {/* Button 4 */}
+                  <button
+                    className={docustyle.sheet_button}
+                    onClick={() => handleButtonClick("sixpages")}
+                  >
+                    <img
+                      src={selectedPage === "sixpages" ? sixpages_after : sixpages}
+                      alt="SixPages"
+                      className={docustyle.sheet_sticker}
+                    />
+                  </button>
                   </div>
                 </div>
                 <div className={docustyle.blue_line}></div>
@@ -467,27 +503,53 @@ function PrintDocument() {
                   <div className={docustyle.numberpage}>
                     <button
                       className={docustyle.margin_specific_button}
-                    ></button>
+                    >150</button>
                     <div className={docustyle.printrange}>
-                      <button
+                    <input
+                        type="number"
+                        min="1"
+                        defaultValue="1"
                         className={docustyle.margin_specific_button}
-                      ></button>
+                      />
                       <p className={docustyle.page_setup_description_sheet}>
                         TO
                       </p>
-                      <button
+                      <input
+                        type="number"
+                        min="1"
+                        defaultValue="1"
                         className={docustyle.margin_specific_button}
-                      ></button>
+                      />
                     </div>
                   </div>
                 </div>
               </div>
               <div className={docustyle.right_properties}>
                 <p className={docustyle.page_setup_description}>PREVIEW</p>
-                <div className={docustyle.print_preview}></div>
+                <div className={docustyle.print_preview}>
+                  {previewUrl && (
+                <div className={docustyle.preview_section}>
+                  {fileDetails.type.includes("image") ? (
+                    <img
+                      src={previewUrl}
+                      alt="File Preview"
+                      className={docustyle.preview_image}
+                    />
+                  ) : fileDetails.type.includes("pdf") ? (
+                    <embed
+                      src={previewUrl}
+                      type="application/pdf"
+                      className={docustyle.preview_pdf}
+                    />
+                  ) : (
+                    <p>Preview not available for this file type.</p>
+                  )}
+                </div>
+              )}
+                </div>
               </div>
             </div>
-            <button className={docustyle.done}>DONE</button>
+            <button className={docustyle.done} onClick={closePropertiesPopup}>DONE</button>
           </div>
         </Popup>
         <Popup

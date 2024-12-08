@@ -280,7 +280,7 @@ body {
 
 .description_properties_button {
   margin-top: 15px;
-  padding: 8px;
+  padding: 5px;
   width: 100px; /* Automatically adjusts width based on content */
   border-radius: 20px;
   border: 1px solid #667085;
@@ -334,12 +334,16 @@ body {
 .margin_button {
   border-radius: 20px;
   padding: 5px;
+  display: block;
   border: 1px solid #667085;
   background-color: #ffffff;
   color: #667085;
   text-align: center;
 }
 
+.margin_result{
+  text-align: center;
+}
 .margin_title {
   margin-top: 10px;
   gap: 10px;
@@ -404,9 +408,7 @@ body {
   display: inline-block;
 }
 
-.sheet_button:hover {
-  background-color: #c4e1f6;
-}
+
 
 /*NUMBER OF PAGE LEFT*/
 
@@ -444,6 +446,7 @@ body {
   font-weight: 700;
   display: block; /* Ensure it behaves as a block element */
   margin-left: auto;
+  cursor: pointer;
 }
 
 .preview_section{
