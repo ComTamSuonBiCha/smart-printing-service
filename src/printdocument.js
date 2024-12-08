@@ -16,6 +16,9 @@ import onepage_after from "./component/onepage_after.png";
 import twopages_after from "./component/twopages_after.png";
 import fourpages_after from "./component/fourpages_after.png";
 import sixpages_after from "./component/sixpages_after.png";
+import { useNavigate } from "react-router-dom";
+
+
 
 function PrintDocument() {
   const [isUploadPopupOpen, setUploadPopupOpen] = useState(false); // Upload popup state
@@ -76,7 +79,12 @@ function PrintDocument() {
     type: "",
   });
 
+  const navigate = useNavigate(); // Hook to navigate programmatically
 
+  const handleBackToMain = () => {
+    navigate("/main"); // Navigate to the 'main' page route
+    closeSuccPrintPopup(); // Close the popup
+  };
 
   const handleFileChange = (event) => {
     const file = event.target.files[0]; // Get the uploaded file
@@ -776,7 +784,7 @@ function PrintDocument() {
       fontWeight: "bold",
       textAlign: "center", // Center text inside button
     }}
-    onClick={closeSuccPrintPopup}
+    onClick={handleBackToMain}
   >
     BACK TO MAIN
   </button>
