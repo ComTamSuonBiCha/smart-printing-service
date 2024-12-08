@@ -18,7 +18,7 @@ router.get(
 router.put(
     '/id/:id',
     //authenticate,
-    printerController.updatePrinter
+    printerController.updatePrinterController
 )
 
 router.get(

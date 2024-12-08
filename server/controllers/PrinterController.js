@@ -22,7 +22,7 @@ async function choosePrinter(req, res, next) {
 }
 
 
-async function updatePrinter(req, res, next) {
+async function updatePrinterController(req, res, next) {
     try {
         let printer = req.body;
         let results = await updatePrinter(printer);
@@ -70,7 +70,7 @@ async function getPrinterUsageByMonth(req, res, next) {
 module.exports = {
     getPrinters,
     choosePrinter,
-    updatePrinter,
+    updatePrinterController,
     getPrinterStat,
     getPrinterUsage,
     getPrinterUsageByMonth

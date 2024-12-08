@@ -4,7 +4,7 @@ async function addOrder(req, res, next) {
     try {
         let order = req.body;
         let documentId = await insertDocument(order.file);
-        let studentId = req.user.studentId;
+        let studentId = req.params.id;
         let printerId = order.printerId;
         let results = await insertOrder(documentId, studentId, printerId, order);
         res.json(results);
@@ -16,7 +16,7 @@ async function addOrder(req, res, next) {
 
 async function validateFileType(req, res, next) {
     try {
-        let file = req.file_type;
+        let file = req.body.file_type;
         const fileTypes = await getFileType();
         // check if the file type is in the list of file types
         if (fileTypes.includes(file)) {

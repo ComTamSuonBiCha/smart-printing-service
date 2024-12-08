@@ -43,6 +43,9 @@ async function getStudentById(studentId){
 async function getStudentByEmail(studentEmail){
     try {
         let result = await db.execute('SELECT * FROM students WHERE student_email = ?', [studentEmail]);
+        if (result.length == 0) {
+            return null;
+        }
         return result[0];
     } 
     catch (error) {
@@ -52,17 +55,29 @@ async function getStudentByEmail(studentEmail){
 
 async function getStudentOrderById(studentId) {
     try {
-        let result = await db.execute('SELECT * FROM print_orders WHERE student_id = ?', [studentId]);
+        let result = await db.execute('call student_order(?)', [studentId]);
         return result
     }
     catch (error) {
         throw error;
     }
 }
+
+async function getStudentInformationById(studentId) {
+    try {
+        let result = await db.execute('call student_procedure(?)', [studentId]);
+        return result[0];
+    }
+    catch (error) {
+        throw error;
+    }
+}
+
 module.exports = {
     getBalance,
     minusBalance,
     getStudentByEmail,
     getStudentById,
-    getStudentOrderById
+    getStudentOrderById,
+    getStudentInformationById
 };

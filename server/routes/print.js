@@ -13,13 +13,13 @@ router.get(
 );
 
 router.post(
-    '/confirm',
+    '/:id/confirm',
     //authenticate,
     orderController.addOrder
 );
 
 router.put(
-    'updateBalance',
+    '/:id/updateBalance',
     //authenticate,
     studentController.updateStudentBalance
 );

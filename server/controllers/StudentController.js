@@ -1,12 +1,21 @@
-const {getBalance, minusBalance, getStudentByEmail, getStudentById, getStudentOrderById} = require('../model/StudentModel');
+const {getBalance, minusBalance, getStudentByEmail, getStudentById, getStudentOrderById, getStudentInformationById} = require('../model/StudentModel');
 
 async function getStudentDetail(req, res, next) {
     try {
         let studentId = req.params.id;
-        let results = await getStudentById(studentId);
-        if(results == null){
+        let basic_info = await getStudentById(studentId);
+        if(basic_info == null){
             res.status(404).send('Student not found');
         }
+        // res.json(results);
+        let add_info = await getStudentInformationById(studentId);
+        if (add_info == null) {
+            res.status(404).send('Student not found');
+        }
+        let results = {
+            ...basic_info,
+            ...add_info
+        };
         res.json(results);
     }
     catch(e){
@@ -39,6 +48,7 @@ async function getStudentDetailByEmail(req, res, next) {
             res.status(404).send('Student not found');
         }
         res.json(results);
+        //delete res.student_password;
     }
     catch(e){
         next(e);
