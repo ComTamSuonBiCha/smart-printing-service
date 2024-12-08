@@ -11,6 +11,7 @@ import onepage from "./component/onepage.png";
 import twopages from "./component/twopages.png";
 import fourpages from "./component/fourpages.png";
 import sixpages from "./component/sixpages.png";
+import printSucc from "./component/printsucc.png";
 import onepage_after from "./component/onepage_after.png";
 import twopages_after from "./component/twopages_after.png";
 import fourpages_after from "./component/fourpages_after.png";
@@ -22,6 +23,8 @@ function PrintDocument() {
   const [isChoosePopupOpen, setChoosePopupOpen] = useState(false); // Properties popup state
   
   const [isConfirmPopupOpen, setConfirmPopupOpen] = useState(false);
+
+  const [isSuccPrintPopupOpen, setSuccPrintPopupOpen] = useState(false); 
 
   const [selectedPrinter, setSelectedPrinter] = useState({
     id: "",
@@ -62,6 +65,10 @@ function PrintDocument() {
 
   const handleConfirmClick = () => setConfirmPopupOpen(true);
   const closeConfirmPopup = () => setConfirmPopupOpen(false);
+
+  const handleSuccPrintClick = () => setSuccPrintPopupOpen(true);
+  const closeSuccPrintPopup = () => setSuccPrintPopupOpen(false);
+
 
   const [fileDetails, setFileDetails] = useState({
     name: "",
@@ -706,9 +713,72 @@ function PrintDocument() {
       fontWeight: "bold",
       textAlign: "center", // Center text inside button
     }}
-    onClick={handleConfirmClick}
+    onClick={handleSuccPrintClick}
   >
     PRINT
+  </button>
+</div>
+  </div>
+</Popup>
+ {/* Succefully Print */}
+ <Popup
+  open={isSuccPrintPopupOpen} // State to control popup visibility
+  onClose={closeSuccPrintPopup} // Function to close popup
+  modal
+  contentStyle={{
+    backgroundColor: "#ffffff",
+    // border: "1px solid #032B91",
+    borderRadius: "20px",
+    padding: "20px",
+    height: "60%", // Adjusted height for smaller confirmation popup
+    width: "50%",
+    textAlign: "center",
+  }}
+  overlayStyle={{
+    background: "rgba(0, 0, 0, 0.5)",
+  }}
+>
+  <div>
+    {/* Sticker */}
+    <img
+      src={printSucc} // Replace this with the actual path or URL of your sticker
+      alt="Print Succefully"
+      style={{
+        width: "270px", // Adjust size as needed
+        height: "210px",
+        marginBottom: "10px",
+        marginTop: "40px",
+      }}
+    />
+
+    {/* Title */}
+    <h2 style={{ marginTop: "35px", color: "#032B91", fontSize: "30px", fontWeight: "500" }}>Your file is printed successfully!</h2>
+
+    {/* Buttons */}
+<div
+  style={{
+    marginTop: "40px",
+    display: "flex", // Enable flexbox for layout
+    justifyContent: "center", // Center buttons horizontally
+    gap: "100px", // Large gap between buttons
+  }}
+>
+  <button
+    style={{
+      width: "300px", // Fixed width for equal-sized buttons
+      height: "50px", // Fixed height for equal button size
+      backgroundColor: "#032B91",
+      color: "white",
+      border: "2px solid #032B91", // Blue border
+      borderRadius: "20px",
+      cursor: "pointer",
+      fontSize: "20px",
+      fontWeight: "bold",
+      textAlign: "center", // Center text inside button
+    }}
+    onClick={closeSuccPrintPopup}
+  >
+    BACK TO MAIN
   </button>
 </div>
   </div>
