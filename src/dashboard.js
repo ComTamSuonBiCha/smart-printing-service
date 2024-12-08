@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import user from "./component/user.png";
 import book from "./component/Book.png";
 import printer from "./component/printer.png";
@@ -6,18 +6,46 @@ import payment from "./component/Icon.png";
 import background from "./component/bgbk.png";
 import dbstyles from "./dashboard.module.css";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const [studentData, setStudentData] = useState(null);
+  const [error, setError] = useState(null);
+  const data = localStorage.getItem("userid");
 
-  const userInfo = localStorage.getItem("userInfo");
+  // @ts-ignore
+  const fetchStudentData = async () => {
+    try {
+      const response = await axios.get(
+        `http://192.168.1.52:5000/api/student/id/${data}`
+      );
+      setStudentData(response.data[0]);
+    } catch (err) {
+      // @ts-ignore
+      setError("Failed to fetch student data");
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchStudentData();
+  }, []);
+  // @ts-ignore
   return (
     <div className={dbstyles.container}>
       <div className={dbstyles.dashboard}>
         <main className={dbstyles.main}>
           <div className={dbstyles.welcome_row}>
             <div className={dbstyles.welcome_section}>
-              <h1 className={dbstyles.greeting}>Good Morning, Thao!</h1>
+              <h1 className={dbstyles.greeting}>
+                Good Morning,{" "}
+                {studentData
+                  ? // @ts-ignore
+                    studentData.student_name
+                  : "Student"}
+                !
+              </h1>
               <p className={dbstyles.greeting_subtext}>
                 Ready to print something?
               </p>
@@ -25,6 +53,7 @@ const Dashboard = () => {
                 We provide the printing service for all students and lecturers
                 in HCMUT campus.
               </p>
+              {error && <p className={dbstyles.error}>{error}</p>}{" "}
               <div className={dbstyles.actions}>
                 <div
                   onClick={() => navigate("/student")}

@@ -39,9 +39,11 @@ function Login(props) {
         formData
       );
 
-      localStorage.setItem("token", response.data.token);
-      localStorage.setItem("userInfo", JSON.stringify(response.data.userInfo));
-      console.log("Login successful:", response.data);
+      // localStorage.setItem("token", response.data.token);
+      localStorage.setItem(
+        "userid",
+        JSON.stringify(response.data.userInfo.student_id)
+      );
       props.setLogin(true);
       navigate(isSPSO ? "/spso" : "/main");
     } catch (err) {
