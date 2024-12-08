@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-// @ts-ignore
-import Header from "../../header";
 import styles from "./studentInfo.module.css";
 import BlocksLayout from "../stats/blocks/inforBlock";
 import { Avatar } from "@mui/material";
@@ -16,58 +14,21 @@ const InfoBlock = (props) => {
   );
 };
 
-const lineData = {
-  labels: ["July", "August", "September", "October", "November", "December"],
-  datasets: [
-    {
-      label: "Total",
-      data: [65, 59, 80, 81, 56, 55],
-      fill: false,
-      borderColor: "#1967D2",
-      tension: 0.1,
-    },
-  ],
-};
-
-const data = [
-  {
-    color: "#1967D2",
-    title: "55",
-    content: "Usage Frequency",
-    icon: require("@mui/icons-material/Print").default,
-  },
-  {
-    color: "#F9AB00",
-    title: "100",
-    content: "Pages Used",
-    icon: require("@mui/icons-material/RequestPage").default,
-  },
-  {
-    color: "#34A853",
-    title: "100",
-    content: "Paper Left",
-    icon: require("@mui/icons-material/Feed").default,
-  },
-  {
-    color: "#D31818",
-    title: "500",
-    content: "Total Transaction",
-    icon: require("@mui/icons-material/AttachMoney").default,
-  },
-];
-
 const StudentInfo = () => {
   const [studentData, setStudentData] = useState(null);
+  const [lineChartData, setLineChartData] = useState(null);
   const [error, setError] = useState(null);
   const studentID = localStorage.getItem("userid");
+  const backend = process.env.REACT_APP_BACKEND_PORT;
 
+  // Fetch student data
   const fetchStudentData = async () => {
     try {
       const response = await axios.get(
-        `http://192.168.1.52:5000/api/student/id/${studentID}`
+        `${backend}/api/student/id/${studentID}`
       );
-      if (response.data && response.data.length > 0) {
-        setStudentData(response.data[0]);
+      if (response.data) {
+        setStudentData(response.data);
       } else {
         // @ts-ignore
         setError("Student data not found.");
@@ -79,23 +40,103 @@ const StudentInfo = () => {
     }
   };
 
+  // Fetch student orders
+  const fetchStudentOrder = async () => {
+    try {
+      const response = await axios.get(
+        `${backend}/api/student/id/${studentID}/order`
+      );
+      if (response.data) {
+        formatLineChartData(response.data);
+      } else {
+        // @ts-ignore
+        setError("Student order data not found.");
+      }
+    } catch (err) {
+      // @ts-ignore
+      setError("Failed to fetch student orders");
+      console.error(err);
+    }
+  };
+
+  // Format data for LineChart
+  const formatLineChartData = (responseData) => {
+    const labels = [];
+    const data = [];
+
+    responseData.forEach((item) => {
+      const month = new Date(item.order_month).toLocaleString("default", {
+        month: "long",
+      });
+      labels.push(month);
+      data.push(item.counter);
+    });
+
+    setLineChartData({
+      // @ts-ignore
+      labels,
+      datasets: [
+        {
+          label: "Total Orders",
+          data,
+          fill: false,
+          borderColor: "#1967D2",
+          tension: 0.1,
+        },
+      ],
+    });
+  };
+
   useEffect(() => {
     if (studentID) {
       fetchStudentData();
+      fetchStudentOrder();
     } else {
       // @ts-ignore
-      setError("User ID is missing.");
+      setError("No user ID found.");
     }
   }, [studentID]);
 
-  // Handling loading, error, or null state for student data
+  // Show error or loading states
   if (error) {
     return <div className={styles.error}>{error}</div>;
   }
 
-  if (!studentData) {
-    return <div className={styles.loading}>Loading student data...</div>;
+  if (!studentData || !lineChartData) {
+    return <div className={styles.loading}>Loading data...</div>;
   }
+
+  // Data for info blocks
+  const data = [
+    {
+      color: "#1967D2",
+      // @ts-ignore
+      title: studentData?.total_pages_printed ?? "N/A",
+      content: "Usage Frequency",
+      icon: require("@mui/icons-material/Print").default,
+    },
+    {
+      color: "#F9AB00",
+      // @ts-ignore
+      title: studentData?.total_print_orders ?? "N/A",
+      content: "Printed Requests",
+      icon: require("@mui/icons-material/RequestPage").default,
+    },
+    {
+      color: "#34A853",
+      // @ts-ignore
+      title: studentData?.student_paper_balance ?? "N/A",
+      content: "Paper Balance",
+      icon: require("@mui/icons-material/Feed").default,
+    },
+    {
+      color: "#D31818",
+      // @ts-ignore
+      title: studentData?.total_paper_transactions ?? "N/A",
+      content: "Total Transactions",
+      icon: require("@mui/icons-material/AttachMoney").default,
+    },
+  ];
 
   return (
     <div>
@@ -107,33 +148,30 @@ const StudentInfo = () => {
               sx={{ width: 150, height: 150 }}
               alt="Student Avatar"
               // @ts-ignore
-              // src={studentData.avatar || "/path/to/default-avatar.png"} // Use a default avatar
+              src={studentData?.avatar || "/path/to/default-avatar.png"}
             />
             <div className={styles.studentInfo}>
               <InfoBlock
                 header="Student Name"
                 // @ts-ignore
-                content={studentData.student_name || "N/A"}
+                content={studentData?.student_name || "N/A"}
               />
               <InfoBlock
                 header="Student ID"
                 // @ts-ignore
-                content={studentData.student_id || "N/A"}
+                content="2252xxx"
               />
               <InfoBlock
                 header="Email"
                 // @ts-ignore
-                content={studentData.student_email || "N/A"}
+                content={studentData?.student_email || "N/A"}
               />
-              <InfoBlock
-                header="Faculty"
-                // @ts-ignore
-                content="OISP"
-              />
+              <InfoBlock header="Faculty" content="Computer Science" />
             </div>
           </div>
           <div className={styles.rightLayout}>
-            <LineChart title="Usage Statistic" data={lineData} />
+            {/* Render LineChart with formatted data */}
+            <LineChart title="Order Statistics" data={lineChartData} />
             <BlocksLayout data={data} />
           </div>
         </div>

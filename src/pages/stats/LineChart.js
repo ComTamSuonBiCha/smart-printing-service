@@ -45,6 +45,11 @@ const LineChart = (props) => {
             display: false,
           },
         },
+        scales: {
+          y: {
+            beginAtZero: true,
+          },
+        },
       },
     });
 

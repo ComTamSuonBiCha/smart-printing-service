@@ -13,24 +13,25 @@ const Dashboard = () => {
   const [studentData, setStudentData] = useState(null);
   const [error, setError] = useState(null);
   const data = localStorage.getItem("userid");
+  const backend = process.env.REACT_APP_BACKEND_PORT;
 
   // @ts-ignore
   const fetchStudentData = async () => {
     try {
-      const response = await axios.get(
-        `http://192.168.1.52:5000/api/student/id/${data}`
-      );
-      setStudentData(response.data[0]);
+      const response = await axios.get(`${backend}/api/student/id/${data}`);
+      setStudentData(response.data);
     } catch (err) {
       // @ts-ignore
       setError("Failed to fetch student data");
       console.error(err);
     }
   };
-
   useEffect(() => {
-    fetchStudentData();
-  }, []);
+    if (!studentData) {
+      fetchStudentData();
+    }
+  }, [studentData]);
+
   // @ts-ignore
   return (
     <div className={dbstyles.container}>
