@@ -7,29 +7,24 @@ import { useNavigate } from "react-router-dom";
 const Header = (props) => {
   const navigate = useNavigate();
   const [studentData, setStudentData] = useState(null);
-  const [error, setError] = useState(null);
   const studentID = localStorage.getItem("userid");
+  const backend = process.env.REACT_APP_BACKEND_PORT;
 
   const fetchStudentData = async () => {
     if (!studentID) {
-      // @ts-ignore
-      setError("User ID is not found.");
+      console.error("User ID is not found.");
       return;
     }
-
     try {
       const response = await axios.get(
-        `http://192.168.1.52:5000/api/student/id/${studentID}`
+        `${backend}/api/student/id/${studentID}`
       );
-      if (response.data && response.data.length > 0) {
-        setStudentData(response.data[0]);
+      if (response.data) {
+        setStudentData(response.data);
       } else {
-        // @ts-ignore
-        setError("Student data not found.");
+        console.error("Student data not found");
       }
     } catch (err) {
-      // @ts-ignore
-      setError("Failed to fetch student data");
       console.error("Error fetching student data:", err);
     }
   };
@@ -38,11 +33,9 @@ const Header = (props) => {
     if (props.isLogin && !studentData) {
       fetchStudentData();
     }
-  }, [props.isLogin]); // Depend on `isLogin` only
+  }, [props.isLogin, studentData]); // Depend on both isLogin and studentData
 
-  if (error) {
-    return <div className={headerStyles.error}>{error}</div>;
-  }
+  useEffect(() => {}, [studentData]);
 
   return (
     <>
@@ -51,13 +44,16 @@ const Header = (props) => {
           <div className={headerStyles.dashboard}>
             <header className={headerStyles.header}>
               <div className={headerStyles.logo_container}>
-                <a onClick={() => navigate("/main")}>
+                <div
+                  onClick={() => navigate("/main")}
+                  className={headerStyles.logo_link}
+                >
                   <img
                     src={logo}
                     alt="HCMUT SPSS Logo"
                     className={headerStyles.logo}
                   />
-                </a>
+                </div>
                 <div className={headerStyles.logo_text}>
                   <span className={headerStyles.logo_line}>HCMUT</span>
                   <span className={headerStyles.logo_line}>SPSS</span>
@@ -65,41 +61,40 @@ const Header = (props) => {
               </div>
 
               <nav className={headerStyles.header_nav}>
-                <a
-                  onClick={() => navigate("/")}
+                <div
+                  onClick={() => navigate("/main")}
                   className={headerStyles.nav_link}
                 >
                   HOME
-                </a>
-                <a
+                </div>
+                <div
                   onClick={() => navigate("/print")}
                   className={headerStyles.nav_link}
                 >
                   PRINT
-                </a>
-                <a
-                  onClick={() => navigate("/")}
+                </div>
+                <div
+                  onClick={() => navigate("/student")}
                   className={headerStyles.nav_link}
                 >
                   PAYMENT
-                </a>
-                <a
+                </div>
+                <div
                   onClick={() => navigate("/student")}
                   className={headerStyles.nav_link}
                 >
                   HISTORY
-                </a>
+                </div>
               </nav>
+
               <div className={headerStyles.header_right}>
                 <div className={headerStyles.avatar}></div>
                 <span className={headerStyles.user_name}>
-                  {studentData
-                    ? // @ts-ignore
-                      studentData.student_name
-                    : "Loading..."}
+                  {studentData ? studentData.student_name : "Loading..."}
                 </span>
                 <button
                   onClick={() => {
+                    localStorage.removeItem("userid"); // Clear localStorage
                     props.setLogin(false);
                     navigate("/");
                   }}
@@ -114,13 +109,16 @@ const Header = (props) => {
       ) : (
         <header className={headerStyles.header}>
           <div className={headerStyles.logo_container}>
-            <a onClick={() => navigate("/main")}>
+            <div
+              onClick={() => navigate("/main")}
+              className={headerStyles.logo_link}
+            >
               <img
                 src={logo}
                 alt="HCMUT SPSS Logo"
                 className={headerStyles.logo}
               />
-            </a>
+            </div>
             <div className={headerStyles.logo_text}>
               <span className={headerStyles.logo_line}>HCMUT</span>
               <span className={headerStyles.logo_line}>SPSS</span>
@@ -128,7 +126,13 @@ const Header = (props) => {
           </div>
 
           <div className={headerStyles.header_right}>
-            <span className={headerStyles.user_name}>CANCEL</span>
+            <div
+              style={{ cursor: "pointer" }}
+              onClick={() => navigate("/")}
+              className={headerStyles.user_name}
+            >
+              CANCEL
+            </div>
             <button
               onClick={() => navigate("/loginpage")}
               className={headerStyles.logout_button}

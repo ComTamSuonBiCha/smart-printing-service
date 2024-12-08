@@ -7,7 +7,7 @@ const PrinterLine = (props) => {
   return (
     <div className={styles.lineContainer}>
       <div className={styles.block}>
-        <h3>Printer{props.id}</h3>
+        <h3>Printer#{props.id}</h3>
       </div>
       <div className={styles.block}>
         <h3>{props.location}</h3>
@@ -24,7 +24,9 @@ const PrinterLine = (props) => {
   );
 };
 
-const PrinterList = () => {
+const PrinterList = (props) => {
+  const { data } = props;
+
   return (
     <div className={styles.listLayout}>
       <div className={styles.header}>
@@ -39,14 +41,9 @@ const PrinterList = () => {
         </div>
       </div>
       <div className={styles.printerList}>
-        <PrinterLine id="#3" location="A4-502"></PrinterLine>
-        <PrinterLine id="#5" location="A2-102"></PrinterLine>
-        <PrinterLine id="#6" location="A3-202"></PrinterLine>
-        <PrinterLine id="#7" location="A1-202"></PrinterLine>
-        <PrinterLine id="#7" location="A1-202"></PrinterLine>{" "}
-        <PrinterLine id="#7" location="A1-202"></PrinterLine>
-        <PrinterLine id="#7" location="A1-202"></PrinterLine>
-        <PrinterLine id="#7" location="A1-202"></PrinterLine>
+        {data.map((printer) => (
+          <PrinterLine id={printer.printer_id} location={printer.location} />
+        ))}
       </div>
     </div>
   );

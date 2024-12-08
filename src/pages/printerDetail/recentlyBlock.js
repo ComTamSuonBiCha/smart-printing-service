@@ -1,34 +1,36 @@
 import React from "react";
 import styles from "./printerDetail.module.css";
 
-const RecentLine = (props) => {
+// Component for each individual line in the recent usage list
+const RecentLine = ({ name, time, file }) => {
   return (
     <div style={{ display: "flex", justifyContent: "space-around" }}>
       <p
         style={{ backgroundColor: "#C4E1F6", color: "#000" }}
         className={styles.blueBtn}
       >
-        {props.name}
+        {name}
       </p>
       <p
         style={{ backgroundColor: "#C4E1F6", color: "#000" }}
         className={styles.blueBtn}
       >
-        {props.time}
+        {time}
       </p>
       <p
         style={{ backgroundColor: "#C4E1F6", color: "#000" }}
         className={styles.blueBtn}
       >
-        {props.file}
+        {file}
       </p>
     </div>
   );
 };
-const RecentlyBlock = () => {
+
+const RecentlyBlock = ({ data, location, status }) => {
   return (
     <div className={styles.recentLayout}>
-      <h2>Recently Uses</h2>
+      <h2>Recently Used</h2>
 
       <div className={styles.printerInfo}>
         <div className={styles.printerChild}>
@@ -37,7 +39,7 @@ const RecentlyBlock = () => {
             style={{ backgroundColor: "#C4E1F6", color: "#000" }}
             className={styles.blueBtn}
           >
-            Campus 1 - A4 - 504
+            {location}
           </div>
         </div>
         <div className={styles.printerChild}>
@@ -46,46 +48,30 @@ const RecentlyBlock = () => {
             style={{ backgroundColor: "#C4E1F6", color: "#000" }}
             className={styles.blueBtn}
           >
-            Campus 1 - A4 - 504
+            {status === 1 ? "Active" : "Unactive"}
           </div>
         </div>
       </div>
+
       <div className={styles.recentTitle}>
         <h3>Name</h3>
         <h3>Time</h3>
         <h3>FileName</h3>
       </div>
+
       <div className={styles.recentInfoLayout}>
-        <RecentLine
-          name="Khoa"
-          time="2024-10-23 10:10"
-          file="data.pdf"
-        ></RecentLine>
-        <RecentLine
-          name="Khoa"
-          time="2024-10-23 10:10"
-          file="data.pdf"
-        ></RecentLine>
-        <RecentLine
-          name="Khoa"
-          time="2024-10-23 10:10"
-          file="data.pdf"
-        ></RecentLine>
-        <RecentLine
-          name="Khoa"
-          time="2024-10-23 10:10"
-          file="data.pdf"
-        ></RecentLine>
-        <RecentLine
-          name="Khoa"
-          time="2024-10-23 10:10"
-          file="data.pdf"
-        ></RecentLine>
-        <RecentLine
-          name="Khoa"
-          time="2024-10-23 10:10"
-          file="data.pdf"
-        ></RecentLine>
+        {data && data.length > 0 ? (
+          data.map((item, index) => (
+            <RecentLine
+              key={index}
+              name={item.name}
+              time={item.time}
+              file={item.file}
+            />
+          ))
+        ) : (
+          <p>No recent printer usage data found.</p>
+        )}
       </div>
     </div>
   );

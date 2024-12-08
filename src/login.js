@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import loginStyles from "./login.module.css";
 import illustration from "./component/image1.png";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { Modal, Box, Typography, Button } from "@mui/material";
 
 function Login(props) {
   const location = useLocation();
   const { isSPSO } = location.state || {};
   const navigate = useNavigate();
+  const backend = process.env.REACT_APP_BACKEND_PORT;
 
   const [formData, setFormData] = useState({
     spso_name: isSPSO ? "" : undefined,
@@ -17,6 +19,7 @@ function Login(props) {
   });
 
   const [error, setError] = useState("");
+  const [open, setOpen] = useState(false);
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
@@ -29,17 +32,18 @@ function Login(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-    console.log("Form Data: ", formData);
 
     try {
       const response = await axios.post(
         isSPSO
-          ? "http://192.168.1.52:5000/api/user/login/spso"
-          : "http://192.168.1.52:5000/api/user/login/student",
-        formData
+          ? `${backend}/api/user/login/spso`
+          : `${backend}/api/user/login/student`,
+        formData,
+        {
+          timeout: 1000,
+        }
       );
 
-      // localStorage.setItem("token", response.data.token);
       localStorage.setItem(
         "userid",
         JSON.stringify(response.data.userInfo.student_id)
@@ -47,14 +51,21 @@ function Login(props) {
       props.setLogin(true);
       navigate(isSPSO ? "/spso" : "/main");
     } catch (err) {
-      console.error("Login failed:", err);
-
-      if (err.response && err.response.data.message) {
+      if (err.code === "ECONNABORTED") {
+        setError("Request timed out. Please try again.");
+      } else if (err.response && err.response.data.message) {
         setError(err.response.data.message);
       } else {
         setError("Invalid credentials or something went wrong.");
       }
+      setOpen(true);
     }
+  };
+  useEffect(() => {
+    console.log("Backend URL: ", process.env.REACT_APP_BACKEND_PORT);
+  }, []);
+  const handleCloseModal = () => {
+    setOpen(false);
   };
 
   return (
@@ -137,10 +148,45 @@ function Login(props) {
             <button type="submit" className={loginStyles.LoginButton}>
               <b>LOG IN</b>
             </button>
-            {error && <p className={loginStyles.ErrorMessage}>{error}</p>}
           </form>
         </div>
       </div>
+
+      <Modal
+        open={open}
+        onClose={handleCloseModal}
+        aria-labelledby="error-modal-title"
+        aria-describedby="error-modal-description"
+      >
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            bgcolor: "white",
+            borderRadius: "8px",
+            boxShadow: 24,
+            padding: "16px",
+            width: "300px",
+          }}
+        >
+          <Typography id="error-modal-title" variant="h6" component="h2">
+            Login Failed
+          </Typography>
+          <Typography id="error-modal-description" sx={{ mt: 2 }}>
+            {error}
+          </Typography>
+          <Button
+            onClick={handleCloseModal}
+            sx={{ mt: 2 }}
+            variant="contained"
+            color="primary"
+          >
+            Close
+          </Button>
+        </Box>
+      </Modal>
     </div>
   );
 }
