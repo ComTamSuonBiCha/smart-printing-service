@@ -8,25 +8,25 @@ const DocumentController = require('../controllers/DocumentController');
 
 router.get(
     '/validate',
-    authenticate,
+    //authenticate,
     orderController.validateFileType
 );
 
 router.post(
     '/confirm',
-    authenticate,
+    //authenticate,
     orderController.addOrder
 );
 
 router.put(
     'updateBalance',
-    authenticate,
+    //authenticate,
     studentController.updateStudentBalance
 );
 
 router.get(
     '/showPrinter',
-    authenticate,
+    //authenticate,
     printerController.getPrinters
 );
 

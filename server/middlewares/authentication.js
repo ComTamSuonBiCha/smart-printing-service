@@ -6,14 +6,15 @@ function authenticate(req,res,next){
         return res.status(401).send('Access Denied');
 
     const token = authHeader.split(' ')[1];
+    console.log(token);
     if(!token) 
         return res.status(401).send('Access Denied');
 
-    jwt.verify(token, 'secret', (err, decoded) => {
+    jwt.verify(token, 'the-strong-secret', (err, decoded) => {
         if(err) {
-            res.status(400).send('Invalid Token');
+            res.status(401).send('Invalid Token');
         } else {
-            req.user = decoded;
+            req.userInfo = decoded;
             next();
         }
     });

@@ -4,38 +4,38 @@ const authenticate = require('../middlewares/authentication');
 const printerController = require('../controllers/PrinterController');
 
 router.get(
-    '/id/:printerId',
-    authenticate,
+    '/id/:id',
+    //authenticate,
     printerController.choosePrinter
 )
 
 router.get(
     '/',
-    authenticate,
+    //authenticate,
     printerController.getPrinters
 )
 
 router.put(
-    '/id/:printerId',
-    authenticate,
+    '/id/:id',
+    //authenticate,
     printerController.updatePrinter
 )
 
 router.get(
     '/history/months/:months',
-    authenticate,
+    //authenticate,
     printerController.getPrinterStat
 )
 
 router.get(
-    '/history/id/:printerId',
-    authenticate,
+    '/history/id/:id',
+    //authenticate,
     printerController.getPrinterUsage
 )
 
 router.get(
-    '/history/id/:printerId/months/:months',
-    authenticate,
+    '/history/id/:id/months/:months',
+    //authenticate,
     printerController.getPrinterUsageByMonth
 )
 

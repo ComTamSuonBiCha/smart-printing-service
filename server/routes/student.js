@@ -4,20 +4,20 @@ const authenticate = require('../middlewares/authentication');
 const studentController = require('../controllers/StudentController');
 
 router.get(
-    '/id/:studentId',
-    authenticate,
+    '/id/:id',
+    //authenticate,
     studentController.getStudentDetail
 )
 
 router.get(
-    '/email/:studentEmail',
-    authenticate,
+    '/email/:email',
+    //authenticate,
     studentController.getStudentDetailByEmail
 )
 
 router.get(
-    'id/:studentId/order',
-    authenticate,
+    '/id/:id/order',
+    //authenticate,
     studentController.getStudentOrderWithId
 )
 

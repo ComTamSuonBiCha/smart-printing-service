@@ -15,7 +15,7 @@ router.post(
 );
 
 router.post(
-    '/login/SPSO',
+    '/login/spso',
     userController.loginSPSO
 );
 

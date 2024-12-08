@@ -1,45 +1,43 @@
-const crypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const {getStudentById, getStudentByEmail} = require('../model/StudentModel');
 const {getSPSOById, getSPSOByName} = require('../model/SPSOModel');
 
 async function loginStudent(req, res, next) {
     try {
-        const result = await getStudentByEmail(req.body.student_email);
+        const { student_email, student_password } = req.body;
+        const result = await getStudentByEmail(student_email);
 
-        // Check if the email exists
         if (result.length === 0) {
-            res.status(401).send("Invalid email! Please try again.");
-            return;
+            return res.status(401).json({ message: "Invalid student email or password" });
         }
-        crypt.compare(req.body.student_password, result[0].student_password, (err, same) => {
-            if (err) {
-                throw new Error(err);
-            }
-            if (!same) {
-                res.status(401).send("Invalid password! Please try again.");
-                return;
-            }
-            const token = jwt.sign(
-                {
-                student_id: result[0].student_id,
+
+        const user = result[0];
+        //const isMatch = await bcrypt.compare(student_password, user.student_password);
+        const isMatch = student_password === user.student_password;
+        if (!isMatch) {
+            return res.status(401).json({ message: "Invalid student email or password" });
+        }
+
+        const token = jwt.sign(
+            {
+                student_id: user.student_id,
                 SPSO: false,
-                },
-                process.env.JWT_SECRET,
-                {
-                    expiresIn: "1h"
-                }
-            );
-            delete result[0].student_password;
-            res.cookie("token", token, {maxAge: 3600000, path: "/"});
-            res.json({
-                message: "Login successful!",
-                userInfo: result[0],
-                token: token
-            });
+            },
+            'the-strong-secret',
+            {
+                expiresIn: "1h"
+            }
+        );
+
+        delete user.student_password;
+        res.cookie("token", token, { maxAge: 3600000, path: "/" });
+        res.json({
+            message: "Login successful!",
+            userInfo: user,
+            token: token
         });
-    }
-    catch (err) {
+    } catch (err) {
         next(err);
     }
 }
@@ -47,38 +45,35 @@ async function loginStudent(req, res, next) {
 
 async function loginSPSO(req, res, next) {
     try {
-        const result = await getSPSOByName(req.body.spso_name);
-
-        // Check if the email exists
+        const { spso_name, spso_password } = req.body;
+        const result = await getSPSOByName(spso_name);
         if (result.length === 0) {
-            res.status(401).send("Invalid name! Please try again.");
-            return;
+            return res.status(401).json({ message: "Invalid spso name or password" });
         }
-        crypt.compare(req.body.spso_password, result[0].spso_password, (err, same) => {
-            if (err) {
-                throw new Error(err);
-            }
-            if (!same) {
-                res.status(401).send("Invalid password! Please try again.");
-                return;
-            }
-            const token = jwt.sign(
-                {
-                spso: result[0].spso_id,
+        const user = result[0];
+        //const isMatch = await bcrypt.compare(student_password, user.student_password);
+        const isMatch = spso_password === user.spso_password;
+        if (!isMatch) {
+            return res.status(401).json({ message: "Invalid spso email or password" });
+        }
+
+        const token = jwt.sign(
+            {
+                spso_id: user.spso_id,
                 SPSO: true,
-                },
-                process.env.JWT_SECRET,
-                {
-                    expiresIn: "1h"
-                }
-            );
-            delete result[0].student_password;
-            res.cookie("token", token, {maxAge: 3600000, path: "/"});
-            res.json({
-                message: "Login successful!",
-                userInfo: result[0],
-                token: token
-            });
+            },
+            'the-strong-secret',
+            {
+                expiresIn: "1h"
+            }
+        );
+
+        delete user.spso_password;
+        res.cookie("token", token, { maxAge: 3600000, path: "/" });
+        res.json({
+            message: "Login successful!",
+            userInfo: user,
+            token: token
         });
     }
     catch (err) {

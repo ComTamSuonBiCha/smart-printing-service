@@ -4,14 +4,14 @@ const authenticate = require('../middlewares/authentication');
 const spsoController = require('../controllers/SPSOController');
 
 router.get(
-    '/id/:spsoId',
-    authenticate,
+    '/id/:id',
+    //authenticate,
     spsoController.getSPSOById
 )
 
 router.get(
-    '/name/:spsoName',
-    authenticate,
+    '/name/:name',
+    //authenticate,
     spsoController.getSPSOByName
 )
 

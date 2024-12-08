@@ -35,7 +35,7 @@ async function updatePrinter(req, res, next) {
 
 async function getPrinterStat(req, res, next) { // for all printers
     try {
-        let no_months = req.params.no_months;
+        let no_months = req.params.months;
         let results = await usageByMonth(no_months);
         res.json(results);
     }
@@ -58,7 +58,7 @@ async  function getPrinterUsage(req, res, next) { //
 async function getPrinterUsageByMonth(req, res, next) {
     try {
         let printerId = req.params.id;
-        let num_months = req.params.num_months;
+        let num_months = req.params.months;
         let results = await printerUsageByMonth(printerId, num_months);
         res.json(results);
     }

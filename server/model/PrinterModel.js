@@ -2,7 +2,7 @@ const db = require('../db/database');
 
 async function showPrinter(){
     try {
-        let results = await db.query(`select * from printer`);
+        let results = await db.execute(`select * from printers`);
         return results.rows;
     }
     catch(e){
@@ -12,7 +12,7 @@ async function showPrinter(){
 
 async function getPrinter(printerId){
     try {
-        let results = await db.query(`select * from printer where printer_id = $1`, [printerId]);
+        let results = await db.execute(`select * from printers where printer_id = ?`, [printerId]);
         return results.rows;
     }
     catch(e){
@@ -22,7 +22,7 @@ async function getPrinter(printerId){
 
 async function usageByMonth(num_months) {
     try {
-        let results = await db.query(`call usage_by_month($1)`, [num_months]);
+        let results = await db.execute(`call usage_by_month(?)`, [num_months]);
         return results.rows;
     }
     catch(e){
@@ -32,7 +32,7 @@ async function usageByMonth(num_months) {
 
 async function printerUsage(printerId){  
     try {
-        let results = await db.query(`call printerUsage($1)`, [printerId]);
+        let results = await db.execute(`call printerUsage(?)`, [printerId]);
         return results.rows;
     }
     catch(e){
@@ -42,7 +42,7 @@ async function printerUsage(printerId){
 
 async function printerUsageByMonth(printerId, num_months){
     try {
-        let results = await db.query(`call totalUsageByMonth($1, $2)`, [printerId, num_months]);
+        let results = await db.execute(`call totalUsageByMonth(?,?)`, [printerId, num_months]);
         return results.rows;
     }
     catch(e){

@@ -1,3 +1,5 @@
+drop database spss;
+
 CREATE DATABASE  spss;
 
 use spss;
@@ -10,8 +12,7 @@ create table students(
     student_name varchar(50),
     student_email varchar(50),
     student_password varchar(50),
-    paper_balance int default 0,
-    password varchar(50)
+    paper_balance int default 0
 );
 
 create table paper_transactions(
@@ -89,8 +90,8 @@ create table print_orders(
     side char(1),
     no_of_copies int,
     pages_per_sheet int,
-    orientation (portrait, landscape),
-    page_size (A4, A3),
+    orientation enum('portrait','landscape'),
+    page_size enum('A4', 'A3'),
     left_margin int,
     right_margin int,
     top_margin int,
@@ -102,8 +103,18 @@ create table print_orders(
 );
 
 alter table print_orders
-add constraint foreign key student_id references students(student_id),
-add constraint foreign key `file_id` references documents(`file_id`),
-add constraint foreign key printer_id references printers(printer_id);
+add constraint foreign key (student_id) references students(student_id),
+add constraint foreign key (`file_id`) references documents(`file_id`),
+add constraint foreign key (printer_id) references printers(printer_id);
 
-insert into student
+insert into students(student_email, student_name, student_password) VALUES
+('lytuanloc@gmail.com','Ly Tuan Loc','123456'),
+('lytrieuuy@gmail.com','Ly Trieu Uy','123456'),
+('nguyenanhkhoa@gmail.com','Ly Tuan Loc','123456'),
+('lethiphuongthao@gmail.com','Ly Tuan Loc','123456'),
+('lequangcuong@gmail.com','Ly Tuan Loc','123456');
+
+insert into spso(spso_name, spso_password) VALUES
+('admin1','123456'),
+('admin2','123456'),
+('admin3','123456');

@@ -18,7 +18,7 @@ services:
     ports:
       - "5000:5000"
     environment:
-      - DB_HOST=mysql
+      - DB_HOST=${DB_HOST}
       - DB_USER=${DB_USER}
       - DB_PASSWORD=${DB_PASSWORD}
       - DB_NAME=${DB_NAME}
@@ -35,13 +35,15 @@ services:
     image: mysql:8.0
     ports:
       - "3307:3306" # Change the port to avoid conflict with local MySQL server
-    restart: always
+    restart: always # Restart the container if it crashes
     environment:
-      - MYSQL_DATABASE=spss
-      - MYSQL_PASSWORD= 123Khoabin
       - MYSQL_ROOT_PASSWORD=123Khoabin
+      - MYSQL_DATABASE=spss
+      - MYSQL_USER=spss
+      - MYSQL_PASSWORD= 123Khoabin
     volumes:
-      - ./spss.sql:/docker-entrypoint-initdb.d/spss.sql
+      - ./spss.sql:/docker-entrypoint-initdb.d/spss.sql # Import the database schema
+      - ./data:/var/lib/mysql # Persist the database
 
 volumes:
   mysql_data:
