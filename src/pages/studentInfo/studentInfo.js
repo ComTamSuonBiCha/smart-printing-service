@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+// @ts-ignore
 import Header from "../../header";
 import styles from "./studentInfo.module.css";
 import BlocksLayout from "../stats/blocks/inforBlock";
 import { Avatar } from "@mui/material";
 import LineChart from "../stats/LineChart";
+import axios from "axios";
+
 const InfoBlock = (props) => {
   return (
     <div className={styles.infoBlock}>
@@ -12,8 +15,9 @@ const InfoBlock = (props) => {
     </div>
   );
 };
+
 const lineData = {
-  labels: ["January", "February", "March", "April", "May", "June"],
+  labels: ["July", "August", "September", "October", "November", "December"],
   datasets: [
     {
       label: "Total",
@@ -24,6 +28,7 @@ const lineData = {
     },
   ],
 };
+
 const data = [
   {
     color: "#1967D2",
@@ -46,33 +51,90 @@ const data = [
   {
     color: "#D31818",
     title: "500",
-    content: "Account Balance",
+    content: "Total Transaction",
     icon: require("@mui/icons-material/AttachMoney").default,
   },
 ];
+
 const StudentInfo = () => {
+  const [studentData, setStudentData] = useState(null);
+  const [error, setError] = useState(null);
+  const studentID = localStorage.getItem("userid");
+
+  const fetchStudentData = async () => {
+    try {
+      const response = await axios.get(
+        `http://192.168.1.52:5000/api/student/id/${studentID}`
+      );
+      if (response.data && response.data.length > 0) {
+        setStudentData(response.data[0]);
+      } else {
+        // @ts-ignore
+        setError("Student data not found.");
+      }
+    } catch (err) {
+      // @ts-ignore
+      setError("Failed to fetch student data");
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    if (studentID) {
+      fetchStudentData();
+    } else {
+      // @ts-ignore
+      setError("User ID is missing.");
+    }
+  }, [studentID]);
+
+  // Handling loading, error, or null state for student data
+  if (error) {
+    return <div className={styles.error}>{error}</div>;
+  }
+
+  if (!studentData) {
+    return <div className={styles.loading}>Loading student data...</div>;
+  }
+
   return (
     <div>
       <div className={styles.studentPage}>
         <h1>Student Info</h1>
         <div className={styles.studentLayout}>
           <div className={styles.leftLayout}>
-            <Avatar sx={{ width: 150, height: 150 }} alt="Remy Sharp" src="" />
+            <Avatar
+              sx={{ width: 150, height: 150 }}
+              alt="Student Avatar"
+              // @ts-ignore
+              // src={studentData.avatar || "/path/to/default-avatar.png"} // Use a default avatar
+            />
             <div className={styles.studentInfo}>
               <InfoBlock
                 header="Student Name"
-                content="Nguyen Anh Khoa"
-              ></InfoBlock>
-              <InfoBlock header="Student ID" content="225231"></InfoBlock>
-              <InfoBlock header="Email" content="aaaa@gmail.com"></InfoBlock>
-
-              <InfoBlock header="Faculty" content="225231"></InfoBlock>
-              <InfoBlock header="Student ID" content="225231"></InfoBlock>
+                // @ts-ignore
+                content={studentData.student_name || "N/A"}
+              />
+              <InfoBlock
+                header="Student ID"
+                // @ts-ignore
+                content={studentData.student_id || "N/A"}
+              />
+              <InfoBlock
+                header="Email"
+                // @ts-ignore
+                content={studentData.student_email || "N/A"}
+              />
+              <InfoBlock
+                header="Faculty"
+                // @ts-ignore
+                content="OISP"
+              />
             </div>
           </div>
           <div className={styles.rightLayout}>
             <LineChart title="Usage Statistic" data={lineData} />
-            <BlocksLayout data={data}></BlocksLayout>
+            <BlocksLayout data={data} />
           </div>
         </div>
       </div>

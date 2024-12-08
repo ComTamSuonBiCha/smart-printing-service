@@ -38,10 +38,16 @@ const PrinterList = () => {
           <h3 className={styles.blueText}>View Report</h3>
         </div>
       </div>
-      <PrinterLine id="#3" location="A4-502"></PrinterLine>
-      <PrinterLine id="#5" location="A2-102"></PrinterLine>
-      <PrinterLine id="#6" location="A3-202"></PrinterLine>
-      <PrinterLine id="#7" location="A1-202"></PrinterLine>
+      <div className={styles.printerList}>
+        <PrinterLine id="#3" location="A4-502"></PrinterLine>
+        <PrinterLine id="#5" location="A2-102"></PrinterLine>
+        <PrinterLine id="#6" location="A3-202"></PrinterLine>
+        <PrinterLine id="#7" location="A1-202"></PrinterLine>
+        <PrinterLine id="#7" location="A1-202"></PrinterLine>{" "}
+        <PrinterLine id="#7" location="A1-202"></PrinterLine>
+        <PrinterLine id="#7" location="A1-202"></PrinterLine>
+        <PrinterLine id="#7" location="A1-202"></PrinterLine>
+      </div>
     </div>
   );
 };

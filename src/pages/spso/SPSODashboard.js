@@ -1,6 +1,4 @@
 import React from "react";
-import Header from "../../header";
-import logo from "../../component/BachKhoaLogo.png";
 import user from "../../component/user.png";
 import book from "../../component/Book.png";
 import printer from "../../component/printer.png";

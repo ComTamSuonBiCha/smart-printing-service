@@ -9,6 +9,7 @@
   flex-basis: 47%;
 }
 .leftTop {
+  align-self: center;
   display: flex;
   gap: 32px;
 }
@@ -33,7 +34,7 @@
 .rightTop {
   display: flex;
   justify-content: space-between;
-  height: 200px;
+  height: 220px;
 }
 .printerPage {
   padding: 1% 2.5%;
