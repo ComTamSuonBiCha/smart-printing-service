@@ -2,6 +2,9 @@ CREATE DATABASE  spss;
 
 use spss;
 
+SET FOREIGN_KEY_CHECKs=0;
+SET GLOBAL FOREIGN_KEY_CHECKs=0; 
+
 create table students(
     student_id int auto_increment primary key,
     student_name varchar(50),
@@ -32,7 +35,7 @@ create table documents(
     no_of_pages int
 );
 
-create table printer(
+create table printers(
     printer_id int auto_increment primary key,
     status boolean,
     location varchar(50),
@@ -54,7 +57,7 @@ create table printer_config(
 );
 
 alter table printer_config
-add constraint foreign key (printer_id) references printer(printer_id),
+add constraint foreign key (printer_id) references printers(printer_id),
 add constraint foreign key (spso_id) references spso(spso_id);
 
 create table sys_config(
@@ -78,7 +81,7 @@ create table file_type(
 alter table file_type
 add constraint foreign key (sys_config_id) references sys_config(sys_config_id);
 
-create table print_order(
+create table print_orders(
     student_id int,
     `file_id` int,
     printer_id int,
@@ -98,7 +101,9 @@ create table print_order(
     constraint sk1 unique (printer_id, `file_id`)
 );
 
-alter table print_order
+alter table print_orders
 add constraint foreign key student_id references students(student_id),
 add constraint foreign key `file_id` references documents(`file_id`),
-add constraint foreign key printer_id references printer(printer_id);
+add constraint foreign key printer_id references printers(printer_id);
+
+insert into student
