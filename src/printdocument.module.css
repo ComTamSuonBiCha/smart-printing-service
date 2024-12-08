@@ -148,16 +148,20 @@ body {
 .info_box_printer {
   margin-left: 60px;
   align-content: center;
-  width: 120px;
+  width: fit-content;
+  min-width: 100px;
   height: 30px;
+  padding: 0 16px;
   border-radius: 10px;
   background-color: #c4e1f6;
 }
 
 .info_box_location {
-  margin-left: 100px;
+  margin-left: 110px;
+  padding: 0 16px;
   align-content: center;
-  width: 120px;
+  width: fit-content;
+  min-width: 100px;
   height: 30px;
   border-radius: 10px;
   background-color: #c4e1f6;
@@ -452,66 +456,126 @@ body {
   width: 100%;
 }
 
-.printer_title{
-  display: flex;
-  justify-content: space-around;
-  margin-top: 20px;
+
+.scrollable_container {
+  max-height: 400px; /* Adjust this to your desired height */
+  overflow-y: auto; /* Enable vertical scrolling */
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+  
+  /* Optional: Padding for better appearance */
 }
 
-.printer_title_description{
-  font-weight: 500;
-  color:#032b91;
+.scrollable_container::-webkit-scrollbar {
+  width: 5px; /* Width of vertical scrollbar */
+  color: #1488db;
 }
 
-.printer_title_item{
-  font-weight: 300;
+.scrollable_container::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Background of the scrollbar track */
+  border-radius: 5px; /* Round the edges of the track */
 }
 
-.printer_title_list{
-  display: flex;
-  margin-top: 20px;
+.scrollable_container::-webkit-scrollbar-thumb:hover {
+  background: #0056b3; /* Change color on hover */
+}
+
+.scrollable_container::-webkit-scrollbar-thumb {
+  background: #032b91; /* Color of the scrollbar thumb */
+  border-radius: 5px; /* Round the edges of the thumb */
+}
+
+.grid_container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr; /* Define column sizes */
+  gap: 10px; /* Keep the gap */
+  padding: 20px;
+  padding-top: 0px;
   align-items: center;
+}
+
+.grid_container_header{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr; /* Define column sizes */
+  gap: 10px; /* Keep the gap */
+  padding: 20px;
+  
+  align-items: center;
+}
+
+.grid_header {
+  font-weight: bold;
+  color: #032b91;
+  text-align: center;
+  padding: 5px 0;
+  
   
 }
 
-.red_line {
-  width: 90%;
+.grid_row {
+  display: contents; /* Each row treated as a single visual block */
+  position: relative; /* Allow pseudo-elements */
+}
+
+.grid_row::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
   height: 1px;
-  background-color: #c4c4c4;
-  align-self: center;
-  margin-top: 10px;
+  background-color: #c4c4c4; /* Line color */
 }
 
-.printer_title_item_button{
-  margin-left: 172px;
-  font-weight: 400;
-  color:#ffffff;
-  background-color: #032b91;
-  padding: 0 20px;
-  height: 30px;
-  border-radius: 20px;
-  width: fit-content;
+.grid_row:last-of-type::after {
+  display: none; /* Remove line for the last row */
 }
 
-.printer_title_item_id{
-  margin-left: 90px;
+.grid_item {
+  font-weight: 300;
+  text-align: center;
+  padding: 5px 0;
+  display: flex; /* Enables centering */
+  justify-content: center; /* Horizontal centering */
+  align-items: center; /* Vertical centering */
 }
 
-.printer_title_item_location{
-  margin-left: 180px;
-}
-
-.printer_title_item_status{
-  margin-left: 170px;
-  color:#3de131;
+.status_available {
+  color: #3de131;
   font-weight: 500;
+  padding: 5px 0;
+  text-align: center;
+
 }
 
-.printer_title_item_paper{
-  margin-left: 175px;
+.grid_button {
+  
+  background-color: #032b91;
+  color: white;
+  padding: 10px 0px;
+  width: 150px;
+  border-radius: 15px;
+  text-align: center;
+  align-self: center;
+  border: none;
+  cursor: pointer;
 }
 
-.flexing{
-  display: flex;
-  flex-direction: column;
+.grid_button:hover {
+  background-color: #0056b3; /* Hover color */
+}
+
+.printer_list_icon{
+  height: 40px;
+  width: 40px;
+}
+
+.done_choose{
+  font-weight: 500;
+  text-align: center;
+  background-color: #032b91;
+  color: #ffffff;
+  border-radius: 20px;
+  width: 40px;
+  height: 30px;
+  margin-left: auto;
 }
