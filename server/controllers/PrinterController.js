@@ -1,4 +1,4 @@
-const {showPrinter,getPrinter,usageByMonth,printerUsage,printerUsageByMonth} = require('../model/PrinterModel');
+const {showPrinter,getPrinter,usageByMonth,printerUsage,printerUsageByMonth, updatePrinter} = require('../model/PrinterModel');
 
 async function getPrinters(req, res, next) {
     try {
@@ -24,8 +24,9 @@ async function choosePrinter(req, res, next) {
 
 async function updatePrinterController(req, res, next) {
     try {
-        let printer = req.body;
-        let results = await updatePrinter(printer);
+        let printerId = req.params.id;
+        let status = req.body.printer_status;
+        let results = await updatePrinter(printerId, status);
         res.json(results);
     }
     catch(e){

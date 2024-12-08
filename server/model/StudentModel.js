@@ -3,7 +3,7 @@ const db = require('../db/database');
 async function getBalance(studentId) {
     try {
         let result = await db.execute('SELECT paper_balance FROM students WHERE student_id = ?', [studentId]);
-        return result[0].paper_balance;
+        return result[0]['0'].paper_balance;
     } 
     catch (error) {
         throw error;
@@ -12,15 +12,7 @@ async function getBalance(studentId) {
 
 async function minusBalance(studentId, amount) {
     try {
-        const balance = await getBalance(studentId);
-        if(balance < amount) {
-            return {
-                status: "Fail",
-                message: "Not enough balance"
-            };
-        }
-        amount = balance - amount;
-        const [result,_] = await db.execute('UPDATE students SET paper_balance =  ? WHERE student_id = ?', [amount, studentId]);
+        const [result,_] = await db.execute('UPDATE students SET paper_balance = ? WHERE student_id = ?', [amount, studentId]);
         return {
             status: "Success"
         } ;
@@ -33,7 +25,7 @@ async function minusBalance(studentId, amount) {
 async function getStudentById(studentId){
     try {
         let result = await db.execute('SELECT * FROM students WHERE student_id = ?', [studentId]);
-        return result[0];
+        return result[0][0];
     } 
     catch (error) {
         throw error;
@@ -46,7 +38,7 @@ async function getStudentByEmail(studentEmail){
         if (result.length == 0) {
             return null;
         }
-        return result[0];
+        return result[0][0];
     } 
     catch (error) {
         throw error;
@@ -56,7 +48,7 @@ async function getStudentByEmail(studentEmail){
 async function getStudentOrderById(studentId) {
     try {
         let result = await db.execute('call student_order(?)', [studentId]);
-        return result
+        return result[0][0];
     }
     catch (error) {
         throw error;
@@ -65,8 +57,8 @@ async function getStudentOrderById(studentId) {
 
 async function getStudentInformationById(studentId) {
     try {
-        let result = await db.execute('call student_procedure(?)', [studentId]);
-        return result[0];
+        let [result] = await db.execute('call student_procedure(?)', [studentId]);
+        return result[0][0];
     }
     catch (error) {
         throw error;

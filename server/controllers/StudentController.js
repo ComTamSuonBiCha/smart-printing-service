@@ -28,10 +28,13 @@ async function updateStudentBalance(req, res, next) {
         let studentId = req.params.id;
         let pages_minus = req.body.pages_minus;
         let cur_balance = await getBalance(studentId);
+        // console.log("cur_balance:", cur_balance);
+        // console.log("pages_minus:", pages_minus);
         if (cur_balance < pages_minus) {
             res.status(400).send('Not enough balance');
         }
-        let amount = cur_balance - pages_minus;
+        let amount = cur_balance - pages_minus; // new balance
+        // console.log(amount);
         let results = await minusBalance(studentId, amount);
         res.json(results); 
     }

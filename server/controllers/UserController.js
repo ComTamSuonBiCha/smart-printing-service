@@ -12,7 +12,7 @@ async function loginStudent(req, res, next) {
             return res.status(401).json({ message: "Invalid student email or password" });
         }
 
-        const user = result[0];
+        const user = result;
         //const isMatch = await bcrypt.compare(student_password, user.student_password);
         const isMatch = student_password === user.student_password;
         if (!isMatch) {
