@@ -238,3 +238,84 @@ end //
 delimiter ;
 
 -- call student_order(1);
+
+delimiter //
+create procedure usage_by_month(num_months int)
+deterministic
+begin
+	select count(*) as counter, date_format(o.`time`, '%Y-%m') as order_month
+	from print_orders o
+    where `time` >= date_sub(current_date(), interval num_months month)
+	group by date_format(o.`time`, '%Y-%m')
+	order by order_month;
+end //
+delimiter ;
+
+delimiter //
+create procedure printerUsage(printerId int)
+deterministic
+begin
+    select count(*) as `usage`, p.paper_left
+    from  printers p, print_orders o
+    where p.printer_id = printerId and p.printer_id = o.printer_id
+    group by p.printer_id;
+end //
+delimiter ;
+
+delimiter //
+create trigger after_insert_order
+after insert on print_orders
+for each row
+begin
+	declare num_pages_use int;
+    
+    select no_of_pages into num_pages_use
+    from documents d
+    where d.file_id = new.`file_id`;
+    
+    update printers p
+    set paper_left = paper_left - num_pages_uses
+    where p.printer_id = new.printer_id;
+end //
+delimiter ;
+
+delimiter //
+create procedure totalUsageByMonth(printerId int, num_months int)
+deterministic
+begin
+	select count(*) as counter, date_format(o.`time`, '%Y-%m') as order_month
+	from print_orders o
+    where o.printer_id = printerId and
+    `time` >= date_sub(current_date(), interval num_months month)
+	group by date_format(o.`time`, '%Y-%m')
+	order by order_month;
+end //
+delimiter ;
+
+delimiter //
+create procedure printer_info()
+deterministic
+begin
+	select p.printer_id as label, sum(p.printer_id) as value, (sum(p.printer_id) / (
+		select count(*)
+        from print_orders) * 100) as `%`
+	from printers p, print_orders o
+    where p.printer_id = o.printer_id
+    group by p.printer_id
+    order by `%`;
+end //
+delimiter ;
+
+delimiter //
+create procedure printer_use_by(printerId int)
+deterministic
+begin
+	select s.student_name as `Name`, o.`time` as `Time`, d.file_name as File_name
+    from printers p, print_orders o, students s, documents d
+    where p.printer_id = printerId and
+    o.printer_id = p.printer_id and
+	s.student_id = o.student_id and
+    d.file_id = o.file_id
+    order by o.`time`;
+end //
+delimiter ;

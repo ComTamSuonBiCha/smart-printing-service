@@ -1,4 +1,11 @@
-const {showPrinter,getPrinter,usageByMonth,printerUsage,printerUsageByMonth, updatePrinter} = require('../model/PrinterModel');
+const {showPrinter,
+    getPrinter,
+    usageByMonth,
+    printerUsage,
+    printerUsageByMonth,
+    updatePrinter,
+    getPrintersInfo,
+    printerUsageByOrder} = require('../model/PrinterModel');
 
 async function getPrinters(req, res, next) {
     try {
@@ -68,11 +75,34 @@ async function getPrinterUsageByMonth(req, res, next) {
     }
 }
 
+async function getPrintersInfoController(req, res, next) {
+    try {
+        let results = await getPrintersInfo();
+        res.json(results);
+    }
+    catch(e){
+        next(e);
+    }
+}
+
+async function getPrinterUsageByOrder(req, res, next) {
+    try {
+        let printerId = req.params.id;
+        let results = await printerUsageByOrder(printerId);
+        res.json(results);
+    }
+    catch(e){
+        next(e);
+    }
+}
+
 module.exports = {
     getPrinters,
     choosePrinter,
     updatePrinterController,
     getPrinterStat,
     getPrinterUsage,
-    getPrinterUsageByMonth
+    getPrinterUsageByMonth,
+    getPrintersInfoController,
+    getPrinterUsageByOrder
 };

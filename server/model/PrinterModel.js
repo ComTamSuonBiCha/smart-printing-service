@@ -1,3 +1,4 @@
+const { getPrinters } = require('../controllers/PrinterController');
 const db = require('../db/database');
 
 async function showPrinter(){
@@ -62,11 +63,32 @@ async function updatePrinter(printerId, status){
     }
 }
 
+async function getPrintersInfo(){
+    try {
+        let results = await db.execute(`call printer_info()`);
+        return results[0][0];
+    }
+    catch(e) {
+        throw e;
+    }
+}
+
+async function printerUsageByOrder(printerId) {
+    try {
+        let results = await db.execute(`call printer_use_by(?)`, [printerId]);
+        return results[0][0];
+    }
+    catch(e){
+        throw e;
+    }
+}
 module.exports = {
     showPrinter,
     getPrinter,
     usageByMonth,
     printerUsage,
     printerUsageByMonth,
-    updatePrinter
+    updatePrinter,
+    getPrintersInfo,
+    printerUsageByOrder
 };

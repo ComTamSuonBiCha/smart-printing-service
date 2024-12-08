@@ -39,4 +39,14 @@ router.get(
     printerController.getPrinterUsageByMonth
 )
 
+router.get(
+    '/info',
+    printerController.getPrintersInfoController
+)
+
+router.get(
+    '/history/id/:id/order',
+    printerController.getPrinterUsageByOrder
+)
+
 module.exports = router;

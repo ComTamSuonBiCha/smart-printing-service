@@ -6,6 +6,19 @@ const printerController = require('../controllers/PrinterController');
 const studentController = require('../controllers/StudentController');
 const DocumentController = require('../controllers/DocumentController');
 
+
+// localhost:5000/api/print/1/confirm
+/*
+{
+    'printerId': 1,
+    'file' : {
+        name: 'file.pdf',
+        size: 1000,
+        type: 'pdf'
+    }
+}
+*/
+
 router.get(
     '/validate',
     //authenticate,
