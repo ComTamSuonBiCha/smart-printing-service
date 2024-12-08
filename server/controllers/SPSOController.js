@@ -1,6 +1,6 @@
-const {} = require("../model/SPSOModel");
+const {getSPSOById, getSPSOByName} = require("../model/SPSOModel");
 
-async function getSPSOById(req, res, next) {
+async function getSPSOByIdController(req, res, next) {
     try {
         let spsoId = req.params.id;
         let results = await getSPSOById(spsoId);
@@ -11,7 +11,7 @@ async function getSPSOById(req, res, next) {
     }
 }
 
-async function getSPSOByName(req, res, next) {
+async function getSPSOByNameController(req, res, next) {
     try {
         let spsoName = req.params.name;
         let results = await getSPSOByName(spsoName);
@@ -23,6 +23,6 @@ async function getSPSOByName(req, res, next) {
 }
 
 module.exports = {
-    getSPSOById,
-    getSPSOByName
+    getSPSOByIdController,
+    getSPSOByNameController
 };

@@ -6,13 +6,13 @@ const spsoController = require('../controllers/SPSOController');
 router.get(
     '/id/:id',
     //authenticate,
-    spsoController.getSPSOById
+    spsoController.getSPSOByIdController
 )
 
 router.get(
     '/name/:name',
     //authenticate,
-    spsoController.getSPSOByName
+    spsoController.getSPSOByNameController
 )
 
 module.exports = router;
