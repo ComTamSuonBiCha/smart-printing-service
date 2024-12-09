@@ -16,7 +16,7 @@ const UsageBlock = (props) => {
     <div
       style={{
         backgroundColor: "#ffffff",
-        padding: 20,
+        padding: 40,
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
@@ -32,8 +32,8 @@ const UsageBlock = (props) => {
           gap: 28,
         }}
       >
-        <h2 style={{ margin: 0 }}>props.content</h2>
-        <h1 style={{ fontSize: 48 }}>props.value</h1>
+        <h2 style={{ margin: 0 }}>{props.content}</h2>
+        <h1 style={{ fontSize: 48 }}>{props.value}</h1>
       </div>
       <div style={{ marginLeft: "20px", marginTop: 40 }}>
         <img style={{ width: 140 }} src={props.svg} alt="" />
@@ -52,6 +52,7 @@ const PrinterDetail = () => {
   const [recentData, setRecentData] = useState(null);
   const [printerData, setPrinterData] = useState(null);
   const [usageData, setUsageData] = useState(null);
+  const [paperData, setPaperData] = useState(null);
   const [lineData, setLineData] = useState({
     labels: [],
     datasets: [
@@ -136,11 +137,14 @@ const PrinterDetail = () => {
         `${backend}/api/printer/history/id/${printerId}`
       );
       if (response.data) {
-        setUsageData[response.data[0]];
+        setUsageData(response.data[0].usage);
+        setPaperData(response.data[0].paper_left);
       } else {
+        // @ts-ignore
         setError("No printer data found.");
       }
     } catch (err) {
+      // @ts-ignore
       setError("Failed to fetch printer data.");
       console.error(err);
     }
@@ -224,12 +228,14 @@ const PrinterDetail = () => {
             <div className={styles.rightTop}>
               <UsageBlock
                 content="Usage"
-                value={usageData.usage}
+                // @ts-ignore
+                value={usageData}
                 svg={lineSVG}
               ></UsageBlock>
               <UsageBlock
                 content="Paper"
-                value={usageData.paper_left}
+                // @ts-ignore
+                value={paperData}
                 svg={pageSVG}
               ></UsageBlock>
             </div>

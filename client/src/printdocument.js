@@ -30,13 +30,45 @@ function PrintDocument() {
   const [isConfirmPopupOpen, setConfirmPopupOpen] = useState(false);
 
   const [isSuccPrintPopupOpen, setSuccPrintPopupOpen] = useState(false);
+  const [fromPage, setFromPage] = useState(1);
+  const [toPage, setToPage] = useState(1);
+  const handleFromPageChange = (event) => {
+    const value = parseInt(event.target.value, 10);
+    if (value >= 1) {
+      setFromPage(value);
+
+      if (value > toPage) {
+        setError("'From' page cannot be greater than 'To' page.");
+      } else {
+        setError("");
+      }
+    }
+  };
+
+  const handleToPageChange = (event) => {
+    const value = parseInt(event.target.value, 10);
+    if (value >= 1) {
+      setToPage(value);
+
+      if (value < fromPage) {
+        setError("'To' page cannot be less than 'From' page.");
+      } else {
+        setError("");
+      }
+    }
+  };
 
   const [selectedPrinter, setSelectedPrinter] = useState({
     id: "",
     location: "",
   });
-
+  const [fileDetails, setFileDetails] = useState({
+    name: "",
+    size: "",
+    type: "",
+  });
   const [printerData, setPrinterData] = useState([]);
+
   // @ts-ignore
   const [error, setError] = useState("");
 
@@ -53,24 +85,19 @@ function PrintDocument() {
       console.error(err);
     }
   };
-  const handleSubmit = async () => {
+  const [margins, setMargins] = useState({
+    left: 0,
+    top: 0,
+    right: 0,
+    bottom: 0,
+  });
+  const handleUpdatePageBalance = async () => {
     try {
-      const body = {
-        time: new Date(),
-        side: "double",
-        no_of_copies: 2,
-        pages_per_sheet: 1,
-        orientation: "portrait",
-        page_size: "A4",
-        left_margin: margins.left,
-        right_margin: margins.right,
-        bottom_margin: margins.bottom,
-        page_from: 1,
-        page_to: 10,
-      };
+      const pages = toPage - fromPage;
+      const body = { pages_minus: pages };
 
-      const response = await axios.post(
-        `${backend}/${studentID}/confirm`,
+      const response = await axios.put(
+        `${backend}/api/print/${studentID}/updateBalance`,
         body
       );
 
@@ -83,6 +110,49 @@ function PrintDocument() {
       setError("Failed to fetch printer data.");
       console.error(err);
     }
+  };
+  const handleSubmit = async () => {
+    try {
+      const body = {
+        file: {
+          file_name: fileDetails.name,
+          file_size: fileDetails.size,
+          file_type: fileDetails.type,
+          no_of_pages: 10,
+        },
+        printer_id: selectedPrinter.id,
+        time: "2024-12-12",
+        side: "1",
+        no_of_copies: 1,
+        pages_per_sheet: 1,
+        orientation: "portrait",
+        page_size: "A4",
+        left_margin: 1,
+        right_margin: 1,
+        top_margin: 1,
+        bottom_margin: 1,
+        page_from: fromPage,
+        page_to: toPage,
+      };
+
+      const response = await axios.post(
+        `${backend}/api/print/${studentID}/confirm`,
+        body
+      );
+
+      if (response.data) {
+        console.log(response.data);
+      } else {
+        setError("No printer data found.");
+      }
+    } catch (err) {
+      setError("Failed to fetch printer data.");
+      console.error(err);
+    }
+  };
+  const handlePressButton = async () => {
+    handleUpdatePageBalance();
+    handleSubmit();
   };
 
   useEffect(() => {
@@ -101,15 +171,7 @@ function PrintDocument() {
   const [previewUrl, setPreviewUrl] = useState(null);
 
   const handleUploadClick = () => setUploadPopupOpen(true);
-  const closeUploadPopup = (clearFile = false) => {
-    if (clearFile) {
-      setFileDetails({ name: "", size: "", type: "" });
-      setPreviewUrl(null);
-    }
-    setUploadPopupOpen(false);
-  };
-
-  
+  const closeUploadPopup = () => setUploadPopupOpen(false);
 
   const handlePropertiesClick = () => setPropertiesPopupOpen(true);
   const closePropertiesPopup = () => setPropertiesPopupOpen(false);
@@ -122,15 +184,9 @@ function PrintDocument() {
 
   const handleSuccPrintClick = async () => {
     setSuccPrintPopupOpen(true);
-    await handleSubmit();
+    await handlePressButton();
   };
   const closeSuccPrintPopup = () => setSuccPrintPopupOpen(false);
-
-  const [fileDetails, setFileDetails] = useState({
-    name: "",
-    size: "",
-    type: "",
-  });
 
   const navigate = useNavigate();
 
@@ -142,50 +198,32 @@ function PrintDocument() {
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      const allowedTypes = ["application/pdf", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet","application/vnd.ms-excel"];
-      
-      if (!allowedTypes.includes(file.type)) {
-        alert("Only .docx, .xlsx, .xls and .pdf files are allowed.");
-        return;
-      }
-  
-      let count = 0;
-      let filesize = file.size;
-      while (filesize > 1024) {
-        filesize = filesize / 1024;
-        count++;
-      }
-      let type = file.type.split("/")[1] || "Unknown";
-      if(type === "vnd.openxmlformats-officedocument.wordprocessingml.document") type = "docx";
-      else if(type === "vnd.openxmlformats-officedocument.spreadsheetml.sheet") type = "xlsx";
-      else if(type === "vnd.ms-excel") type = "xls";
-
-
-      let result;
-      if (count === 0) result = `${filesize.toFixed(2)} B`;
-      else if (count === 1) result = `${filesize.toFixed(2)} KB`;
-      else if (count === 2) result = `${filesize.toFixed(2)} MB`;
-      else if (count === 3) result = `${filesize.toFixed(2)} GB`;
-      else result = `${filesize.toFixed(2)} TB`;
-  
+      const sizeInMB = file.size / (1024 * 1024);
+      const roundedSizeInMB = Math.round(sizeInMB);
+      const type = file.type.split("/")[1] || "Unknown";
       setFileDetails({
         name: file.name,
-        size: result,
+        // @ts-ignore
+        size: roundedSizeInMB,
         type: type,
       });
-  
+
       const url = URL.createObjectURL(file);
+
+      // @ts-ignore
       setPreviewUrl(url);
     }
   };
-  const [margins, setMargins] = useState({
-    left: 0,
-    top: 0,
-    right: 0,
-    bottom: 0,
-  });
-  const buildOrderData = () => {
-    return {};
+
+  // @ts-ignore
+  const formatFileSize = (sizeInMB) => {
+    if (sizeInMB < 1) {
+      return `${(sizeInMB * 1024).toFixed(2)} KB`;
+    } else if (sizeInMB < 1024) {
+      return `${sizeInMB.toFixed(2)} MB`;
+    } else {
+      return `${(sizeInMB / 1024).toFixed(2)} GB`;
+    }
   };
 
   const handleMarginChange = (side, value) => {
@@ -369,6 +407,7 @@ function PrintDocument() {
                   src={uploadsticker}
                   alt="Sticker"
                   className={docustyle.sticker}
+                  // @ts-ignore
                   onClick={() => document.getElementById("fileUpload").click()}
                 ></img>
                 <p className={docustyle.titleupload}>
@@ -382,15 +421,21 @@ function PrintDocument() {
               <div className={docustyle.display_button}>
                 <button
                   className={docustyle.upload_btn}
+                  // @ts-ignore
                   onClick={() => closeUploadPopup(true)}
                 >
                   <b>CANCEL</b>
                 </button>
-                
+                <input
+                  type="file"
+                  id="fileUpload"
+                  style={{ display: "none" }}
+                  onChange={(e) => handleFileChange(e)}
+                />
                 <button
                   className={docustyle.upload_btn}
-                  // @ts-ignore
                   disabled={!fileDetails.name}
+                  // @ts-ignore
                   onClick={() => closeUploadPopup(false)}
                 >
                   <b>UPLOAD</b>
@@ -618,7 +663,8 @@ function PrintDocument() {
                       <input
                         type="number"
                         min="1"
-                        defaultValue="1"
+                        value={fromPage}
+                        onChange={handleFromPageChange}
                         className={docustyle.margin_specific_button}
                       />
                       <p className={docustyle.page_setup_description_sheet}>
@@ -627,7 +673,8 @@ function PrintDocument() {
                       <input
                         type="number"
                         min="1"
-                        defaultValue="1"
+                        value={toPage}
+                        onChange={handleToPageChange}
                         className={docustyle.margin_specific_button}
                       />
                     </div>
@@ -723,6 +770,7 @@ function PrintDocument() {
                         handleChoosePrinterClick(
                           // @ts-ignore
                           printer.printer_id,
+
                           // @ts-ignore
                           printer.paper_left
                         )
@@ -862,7 +910,6 @@ function PrintDocument() {
           }}
         >
           <div>
-            {/* Sticker */}
             <img
               src={printSucc}
               alt="Print Succefully"
@@ -874,7 +921,6 @@ function PrintDocument() {
               }}
             />
 
-            {/* Title */}
             <h2
               style={{
                 marginTop: "35px",
@@ -886,7 +932,6 @@ function PrintDocument() {
               Your file is printed successfully!
             </h2>
 
-            {/* Buttons */}
             <div
               style={{
                 marginTop: "40px",

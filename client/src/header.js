@@ -90,7 +90,10 @@ const Header = (props) => {
               <div className={headerStyles.header_right}>
                 <div className={headerStyles.avatar}></div>
                 <span className={headerStyles.user_name}>
-                  {studentData ? studentData.student_name : "Loading..."}
+                  {studentData
+                    ? // @ts-ignore
+                      studentData.student_name
+                    : "Admin"}
                 </span>
                 <button
                   onClick={() => {

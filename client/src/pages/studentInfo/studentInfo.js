@@ -4,7 +4,7 @@ import BlocksLayout from "../stats/blocks/inforBlock";
 import { Avatar } from "@mui/material";
 import LineChart from "../stats/LineChart";
 import axios from "axios";
-
+import avatar from "../../component/avatar.png";
 const InfoBlock = (props) => {
   return (
     <div className={styles.infoBlock}>
@@ -148,7 +148,7 @@ const StudentInfo = () => {
               sx={{ width: 150, height: 150 }}
               alt="Student Avatar"
               // @ts-ignore
-              src={studentData?.avatar || "/path/to/default-avatar.png"}
+              // src={avatar}
             />
             <div className={styles.studentInfo}>
               <InfoBlock

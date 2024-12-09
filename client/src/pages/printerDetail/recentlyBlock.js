@@ -12,13 +12,22 @@ const RecentLine = ({ name, time, file }) => {
         {name}
       </p>
       <p
-        style={{ backgroundColor: "#C4E1F6", color: "#000" }}
+        style={{
+          backgroundColor: "#C4E1F6",
+          color: "#000",
+          overflowX: "auto",
+        }}
         className={styles.blueBtn}
       >
         {time}
       </p>
       <p
-        style={{ backgroundColor: "#C4E1F6", color: "#000" }}
+        style={{
+          backgroundColor: "#C4E1F6",
+          color: "#000",
+          overflowX: "auto",
+          maxWidth: 104,
+        }}
         className={styles.blueBtn}
       >
         {file}
