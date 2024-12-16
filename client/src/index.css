@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+@font-face {
+  font-family: "MyFont";
+  src: local("MyFont"),
+    url(./component/sequel-sans-heavy-display.ttf) format("truetype");
+  /* other formats include: 'woff2', 'truetype, 'opentype',
+                            'embedded-opentype', and 'svg' */
+}
+
+/* General Styling */
+body {
+  display: flex;
+  justify-content: center;
+  font-family: "Rubik";
+  width: 100vw !important;
+}
+
+.container {
+  width: 100vw !important;
+}

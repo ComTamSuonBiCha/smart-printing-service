@@ -1,48 +1,51 @@
 # version: '3.8'
 
 services:
-  # frontend:
-  #   build: ./client
-  #   ports:
-  #     - "3000:3000"
-  #   environment:
-  #     - REACT_APP_API_URL=http://localhost:8000
-  #   depends_on:
-  #     - backend
-  #   volumes:
-  #     - ./frontend:/app
-  #     - /app/node_modules
+  frontend:
+    build: ./client
+    ports:
+      - "3001:3000"
+    environment:
+      - REACT_APP_API_URL=http://localhost:3000
+      - CHOKIDAR_USEPOLLING=true
+    stdin_open: true
+    depends_on:
+      - backend
+    volumes:
+      - ./client:/app
+      - /app/node_modules
 
   backend:
     build: ./server
     ports:
-      - "8000:8000"
+      - "5000:5000"
     environment:
-      - DB_HOST=mysql
+      - DB_HOST=${DB_HOST}
       - DB_USER=${DB_USER}
       - DB_PASSWORD=${DB_PASSWORD}
       - DB_NAME=${DB_NAME}
       - DB_PORT=3306
       - NODE_ENV=development
-      - PORT=8000
+      - PORT=5000
     depends_on:
       - mysql
     volumes:
-      - /server
-      - /server/node_modules
+      - ./server:/app
+      - /app/node_modules
 
   mysql:
     image: mysql:8.0
     ports:
       - "3307:3306" # Change the port to avoid conflict with local MySQL server
-    restart: always
+    restart: always # Restart the container if it crashes
     environment:
-      - MYSQL_ROOT_PASSWORD= 123Khoabin
-      - MYSQL_DATABASE= print_service
-      - MYSQL_USER= root
+      - MYSQL_ROOT_PASSWORD=123Khoabin
+      - MYSQL_DATABASE=spss
+      - MYSQL_USER=spss
       - MYSQL_PASSWORD= 123Khoabin
     volumes:
-      - mysql_data:/var/lib/mysql
+      - ./spss.sql:/docker-entrypoint-initdb.d/spss.sql # Import the database schema
+      - ./data:/var/lib/mysql # Persist the database
 
 volumes:
   mysql_data:
