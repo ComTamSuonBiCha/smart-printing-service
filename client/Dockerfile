@@ -1,4 +1,4 @@
-FROM node:16
+FROM node:20
 
 WORKDIR /app
 
@@ -6,7 +6,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies using package-lock.json
-RUN npm ci
+RUN npm install
 
 # Copy rest of the application
 COPY . .

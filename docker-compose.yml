@@ -1,17 +1,19 @@
 # version: '3.8'
 
 services:
-  # frontend:
-  #   build: ./client
-  #   ports:
-  #     - "3000:3000"
-  #   environment:
-  #     - REACT_APP_API_URL=http://localhost:3000
-  #   depends_on:
-  #     - backend
-  #   volumes:
-  #     - ./frontend:/app
-  #     # - /app/node_modules
+  frontend:
+    build: ./client
+    ports:
+      - "3001:3000"
+    environment:
+      - REACT_APP_API_URL=http://localhost:3000
+      - CHOKIDAR_USEPOLLING=true
+    stdin_open: true
+    depends_on:
+      - backend
+    volumes:
+      - ./client:/app
+      - /app/node_modules
 
   backend:
     build: ./server
