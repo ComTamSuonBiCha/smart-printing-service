@@ -1,0 +1,107 @@
+/* Reset styles
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Rubik';
+  } */
+  
+  body {
+    font-family: 'Rubik';
+    background-color: #f9f9f9;
+  }
+
+  .container {
+    display: flex;
+    align-items: center; 
+    justify-content: start;
+    width: 100%; 
+    background-color: white;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f9f9f9;
+    padding: 10px 5%;
+    margin: 0;
+    color: white;
+    height: 80px;
+    min-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .logo_container {
+    display: flex;
+    align-items: center; /* Ensures the logo and text are vertically aligned */
+    gap: 10px; /* Adds spacing between the logo and text */
+  }
+
+  .logo {
+    height: 50px;
+    margin-right: 10px;
+  }
+
+  .logo_line {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #032B91;
+  }
+
+  .logo_text {
+    display: flex;
+    flex-direction: column; /* Stack "HCMUT" and "SPSS" vertically */
+    justify-content: center; /* Center text relative to logo */
+    line-height: 1.2; /* Adjust spacing between "HCMUT" and "SPSS" */
+    text-align: left; /* Ensure the text aligns properly */
+  }
+
+  .header_title {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+  .header_nav {
+    display: flex;
+    gap: 60px;
+  }
+  
+  .nav_link {
+    text-decoration: none;
+    color: white;
+    font-weight: 700;
+    font-size: 16px;
+    transition: color 0.3s ease;
+  }
+  
+  .nav_link:hover {
+    color: #cce0ff;
+  }
+  
+  .header_right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .user_name {
+    font-weight: bold;
+    color: #032B91;
+  }
+  
+  .logout_button {
+    background-color: #032B91;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 15px;
+  }
+  
+  .logout_button:hover {
+    background-color: #cce0ff;
+  }

@@ -1,0 +1,55 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.dashboard {
+}
+
+.main {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  width: 100%;
+  margin-top: 20px;
+  padding: 0 5%;
+}
+.leftContainer {
+  flex-basis: 35%;
+}
+.rightContainer {
+  flex-basis: 55%;
+}
+.doughnutContainer {
+  background-color: white;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+.lineContainer {
+  flex-basis: 55%;
+  background-color: white;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.doughnut {
+  width: 90% !important;
+  height: 90% !important;
+  div {
+    margin-left: 100px;
+  }
+}
+.lineChart {
+  width: 100% !important;
+  height: 100% !important;
+}

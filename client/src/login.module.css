@@ -1,0 +1,217 @@
+.MainContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1;
+  padding: 40px 80px;
+  width: 100vw;
+}
+
+/* Reset styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Rubik";
+}
+
+body {
+  font-family: "Rubik";
+  background-color: #f9f9f9;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #032b91;
+  padding: 1em;
+  color: white;
+  height: 80px;
+}
+
+.logo_container {
+  display: flex;
+  align-items: center; /* Ensures the logo and text are vertically aligned */
+  gap: 10px; /* Adds spacing between the logo and text */
+}
+
+.logo {
+  height: 40px;
+  margin-right: 10px;
+}
+
+.logo_line {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.logo_text {
+  display: flex;
+  flex-direction: column; /* Stack "HCMUT" and "SPSS" vertically */
+  justify-content: center; /* Center text relative to logo */
+  line-height: 1.2; /* Adjust spacing between "HCMUT" and "SPSS" */
+  text-align: left; /* Ensure the text aligns properly */
+}
+.header_title {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.header_nav {
+  display: flex;
+  gap: 60px;
+}
+
+.nav_link {
+  text-decoration: none;
+  color: white;
+  font-weight: 700;
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+.nav_link:hover {
+  color: #cce0ff;
+}
+
+.header_right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.user_name {
+  font-weight: bold;
+}
+
+.logout_button {
+  background-color: white;
+  color: #032b91;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 15px;
+}
+
+.logout_button:hover {
+  background-color: #cce0ff;
+}
+
+.IllustrationSection {
+  flex: 1; /* Adjusts the size proportionately */
+  display: flex;
+  justify-content: flex-start; /* Aligns image to the left */
+  align-items: flex-end;
+  padding-left: 30px;
+  margin-top: 50px;
+}
+
+.IllustrationImage {
+  max-width: 100%;
+  height: auto;
+  margin-top: 50px;
+  margin-left: 10px;
+}
+
+/* Login Form Section */
+.LoginForm {
+  flex: 1 30px;
+  width: 20em;
+  background-color: white;
+  padding: 20px 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 50px;
+}
+
+.LoginHeader {
+  font-size: 1.8rem;
+  color: #032b91; /* Deep blue color for the header */
+  margin-bottom: 20px;
+  text-align: center;
+  font-family: "MyFont";
+}
+
+/* Form Groups for input fields */
+.FormGroup {
+  margin-bottom: 20px;
+}
+
+.FormGroup label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 1rem;
+  color: #555; /* Subtle gray for labels */
+}
+
+.FormGroup input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+/* Form options: Remember checkbox and Forgot password link */
+.FormOptions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+}
+
+.FormOptions label {
+  display: flex;
+  align-items: center;
+}
+
+.ForgotPassword {
+  color: #032b91;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.ForgotPassword:hover {
+  text-decoration: underline;
+}
+
+/* Login Button */
+.LoginButton {
+  background-color: #032b91;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 12px;
+  width: 100%;
+  font-size: 1rem;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.LoginButton:hover {
+  background-color: #001a52; /* Darker blue for hover */
+}
+
+/* Media Queries for responsiveness */
+@media (max-width: 768px) {
+  .MainContent {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .IllustrationSection {
+    margin-bottom: 20px;
+  }
+
+  .LoginForm {
+    width: 50%;
+    text-align: center;
+    margin-top: 50px;
+  }
+}
